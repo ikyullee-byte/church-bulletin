@@ -179,9 +179,19 @@
               "icon": "copilot-agent",
               "title": "Copilot Agent"
             }
+          },
+          {
+            "id": "fc1e6266af819f5d",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",

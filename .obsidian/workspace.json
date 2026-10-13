@@ -196,11 +196,15 @@
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
       "bases:새 베이스 생성하기": false,
-      "copilot:Open Copilot Agent Chat": false
+      "copilot:Open Copilot Agent Chat": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "5a0a4b22237ab75b",
   "lastOpenFiles": [
+    "copilot/copilot-conversations/agent__주보_업데이트해줘@20261013_235439.md",
+    "copilot/copilot-conversations/agent__주보를_업데이트해줘@20261013_235409.md",
+    "copilot/copilot-conversations/agent__주보_레이아웃을_바꿔줘@20261013_235256.md",
     "copilot/copilot-conversations/agent__업데이트해줘@20261013_233433.md",
     "copilot/copilot-conversations/agent__한글로_말해@20261013_233321.md",
     "copilot/copilot-conversations/agent__주보_18일_업데이트해줘@20261013_233001.md",

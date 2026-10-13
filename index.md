@@ -157,7 +157,7 @@
         <div class="text-center relative z-20 space-y-3">
             <span class="inline-block bg-white text-rose-600 text-[10px] font-black tracking-[0.35em] py-1.5 px-4 rounded-full shadow-sm border border-rose-100 uppercase">Graceful Sunday</span>
             <h1 class="text-3xl md:text-4xl font-black text-rose-900 tracking-tight drop-shadow-sm">주일 예배</h1>
-            <p class="text-[13px] font-bold text-rose-700 mt-2">2026.10.11 <span class="text-rose-500 mx-1">|</span> 오순절 후 스물한 번째 주일</p>
+            <p class="text-[13px] font-bold text-rose-700 mt-2">2026.10.18 <span class="text-rose-500 mx-1">|</span> 오순절 후 스물두 번째 주일</p>
         </div>
     </header>
 
@@ -253,7 +253,7 @@
                     </button>
                     <span class="inline-block bg-white text-rose-600 text-[10px] font-black tracking-widest px-4 py-1.5 rounded-full mb-4 border border-rose-100 shadow-sm">오전 11:00</span>
                     <h2 class="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">주일 오전 예배</h2>
-                    <p class="text-xs font-semibold mt-3 text-slate-500">집례: 이성결 목사 <span class="mx-2 opacity-30">|</span> 오순절 후 스물한 번째 주일</p>
+                    <p class="text-xs font-semibold mt-3 text-slate-500">집례: 이성결 목사 <span class="mx-2 opacity-30">|</span> 오순절 후 스물두 번째 주일</p>
                 </div>
                 <div class="p-8 md:p-12">
                     <div class="worship-row"><span>오르겐연주</span><span></span><span>반 주 자</span></div>

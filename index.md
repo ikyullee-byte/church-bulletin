@@ -20,36 +20,58 @@
            DESIGN TOKENS — 모노크롬 시스템 (라이트 / 다크 자동 전환)
            ============================================================ */
         :root {
-            --canvas: #F5F5F6;
+            /* 종이 · 잉크 — 웜 뉴트럴 */
+            --canvas: #F7F4EF;
             --paper: #FFFFFF;
-            --soft: #FAFAFA;
-            --chip: #F4F4F5;
-            --ink: #09090B;
-            --ink-2: #3F3F46;
-            --ink-3: #71717A;
-            --ink-4: #A1A1AA;
-            --line: rgba(9, 9, 11, 0.08);
-            --line-2: rgba(9, 9, 11, 0.16);
-            --header: rgba(255, 255, 255, 0.78);
-            --stamp-bg: rgba(255, 255, 255, 0.88);
-            --shadow: 0 24px 50px -32px rgba(9, 9, 11, 0.42);
+            --soft: #FBF8F3;
+            --chip: #F2ECE3;
+            --ink: #1A1512;
+            --ink-2: #4A403A;
+            --ink-3: #7C6F66;
+            --ink-4: #8B7E73;
+            --line: rgba(26, 21, 18, 0.09);
+            --line-2: rgba(26, 21, 18, 0.18);
+            --header: rgba(255, 253, 250, 0.80);
+            --stamp-bg: rgba(255, 253, 250, 0.90);
+            --shadow: 0 24px 50px -32px rgba(58, 38, 26, 0.35);
+            /* 가을 액센트 — 감 · 황금 · 올리브 */
+            --accent: #AB4E25;
+            --accent-2: #845A20;
+            --accent-2-bright: #D4A34A;
+            --accent-3: #5F6649;
+            --accent-soft: rgba(171, 78, 37, 0.07);
+            --accent-2-soft: rgba(212, 163, 74, 0.11);
+            --accent-3-soft: rgba(108, 115, 85, 0.10);
+            --accent-line: rgba(171, 78, 37, 0.32);
+            --on-accent: #FFFFFF;
+            --poster-accent: #D9A34E;
             --r: 24px;
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
         }
         body.dark-mode {
-            --canvas: #060607;
-            --paper: #0D0D0F;
-            --soft: #121215;
-            --chip: #1B1B1F;
-            --ink: #FAFAFA;
-            --ink-2: #D4D4D8;
-            --ink-3: #A1A1AA;
-            --ink-4: #6B6B73;
-            --line: rgba(250, 250, 250, 0.10);
-            --line-2: rgba(250, 250, 250, 0.20);
-            --header: rgba(13, 13, 15, 0.72);
-            --stamp-bg: rgba(13, 13, 15, 0.88);
+            --canvas: #121010;
+            --paper: #1A1715;
+            --soft: #1F1B18;
+            --chip: #262019;
+            --ink: #F7F2EC;
+            --ink-2: #DCD3CB;
+            --ink-3: #A79C93;
+            --ink-4: #8C8177;
+            --line: rgba(247, 242, 236, 0.10);
+            --line-2: rgba(247, 242, 236, 0.20);
+            --header: rgba(26, 23, 21, 0.76);
+            --stamp-bg: rgba(26, 23, 21, 0.92);
             --shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.95);
+            --accent: #E08A5B;
+            --accent-2: #DDAF5F;
+            --accent-2-bright: #E5BE72;
+            --accent-3: #A3AC85;
+            --accent-soft: rgba(224, 138, 91, 0.14);
+            --accent-2-soft: rgba(221, 175, 95, 0.13);
+            --accent-3-soft: rgba(163, 172, 133, 0.13);
+            --accent-line: rgba(224, 138, 91, 0.38);
+            --on-accent: #1A1512;
+            --poster-accent: #9E4520;
         }
 
         /* ============================================================
@@ -66,6 +88,7 @@
             transition: background-color .4s var(--ease), color .4s var(--ease);
         }
         .serif { font-family: 'Gowun Batang', ui-serif, Georgia, serif; }
+        ::selection { background: var(--accent-2-soft); color: var(--ink); }
         ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 99px; }
@@ -80,7 +103,8 @@
         /* 스크롤 진행 바 */
         #progress {
             position: fixed; top: 0; left: 0; height: 2px; width: 0;
-            background: var(--ink); z-index: 300; transition: width .12s linear;
+            background: linear-gradient(90deg, var(--accent-2-bright), var(--accent));
+            z-index: 300; transition: width .12s linear;
         }
 
         /* ============================================================
@@ -101,7 +125,7 @@
         }
         .nav-link::after {
             content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 0;
-            background: var(--ink); transition: width .3s var(--ease);
+            background: var(--accent); transition: width .3s var(--ease);
         }
         .nav-link:hover { color: var(--ink); }
         .nav-link:hover::after { width: 100%; }
@@ -112,7 +136,7 @@
             color: var(--ink-2);
             transition: transform .25s var(--ease), color .25s, border-color .25s;
         }
-        .icon-btn:hover { color: var(--ink); border-color: var(--ink); transform: translateY(-1px); }
+        .icon-btn:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
         .icon-btn:active { transform: scale(.94); }
 
         /* ============================================================
@@ -120,7 +144,10 @@
            ============================================================ */
         .hero {
             position: relative; overflow: hidden;
-            background: var(--paper);
+            background:
+                radial-gradient(110% 90% at 88% -10%, var(--accent-soft) 0%, transparent 55%),
+                radial-gradient(90% 80% at 2% 105%, var(--accent-2-soft) 0%, transparent 62%),
+                var(--paper);
             border-bottom: 1px solid var(--line);
         }
         .hero-grid {
@@ -135,7 +162,7 @@
         .hero-ghost {
             position: absolute; left: -1vw; bottom: -1.5vw;
             font-size: 21vw; font-weight: 900; letter-spacing: -0.07em; line-height: 0.78;
-            color: var(--ink); opacity: 0.045; white-space: nowrap; pointer-events: none;
+            color: var(--accent); opacity: 0.07; white-space: nowrap; pointer-events: none;
         }
         .hero-title {
             font-size: clamp(3rem, 12.5vw, 7.5rem);
@@ -148,7 +175,8 @@
             border: 1px solid var(--line-2); background: var(--paper);
             font-size: 11.5px; font-weight: 800; color: var(--ink-2); white-space: nowrap;
         }
-        .chip b { color: var(--ink); font-variant-numeric: tabular-nums; }
+        .chip b { color: var(--accent); font-variant-numeric: tabular-nums; }
+        .chip-accent { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
 
         /* TICKER */
         .ticker { overflow: hidden; background: var(--paper); border-bottom: 1px solid var(--line); }
@@ -160,7 +188,7 @@
             font-size: 11px; font-weight: 800; letter-spacing: 0.22em;
             text-transform: uppercase; color: var(--ink-3); white-space: nowrap;
         }
-        .ticker-item i { color: var(--ink-4); margin-right: 12px; font-size: 9px; }
+        .ticker-item i { color: var(--accent-2); margin-right: 12px; font-size: 9px; }
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         /* ============================================================
@@ -168,7 +196,7 @@
            ============================================================ */
         .section { padding-top: 4.25rem; }
         .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; }
-        .sec-num { font-size: 11px; font-weight: 900; letter-spacing: 0.18em; color: var(--ink-4); font-variant-numeric: tabular-nums; }
+        .sec-num { font-size: 11px; font-weight: 900; letter-spacing: 0.18em; color: var(--accent); font-variant-numeric: tabular-nums; }
         .sec-title { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.045em; color: var(--ink); }
         .sec-line { flex: 1; height: 1px; background: var(--line); }
 
@@ -176,11 +204,17 @@
             font-size: 10px; font-weight: 900; letter-spacing: 0.22em;
             text-transform: uppercase; color: var(--ink-3);
         }
+        .kicker { color: var(--accent); }
+        .kicker-2 { color: var(--accent-2); }
+        .kicker-3 { color: var(--accent-3); }
         .surface {
             background: var(--paper); border: 1px solid var(--line); border-radius: var(--r);
             transition: border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
         }
-        .surface-hover:hover { border-color: var(--line-2); transform: translateY(-2px); box-shadow: var(--shadow); }
+        .surface-hover:hover { border-color: var(--accent-line); transform: translateY(-2px); box-shadow: var(--shadow); }
+        .tint-clay { background: var(--accent-soft); }
+        .tint-amber { background: var(--accent-2-soft); }
+        .tint-olive { background: var(--accent-3-soft); }
 
         .btn-ink {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -190,13 +224,22 @@
         }
         .btn-ink:hover { transform: translateY(-1px); opacity: .92; }
         .btn-ink:active { transform: scale(.97); }
+        .btn-accent {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: var(--accent); color: var(--on-accent);
+            font-size: 12.5px; font-weight: 800; padding: 13px 22px; border-radius: 999px;
+            box-shadow: 0 16px 30px -20px var(--accent-line);
+            transition: transform .25s var(--ease), filter .25s;
+        }
+        .btn-accent:hover { transform: translateY(-1px); filter: brightness(1.06); }
+        .btn-accent:active { transform: scale(.97); }
         .btn-line {
             display: inline-flex; align-items: center; gap: 8px;
             border: 1px solid var(--line-2); background: var(--paper); color: var(--ink);
             font-size: 12.5px; font-weight: 800; padding: 12px 20px; border-radius: 999px;
             transition: transform .25s var(--ease), border-color .25s;
         }
-        .btn-line:hover { border-color: var(--ink); transform: translateY(-1px); }
+        .btn-line:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
         .btn-mini {
             display: inline-flex; align-items: center; gap: 6px;
             font-size: 10.5px; font-weight: 800; letter-spacing: 0.05em;
@@ -204,7 +247,7 @@
             border: 1px solid var(--line-2); background: var(--paper); color: var(--ink);
             transition: all .22s var(--ease);
         }
-        .btn-mini:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+        .btn-mini:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
         .btn-mini:active { transform: scale(.95); }
 
         /* ============================================================
@@ -213,7 +256,7 @@
         .verse-lg { font-size: clamp(1.15rem, 2.4vw, 1.5rem); line-height: 1.9; font-weight: 700; color: var(--ink); word-break: keep-all; }
         .temp-num { font-size: clamp(3rem, 10vw, 4.5rem); font-weight: 900; letter-spacing: -0.07em; line-height: 1; font-variant-numeric: tabular-nums; }
         .meter { height: 8px; border-radius: 99px; background: var(--chip); border: 1px solid var(--line); overflow: hidden; }
-        .meter-fill { height: 100%; width: 0; background: var(--ink); border-radius: 99px; transition: width 2.2s var(--ease); }
+        .meter-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent-2-bright), var(--accent)); border-radius: 99px; transition: width 2.2s var(--ease); }
 
         .daycell {
             border: 1px solid var(--line); border-radius: 16px; background: var(--soft);
@@ -223,9 +266,9 @@
         .daycell .d { font-size: 10px; font-weight: 900; letter-spacing: 0.06em; color: var(--ink-3); }
         .daycell .d span { opacity: .45; margin-left: 3px; font-variant-numeric: tabular-nums; }
         .daycell .r { margin-top: 7px; font-size: 11px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; }
-        .daycell.is-sun .d { color: var(--ink-2); }
-        .daycell.is-today { background: var(--ink); border-color: var(--ink); }
-        .daycell.is-today .d, .daycell.is-today .r { color: var(--paper); }
+        .daycell.is-sun .d { color: var(--accent-2); }
+        .daycell.is-today { background: var(--accent); border-color: var(--accent); }
+        .daycell.is-today .d, .daycell.is-today .r { color: var(--on-accent); }
         .daycell.is-today .d span { opacity: .6; }
 
         /* ============================================================
@@ -243,7 +286,7 @@
             transition: all .28s var(--ease);
         }
         .seg-btn em { font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; opacity: .8; font-variant-numeric: tabular-nums; }
-        .seg-btn.is-active { background: var(--paper); color: var(--ink); box-shadow: 0 6px 18px -12px rgba(9, 9, 11, .5); }
+        .seg-btn.is-active { background: var(--paper); color: var(--accent); box-shadow: 0 8px 20px -14px var(--accent-line); }
 
         .panel { overflow: hidden; }
         .panel-head {
@@ -264,9 +307,10 @@
             transition: background-color .25s var(--ease);
         }
         .tl:last-child { border-bottom: none; }
-        .tl:hover { background: rgba(9, 9, 11, .02); }
-        body.dark-mode .tl:hover { background: rgba(255, 255, 255, .03); }
-        .tl .n { font-size: 10px; font-weight: 900; color: var(--ink-4); font-variant-numeric: tabular-nums; padding-top: 3px; }
+        .tl:hover { background: var(--soft); }
+        .tl:hover .n { color: var(--accent); }
+        body.dark-mode .tl:hover { background: var(--soft); }
+        .tl .n { font-size: 10px; font-weight: 900; color: var(--ink-3); font-variant-numeric: tabular-nums; padding-top: 3px; }
         .tl .k { font-size: 14.5px; font-weight: 800; color: var(--ink); }
         .tl .k small { display: block; margin-top: 4px; font-size: 11.5px; font-weight: 700; color: var(--ink-3); letter-spacing: -0.02em; }
         .tl .k .btn-mini { margin-top: 9px; }
@@ -276,14 +320,18 @@
             margin: 26px 0; padding: 40px 22px; border-radius: 22px;
             background: var(--ink); color: var(--paper); text-align: center;
         }
-        .poster .label { color: var(--paper); opacity: .55; }
+        .poster::before {
+            content: ''; display: block; width: 34px; height: 3px; border-radius: 99px;
+            background: var(--poster-accent); margin: 0 auto 24px;
+        }
+        .poster .label { color: var(--poster-accent); opacity: 1; }
         .poster-title { margin-top: 12px; font-size: clamp(1.35rem, 4vw, 2rem); font-weight: 700; letter-spacing: -0.04em; word-break: keep-all; }
         .poster-by { margin-top: 14px; font-size: 12.5px; font-weight: 800; opacity: .7; }
 
         /* 참석 도장 */
         .stamp {
             position: absolute; top: 18px; right: 18px; width: 74px; height: 74px;
-            border-radius: 999px; border: 3px solid var(--ink); color: var(--ink);
+            border-radius: 999px; border: 3px solid var(--accent); color: var(--accent);
             display: flex; align-items: center; justify-content: center;
             font-size: 13px; font-weight: 900; line-height: 1.15; text-align: center;
             background: var(--stamp-bg); backdrop-filter: blur(3px);
@@ -310,12 +358,12 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 10.5px; font-weight: 900; font-variant-numeric: tabular-nums;
         }
-        .news-item:hover .num { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+        .news-item:hover .num { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
         .news-item p { font-size: 13.5px; font-weight: 600; color: var(--ink-2); line-height: 1.75; }
 
         .sched-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
         .sched-item:last-child { border-bottom: none; }
-        .sched-item i { color: var(--ink-3); font-size: 13px; margin-top: 4px; }
+        .sched-item i { color: var(--accent-2); font-size: 13px; margin-top: 4px; }
         .sched-item p { font-size: 13.5px; font-weight: 700; color: var(--ink-2); line-height: 1.7; }
         .sched-item strong { color: var(--ink); font-weight: 900; }
 
@@ -337,7 +385,7 @@
             border-radius: 20px; padding: 10px;
             transition: border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
         }
-        .gcard:hover { border-color: var(--line-2); transform: translateY(-3px); box-shadow: var(--shadow); }
+        .gcard:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
         .gcard .ph { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--chip); }
         .gcard img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: transform .8s var(--ease); }
         .gcard:hover img { transform: scale(1.05); }
@@ -351,9 +399,9 @@
             padding: 20px 22px; border: 1px solid var(--line); border-radius: 18px;
             background: var(--paper); transition: all .3s var(--ease);
         }
-        .link-row:hover { border-color: var(--ink); transform: translateX(3px); }
-        .link-row .idx { font-size: 10.5px; font-weight: 900; letter-spacing: 0.16em; color: var(--ink-4); }
-        .link-row:hover .idx { color: var(--ink); }
+        .link-row:hover { border-color: var(--accent); transform: translateX(3px); }
+        .link-row .idx { font-size: 10.5px; font-weight: 900; letter-spacing: 0.16em; color: var(--ink-3); }
+        .link-row:hover .idx { color: var(--accent); }
         .link-row h4 { font-size: 15px; font-weight: 800; color: var(--ink); }
 
         /* ============================================================
@@ -362,7 +410,7 @@
         .foot-mark {
             font-size: clamp(2.6rem, 12vw, 7rem); font-weight: 900; letter-spacing: -0.07em;
             line-height: .85; color: transparent;
-            -webkit-text-stroke: 1px var(--line-2); text-stroke: 1px var(--line-2);
+            -webkit-text-stroke: 1px var(--accent-line); text-stroke: 1px var(--accent-line);
         }
 
         /* ============================================================
@@ -389,9 +437,9 @@
         .dock-btn:active { transform: scale(.94); }
         .dock-main {
             width: 52px; height: 52px; border-radius: 999px; flex: none;
-            background: var(--ink); color: var(--paper);
+            background: var(--accent); color: var(--on-accent);
             display: flex; align-items: center; justify-content: center; font-size: 19px;
-            box-shadow: 0 14px 28px -14px rgba(0, 0, 0, .55);
+            box-shadow: 0 16px 32px -16px var(--accent-line);
             transition: transform .3s var(--ease);
         }
         .dock-main:hover { transform: translateY(-2px) scale(1.03); }
@@ -403,7 +451,7 @@
         .modal {
             position: fixed; inset: 0; z-index: 200; display: none;
             align-items: flex-end; justify-content: center;
-            background: rgba(9, 9, 11, .55); backdrop-filter: blur(8px);
+            background: rgba(26, 21, 18, .55); backdrop-filter: blur(8px);
         }
         .modal.active { display: flex; animation: fadeIn .3s var(--ease); }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -431,7 +479,7 @@
         }
 
         .scripture p { font-size: 15.5px; font-weight: 500; line-height: 1.95; color: var(--ink-2); margin-bottom: 20px; word-break: keep-all; }
-        .scripture sup { font-size: 10.5px; font-weight: 900; color: var(--ink-3); margin-right: 7px; letter-spacing: 0.04em; }
+        .scripture sup { font-size: 10.5px; font-weight: 900; color: var(--accent-2); margin-right: 7px; letter-spacing: 0.04em; }
         .divider-dash { height: 1px; border-top: 1px dashed var(--line-2); margin: 22px 0; }
 
         /* ============================================================
@@ -452,7 +500,7 @@
             font-weight: 900; color: var(--ink); background: var(--soft);
             border-right: 1px solid var(--line-2);
         }
-        .btable .is-today-cell { background: var(--ink); color: var(--paper); font-weight: 900; }
+        .btable .is-today-cell { background: var(--accent); color: var(--on-accent); font-weight: 900; }
 
         /* ============================================================
            만나 스크래치 카드
@@ -464,7 +512,7 @@
         }
         .manna-icon {
             width: 60px; height: 60px; border-radius: 999px; margin: 0 auto 24px;
-            border: 1px solid var(--line-2); background: var(--soft); color: var(--ink-2);
+            border: 1px solid var(--accent-line); background: var(--accent-soft); color: var(--accent);
             display: flex; align-items: center; justify-content: center; font-size: 21px;
         }
 
@@ -530,7 +578,7 @@
         <div class="hero-ghost" aria-hidden="true">WONJONG FIRST</div>
 
         <div class="hero-inner mx-auto max-w-6xl px-5 pt-14 pb-12 md:pt-20 md:pb-16">
-            <p class="label">2026 · 주일 주보 &nbsp;/&nbsp; Sunday Bulletin</p>
+            <p class="label kicker">2026 · 주일 주보 &nbsp;/&nbsp; Sunday Bulletin</p>
 
             <h1 class="hero-title mt-6">주일 예배</h1>
 
@@ -554,7 +602,7 @@
             </div>
 
             <div class="mt-9 flex flex-wrap gap-3">
-                <button onclick="openMannaModal()" class="btn-ink">
+                <button onclick="openMannaModal()" class="btn-accent">
                     <i class="fas fa-gift text-[12px]"></i>오늘의 만나
                 </button>
                 <button onclick="openBibleModal()" class="btn-line">
@@ -592,7 +640,7 @@
                 <!-- 말씀 카드 -->
                 <article class="surface p-7 md:p-10 lg:col-span-7">
                     <div class="flex items-center gap-3">
-                        <span class="label">Scripture</span>
+                        <span class="label kicker">Scripture</span>
                         <span class="h-px flex-1" style="background:var(--line)"></span>
                     </div>
                     <p class="serif verse-lg mt-7">“오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라 내가 모든 교회에서 이와 같이 명하노라”</p>
@@ -611,7 +659,7 @@
                     <div class="mt-8">
                         <div class="temp-num" id="temp-num">0°</div>
                         <div class="meter mt-7"><div id="grace-thermometer" class="meter-fill"></div></div>
-                        <div class="mt-3 flex items-center justify-between text-[10.5px] font-black tracking-wider" style="color:var(--ink-4)">
+                        <div class="mt-3 flex items-center justify-between text-[10.5px] font-black tracking-wider" style="color:var(--ink-3)">
                             <span>0°</span>
                             <span>목표 100°</span>
                         </div>
@@ -762,10 +810,10 @@
 
             <div class="grid gap-4 lg:grid-cols-12">
                 <!-- 주요 모임 -->
-                <article class="surface surface-hover p-7 lg:col-span-5 flex flex-col justify-between">
+                <article class="surface surface-hover tint-amber p-7 lg:col-span-5 flex flex-col justify-between">
                     <div class="flex items-start justify-between">
-                        <p class="label">모임 안내</p>
-                        <span class="chip"><i class="fas fa-bullhorn text-[10px]"></i>오늘</span>
+                        <p class="label kicker-2">모임 안내</p>
+                        <span class="chip chip-accent"><i class="fas fa-bullhorn text-[10px]"></i>오늘</span>
                     </div>
                     <h4 class="mt-6 text-[19px] font-black tracking-tight" style="color:var(--ink)">기관장 회의</h4>
                     <p class="mt-3 text-[13.5px] font-semibold leading-relaxed" style="color:var(--ink-2)">
@@ -776,8 +824,8 @@
                 <!-- 교역자 일정 -->
                 <article class="surface p-7 lg:col-span-7">
                     <div class="flex items-center justify-between">
-                        <p class="label">Pastoral Schedule</p>
-                        <i class="fas fa-calendar-check text-[13px]" style="color:var(--ink-4)"></i>
+                        <p class="label kicker-2">Pastoral Schedule</p>
+                        <i class="fas fa-calendar-check text-[13px]" style="color:var(--accent-2)"></i>
                     </div>
                     <h4 class="mt-5 text-[17px] font-black tracking-tight" style="color:var(--ink)">교역자 주간 일정</h4>
                     <div class="mt-4">
@@ -787,7 +835,7 @@
                         </div>
                         <div class="sched-item">
                             <i class="fas fa-circle text-[5px] mt-2.5"></i>
-                            <p><strong>원로목사님 사모님</strong> · 10월 14일(수) 장흥성결교회 예배 인도 <span style="color:var(--ink-4)">(기도 부탁드립니다)</span></p>
+                            <p><strong>원로목사님 사모님</strong> · 10월 14일(수) 장흥성결교회 예배 인도 <span style="color:var(--ink-3)">(기도 부탁드립니다)</span></p>
                         </div>
                     </div>
                 </article>
@@ -812,20 +860,20 @@
                 </article>
 
                 <!-- 새신자 환영 -->
-                <article class="surface p-7 lg:col-span-5 flex flex-col justify-between">
+                <article class="surface tint-olive p-7 lg:col-span-5 flex flex-col justify-between">
                     <div class="flex items-center justify-between">
-                        <p class="label">새신자 환영</p>
-                        <i class="fas fa-handshake text-[13px]" style="color:var(--ink-4)"></i>
+                        <p class="label kicker-3">새신자 환영</p>
+                        <i class="fas fa-handshake text-[13px]" style="color:var(--accent-3)"></i>
                     </div>
                     <p class="names mt-6">정순자<span>|</span>조향지<span>|</span>김병기<span>|</span>김기혜</p>
                     <p class="mt-5 text-[11.5px] font-bold tracking-wider" style="color:var(--ink-3)">주님의 이름으로 환영합니다!</p>
                 </article>
 
                 <!-- 환우 기도 -->
-                <article class="surface p-7 lg:col-span-12">
+                <article class="surface tint-clay p-7 lg:col-span-12">
                     <div class="flex items-center justify-between">
-                        <p class="label">환우를 위한 기도</p>
-                        <i class="fas fa-hands-praying text-[13px]" style="color:var(--ink-4)"></i>
+                        <p class="label kicker">환우를 위한 기도</p>
+                        <i class="fas fa-hands-praying text-[13px]" style="color:var(--accent)"></i>
                     </div>
                     <p class="names mt-6">임선우 어린이<span>|</span>한용희 권사님<span>|</span>박성심 권사님</p>
                     <p class="mt-5 text-[11.5px] font-bold tracking-wider" style="color:var(--ink-3)">위하여 함께 기도해 주시기 바랍니다.</p>
@@ -839,7 +887,7 @@
                 <span class="sec-num">04</span>
                 <h2 class="sec-title">은혜의 순간</h2>
                 <span class="sec-line"></span>
-                <span class="hidden sm:block text-[10.5px] font-black tracking-widest uppercase" style="color:var(--ink-4)">좌우로 넘겨보세요</span>
+                <span class="hidden sm:block text-[10.5px] font-black tracking-widest uppercase" style="color:var(--ink-3)">좌우로 넘겨보세요</span>
             </div>
 
             <div class="gallery">
@@ -909,12 +957,12 @@
 
                 <article class="surface p-7 lg:col-span-4 flex flex-col justify-between">
                     <div>
-                        <p class="label">Online Offering</p>
+                        <p class="label kicker">Online Offering</p>
                         <h4 class="mt-4 text-[17px] font-black tracking-tight" style="color:var(--ink)">온라인 헌금 안내</h4>
                         <p class="mt-3 text-[12.5px] font-bold leading-relaxed" style="color:var(--ink-3)">농협 · 원종제일교회</p>
                         <p class="mt-5 font-mono text-[19px] font-black tracking-tight" style="color:var(--ink)">302-1765-3728-91</p>
                     </div>
-                    <button onclick="openGiveModal()" class="btn-ink mt-8 w-full">
+                    <button onclick="openGiveModal()" class="btn-accent mt-8 w-full">
                         <i class="fas fa-hand-holding-heart text-[12px]"></i>헌금 안내 보기
                     </button>
                 </article>
@@ -1052,7 +1100,7 @@
             <div class="grabber"></div>
             <div class="p-9 text-center">
                 <div class="manna-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                <p class="label">Online Offering</p>
+                <p class="label kicker">Online Offering</p>
                 <h3 class="sheet-title mt-3">온라인 헌금 안내</h3>
 
                 <div class="mt-8 rounded-[20px] border p-7" style="border-color:var(--line); background:var(--soft)">
@@ -1229,7 +1277,7 @@
             document.getElementById(`stamp-${id}`).classList.add('stamp-animate');
             confetti({
                 particleCount: 110, spread: 75, origin: { y: 0.7 },
-                colors: ['#09090B', '#3F3F46', '#A1A1AA', '#E4E4E7']
+                colors: ['#B4552B', '#D9A34E', '#6C7355', '#8C4A2F']
             });
         }
 
@@ -1255,12 +1303,12 @@
 
             const dark = document.body.classList.contains('dark-mode');
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, dark ? '#3A3A42' : '#E7E7EA');
-            gradient.addColorStop(1, dark ? '#202027' : '#C6C6CD');
+            gradient.addColorStop(0, dark ? '#3A322C' : '#EBE3D7');
+            gradient.addColorStop(1, dark ? '#241F1B' : '#D3C8B6');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = dark ? '#A1A1AA' : '#71717A';
+            ctx.fillStyle = dark ? '#A79C93' : '#8A7A6C';
             ctx.font = 'bold 15px Pretendard, sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText('여기를 동전으로 긁어보세요', canvas.width / 2, canvas.height / 2);

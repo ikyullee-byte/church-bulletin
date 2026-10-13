@@ -210,13 +210,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5a0a4b22237ab75b",
+  "active": "2a5dbfc7370e90e3",
   "lastOpenFiles": [
+    "outputs/shots/07-play-dark.png",
+    "outputs/shots/06-play-light.png",
+    "outputs/shots/01-desktop-light.png",
+    "index.md",
     "outputs/shots/05-mobile-dark.png",
     "outputs/shots/04-mobile-light.png",
     "outputs/shots/03-full-overview.png",
     "outputs/shots/02-desktop-dark.png",
-    "outputs/shots/01-desktop-light.png",
     "outputs/shot-overview.html",
     "outputs/shot-dark.html",
     "outputs/shot-light.html",
@@ -250,7 +253,6 @@
     "copilot/skills/openartifacts-publish/themes/research-memo.md",
     "copilot/skills/copilot-fetch-x/SKILL.md",
     "copilot/skills/copilot-youtube-transcript/SKILL.md",
-    "환영합니다!.md",
-    "index.md"
+    "환영합니다!.md"
   ]
 }

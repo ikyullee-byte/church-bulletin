@@ -517,6 +517,92 @@
         }
 
         /* ============================================================
+           말씀 놀이터 · LIVE (새 기능)
+           ============================================================ */
+        [hidden] { display: none !important; }
+
+        /* 예배 카운트다운 스트립 */
+        .cd-strip {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+            padding: 16px 18px; border-radius: 20px;
+            border: 1px solid var(--accent-line); background: var(--accent-soft);
+        }
+        .cd-dot {
+            width: 8px; height: 8px; border-radius: 999px; flex: none;
+            background: var(--accent); animation: liveDot 1.8s ease-in-out infinite;
+        }
+        @keyframes liveDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .3; transform: scale(.6); }
+        }
+        .cd-num { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+        .cd-sub { font-size: 11.5px; font-weight: 700; color: var(--ink-2); }
+
+        /* 예배 진행 하이라이트 */
+        .tl.is-live { background: var(--accent-soft); border-radius: 12px; }
+        .tl.is-live .n { color: var(--accent); }
+        .tl.is-live .k::after {
+            content: 'LIVE'; margin-left: 8px; font-size: 9px; font-weight: 900; letter-spacing: .12em;
+            color: var(--on-accent); background: var(--accent); padding: 2px 6px; border-radius: 99px;
+            vertical-align: middle;
+        }
+        .tl.is-done { opacity: .5; }
+
+        /* 오늘의 말씀 카드 */
+        .vcard {
+            border: 1px solid var(--line); border-radius: 20px; background: var(--soft);
+            padding: 28px 22px; text-align: center; min-height: 190px;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .vcard .vswap { font-size: 1.05rem; font-weight: 700; line-height: 1.85; color: var(--ink); word-break: keep-all; }
+        .vswap.is-swap { animation: vswap .5s var(--ease); }
+        @keyframes vswap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+        /* 기억절 빈칸 채우기 */
+        .wordchip {
+            display: inline-block; padding: 2px 7px; border-radius: 8px;
+            background: var(--chip); color: var(--ink); font-weight: 800;
+        }
+        .wordchip.is-pick {
+            cursor: pointer; border: 1px solid var(--line-2); background: var(--paper);
+            font-size: 13px;
+            transition: transform .2s var(--ease), border-color .2s, background-color .2s, color .2s;
+        }
+        .wordchip.is-pick:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+        .wordchip.is-pick:active { transform: scale(.95); }
+        .wordchip.is-used { opacity: .28; pointer-events: none; }
+        .blank {
+            display: inline-block; min-width: 66px; height: 1.45em; vertical-align: middle;
+            border-bottom: 2px solid var(--accent-line); background: var(--accent-soft);
+            border-radius: 6px 6px 0 0; margin: 0 3px; cursor: pointer;
+        }
+        .blank.is-filled { color: var(--ink); background: var(--accent-2-soft); border-bottom-color: var(--accent); text-align: center; padding: 0 6px; }
+        .blank.is-right { background: var(--accent-3-soft); border-bottom-color: var(--accent-3); }
+        .blank.is-wrong { animation: shakeX .45s var(--ease); border-bottom-color: var(--accent); }
+        @keyframes shakeX {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-5px); }
+            40% { transform: translateX(5px); }
+            60% { transform: translateX(-3px); }
+            80% { transform: translateX(3px); }
+        }
+
+        /* 3분 기도 타이머 */
+        .ring-wrap { position: relative; width: 190px; height: 190px; margin: 0 auto; }
+        .ring-svg { width: 100%; height: 100%; display: block; }
+        .ring-bg { fill: none; stroke: var(--chip); stroke-width: 9; }
+        .ring-fg { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; transition: stroke-dashoffset .3s linear; }
+        .ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+        .ring-time { font-size: 2rem; font-weight: 900; letter-spacing: -0.05em; color: var(--ink); font-variant-numeric: tabular-nums; }
+        .btn-mini.is-active { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+
+        /* 통독 체크 트래커 */
+        .btable td[data-cell] { cursor: pointer; }
+        .btable td.read { background: var(--accent-2-soft); color: var(--accent); font-weight: 900; }
+        .btable td.read.is-today-cell { background: var(--accent); color: var(--on-accent); }
+        .read-bar { height: 8px; border-radius: 99px; background: var(--chip); border: 1px solid var(--line); overflow: hidden; }
+        .read-fill { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--accent-2-bright), var(--accent)); transition: width .6s var(--ease); }
+        /* ============================================================
            애니메이션 / 유틸
            ============================================================ */
         .reveal-on-scroll {
@@ -553,11 +639,12 @@
                 </span>
             </a>
 
-            <div class="hidden md:flex items-center gap-7">
+            <div class="hidden md:flex items-center gap-6">
                 <a href="#word" class="nav-link">말씀</a>
                 <a href="#services" class="nav-link">예배</a>
                 <a href="#news" class="nav-link">소식</a>
                 <a href="#gallery" class="nav-link">갤러리</a>
+                <a href="#play" class="nav-link">놀이터</a>
                 <a href="#guide" class="nav-link">안내</a>
             </div>
 
@@ -591,6 +678,7 @@
                 <div>
                     <p class="text-[17px] font-black tracking-tight" style="color:var(--ink)">2026. 10. 18</p>
                     <p class="mt-2 text-[12.5px] font-bold" style="color:var(--ink-3)">오순절 후 스물두 번째 주일</p>
+                    <p class="mt-2 text-[12px] font-bold" id="greeting" style="color:var(--ink-3)">오늘도 주님의 은혜 안에서 평안하시기를 바랍니다.</p>
                     <p class="serif mt-4 text-[15px] font-bold leading-relaxed" style="color:var(--ink-2)">십자가로 완성하신 충분한 사랑과 은혜</p>
                 </div>
 
@@ -601,6 +689,12 @@
                 </div>
             </div>
 
+            <div id="countdown-strip" class="cd-strip mt-9">
+                <span class="cd-dot" aria-hidden="true"></span>
+                <span class="label kicker" id="cd-label">다음 예배까지</span>
+                <span class="cd-num" id="cd-time">—</span>
+                <span class="cd-sub" id="cd-sub">예배 시간을 불러오는 중입니다.</span>
+            </div>
             <div class="mt-9 flex flex-wrap gap-3">
                 <button onclick="openMannaModal()" class="btn-accent">
                     <i class="fas fa-gift text-[12px]"></i>오늘의 만나
@@ -608,6 +702,9 @@
                 <button onclick="openBibleModal()" class="btn-line">
                     <i class="fas fa-book-open text-[12px]"></i>1년 통독표
                 </button>
+                <a href="#play" class="btn-line">
+                    <i class="fas fa-wand-magic-sparkles text-[11px]"></i>말씀 놀이터
+                </a>
                 <a href="#services" class="btn-line">
                     예배 순서 <i class="fas fa-arrow-down text-[11px]"></i>
                 </a>
@@ -671,7 +768,10 @@
                 <article class="surface p-6 md:p-8 lg:col-span-12">
                     <div class="mb-5 flex items-center justify-between gap-4">
                         <p class="label">이번 주 통독 · Daily Reading</p>
-                        <button onclick="openBibleModal()" class="btn-mini only-mobile">전체보기</button>
+                        <div class="flex items-center gap-2">
+                            <span class="chip" id="month-progress"><i class="fas fa-check-double text-[10px]"></i><span id="month-progress-text">이번 달 <b>0%</b></span></span>
+                            <button onclick="openBibleModal()" class="btn-mini only-mobile">전체보기</button>
+                        </div>
                     </div>
                     <div id="weekly-bible-grid" class="grid grid-cols-4 md:grid-cols-8 gap-2"></div>
                 </article>
@@ -800,10 +900,88 @@
             </div>
         </section>
 
-        <!-- ================= 03 소식 ================= -->
-        <section id="news" class="section reveal-on-scroll">
+        <!-- ================= 03 말씀 놀이터 ================= -->
+        <section id="play" class="section reveal-on-scroll">
             <div class="sec-head">
                 <span class="sec-num">03</span>
+                <h2 class="sec-title">말씀 놀이터</h2>
+                <span class="sec-line"></span>
+                <span class="hidden sm:block text-[10.5px] font-black tracking-widest uppercase" style="color:var(--ink-3)">말씀으로 쉬어가기</span>
+            </div>
+
+            <div class="grid gap-4 lg:grid-cols-12">
+                <!-- 오늘의 말씀 카드 -->
+                <article class="surface p-7 lg:col-span-5 flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="label kicker">오늘의 말씀 카드</p>
+                        <i class="fas fa-image text-[13px]" style="color:var(--accent)"></i>
+                    </div>
+                    <div class="vcard mt-5">
+                        <p class="vswap serif" id="verse-text">“말씀을 뽑아보세요”</p>
+                        <p class="mt-4 text-[11px] font-black tracking-[0.18em] uppercase" id="verse-ref" style="color:var(--accent-2)"></p>
+                    </div>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <button onclick="drawVerse()" class="btn-accent"><i class="fas fa-wand-magic-sparkles text-[11px]"></i>말씀 뽑기</button>
+                        <button onclick="saveVerseCard()" class="btn-line"><i class="fas fa-download text-[11px]"></i>이미지 저장</button>
+                        <button onclick="copyVerse()" class="btn-line"><i class="fas fa-copy text-[11px]"></i>복사</button>
+                    </div>
+                    <p id="verse-status" class="mt-4 text-[11.5px] font-bold" style="color:var(--ink-3)">버튼을 눌러 오늘의 말씀을 뽑아보세요.</p>
+                </article>
+
+                <!-- 기억절 빈칸 채우기 -->
+                <article class="surface p-7 lg:col-span-7">
+                    <div class="flex items-center justify-between gap-4">
+                        <p class="label kicker-2">기억절 빈칸 채우기 · 고린도전서 7:17</p>
+                        <span class="chip" id="quiz-score">0 / 4</span>
+                    </div>
+                    <p id="quiz-verse" class="mt-6 text-[14.5px] font-bold leading-loose" style="color:var(--ink)"></p>
+                    <div id="quiz-words" class="mt-5 flex flex-wrap gap-2"></div>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <button onclick="checkQuiz()" class="btn-ink"><i class="fas fa-check text-[11px]"></i>정답 확인</button>
+                        <button onclick="initQuiz()" class="btn-line"><i class="fas fa-rotate-right text-[11px]"></i>다시 섞기</button>
+                    </div>
+                    <p id="quiz-status" class="mt-4 text-[11.5px] font-bold" style="color:var(--ink-3)"></p>
+                </article>
+
+                <!-- 3분 기도 타이머 -->
+                <article class="surface p-7 lg:col-span-12">
+                    <div class="grid gap-8 md:grid-cols-12 md:items-center">
+                        <div class="md:col-span-5">
+                            <div class="ring-wrap">
+                                <svg class="ring-svg" viewBox="0 0 200 200" aria-hidden="true">
+                                    <circle class="ring-bg" cx="100" cy="100" r="84"></circle>
+                                    <circle class="ring-fg" id="prayer-ring" cx="100" cy="100" r="84" transform="rotate(-90 100 100)"></circle>
+                                </svg>
+                                <div class="ring-center">
+                                    <div class="ring-time" id="prayer-time">3:00</div>
+                                    <p class="label">Prayer</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-7">
+                            <p class="label kicker-3">3분 기도 타이머</p>
+                            <h4 class="mt-3 text-[17px] font-black tracking-tight" style="color:var(--ink)">잠시 멈추고 주님께 마음을 여세요</h4>
+                            <p class="mt-3 text-[12.5px] font-bold leading-relaxed" style="color:var(--ink-3)">기도 시간을 고르고 시작을 누르면 남은 시간이 링 위에 표시됩니다. 끝나면 조용한 종소리와 함께 기록이 저장됩니다.</p>
+                            <div id="prayer-presets" class="mt-6 flex flex-wrap gap-2">
+                                <button class="btn-mini" data-sec="60" onclick="setPrayerDuration(60)">1분</button>
+                                <button class="btn-mini" data-sec="180" onclick="setPrayerDuration(180)">3분</button>
+                                <button class="btn-mini" data-sec="300" onclick="setPrayerDuration(300)">5분</button>
+                            </div>
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <button id="prayer-toggle" onclick="togglePrayer()" class="btn-accent"><i class="fas fa-play text-[11px]"></i>시작</button>
+                                <button onclick="resetPrayer()" class="btn-line"><i class="fas fa-rotate-left text-[11px]"></i>되돌리기</button>
+                            </div>
+                            <p id="prayer-status" class="mt-4 text-[11.5px] font-bold" style="color:var(--ink-3)">1분 · 3분 · 5분 중에서 선택해 보세요.</p>
+                            <p id="prayer-streak" class="mt-1 text-[11.5px] font-black" style="color:var(--accent)"></p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <!-- ================= 04 소식 ================= -->
+        <section id="news" class="section reveal-on-scroll">
+            <div class="sec-head">
+                <span class="sec-num">04</span>
                 <h2 class="sec-title">교회 소식</h2>
                 <span class="sec-line"></span>
             </div>
@@ -881,10 +1059,10 @@
             </div>
         </section>
 
-        <!-- ================= 04 갤러리 ================= -->
+        <!-- ================= 05 갤러리 ================= -->
         <section id="gallery" class="section reveal-on-scroll">
             <div class="sec-head">
-                <span class="sec-num">04</span>
+                <span class="sec-num">05</span>
                 <h2 class="sec-title">은혜의 순간</h2>
                 <span class="sec-line"></span>
                 <span class="hidden sm:block text-[10.5px] font-black tracking-widest uppercase" style="color:var(--ink-3)">좌우로 넘겨보세요</span>
@@ -928,10 +1106,10 @@
             </div>
         </section>
 
-        <!-- ================= 05 안내 ================= -->
+        <!-- ================= 06 안내 ================= -->
         <section id="guide" class="section reveal-on-scroll">
             <div class="sec-head">
-                <span class="sec-num">05</span>
+                <span class="sec-num">06</span>
                 <h2 class="sec-title">안내</h2>
                 <span class="sec-line"></span>
             </div>
@@ -1065,6 +1243,23 @@
                 </div>
                 <button class="icon-btn" onclick="closeBibleModal()" aria-label="닫기"><i class="fas fa-xmark text-[13px]"></i></button>
             </div>
+            <div class="px-6 pt-5">
+                <div class="rounded-[18px] border p-5" style="border-color:var(--line); background:var(--soft)">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="label">이번 달 통독 진행</p>
+                            <p class="mt-2 text-[13.5px] font-black" style="color:var(--ink)"><span id="read-percent">0%</span> · <span id="read-count">0 / 0</span>일</p>
+                        </div>
+                        <span class="chip" id="read-badge"><i class="fas fa-seedling text-[10px]"></i>새싹</span>
+                    </div>
+                    <div class="read-bar mt-4"><div class="read-fill" id="read-fill"></div></div>
+                    <p id="read-note" class="mt-3 text-[11.5px] font-bold" style="color:var(--ink-3)">표에서 읽은 날짜를 눌러 체크해 보세요. 자동으로 저장됩니다.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <button onclick="checkTodayReading()" class="btn-mini">오늘 통독 체크</button>
+                        <button onclick="resetReading()" class="btn-mini">기록 초기화</button>
+                    </div>
+                </div>
+            </div>
             <div class="sheet-body pt-4">
                 <div class="bible-scroll">
                     <table class="btable">
@@ -1126,6 +1321,12 @@
             initScratchCanvas();
             initScrollAnimations();
             initProgressBar();
+            initGreeting();
+            initCountdown();
+            initVerseCard();
+            initQuiz();
+            initPrayerTimer();
+            initReadingTracker(now);
 
             setTimeout(() => {
                 const targetTemp = 98;
@@ -1226,7 +1427,7 @@
                 let rowHtml = `<td class="day-col">${idx + 1}</td>`;
                 row.forEach((cell, mIdx) => {
                     const isToday = (idx + 1 === now.getDate() && mIdx === now.getMonth());
-                    rowHtml += `<td class="${isToday ? 'is-today-cell' : ''}">${cell === '-' ? '' : cell}</td>`;
+                    rowHtml += `<td class="${isToday ? 'is-today-cell' : ''}" data-cell="${idx + 1}-${mIdx + 1}" data-reading="${cell}">${cell === '-' ? '' : cell}</td>`;
                 });
                 tr.innerHTML = rowHtml;
                 body.appendChild(tr);
@@ -1277,7 +1478,7 @@
             document.getElementById(`stamp-${id}`).classList.add('stamp-animate');
             confetti({
                 particleCount: 110, spread: 75, origin: { y: 0.7 },
-                colors: ['#B4552B', '#D9A34E', '#6C7355', '#8C4A2F']
+                colors: CONFETTI_COLORS
             });
         }
 
@@ -1329,6 +1530,605 @@
 
             document.getElementById('manna-ref').style.opacity = '1';
         }
+    /* ============================================================
+       저장소 · 공통 유틸
+       ============================================================ */
+    const STORE_KEY = 'wjcb.bulletin.v1';
+    const CONFETTI_COLORS = ['#B4552B', '#D9A34E', '#6C7355', '#8C4A2F'];
+
+    function loadStore() {
+        try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch (e) { return {}; }
+    }
+    function saveStore(obj) {
+        try { localStorage.setItem(STORE_KEY, JSON.stringify(obj)); } catch (e) { }
+    }
+    function patchStore(patch) {
+        const s = loadStore();
+        saveStore(Object.assign(s, patch));
+        return loadStore();
+    }
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function todayKey(d) {
+        const t = d || new Date();
+        return t.getFullYear() + '-' + pad2(t.getMonth() + 1) + '-' + pad2(t.getDate());
+    }
+    function hexToRGBA(hex, alpha) {
+        let h = String(hex || '').trim().replace('#', '');
+        if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+        if (h.length !== 6) return 'rgba(171, 78, 37, ' + alpha + ')';
+        const n = parseInt(h, 16);
+        return 'rgba(' + ((n >> 16) & 255) + ', ' + ((n >> 8) & 255) + ', ' + (n & 255) + ', ' + alpha + ')';
+    }
+    function tokenColor(name, fallback) {
+        try {
+            const v = getComputedStyle(document.body).getPropertyValue(name).trim();
+            return v || fallback;
+        } catch (e) { return fallback; }
+    }
+
+    /* ============================================================
+       시간대 인사말
+       ============================================================ */
+    function initGreeting() {
+        const el = document.getElementById('greeting');
+        if (!el) return;
+        const h = new Date().getHours();
+        let g;
+        if (h < 5) g = '고요한 새벽, 주님과 함께 하루를 엽니다.';
+        else if (h < 11) g = '좋은 아침입니다. 오늘도 은혜롭게 시작하세요.';
+        else if (h < 14) g = '점심시간입니다. 감사로 잠시 쉬어가세요.';
+        else if (h < 18) g = '좋은 오후입니다. 말씀 안에서 평안을 누리세요.';
+        else if (h < 22) g = '편안한 저녁 되세요. 오늘 하루 감사합니다.';
+        else g = '늦은 밤에도 주님의 사랑은 한결같습니다.';
+        el.innerText = g;
+    }
+
+    /* ============================================================
+       LIVE — 다음 예배 카운트다운 · 진행 하이라이트
+       ============================================================ */
+    const SERVICES = [
+        { id: 'svc-morning', tab: 0, name: '주일 오전 예배', day: 0, start: [11, 0], end: [12, 30] },
+        { id: 'svc-afternoon', tab: 1, name: '주일 오후 예배', day: 0, start: [13, 15], end: [14, 15] },
+        { id: 'svc-wed', tab: 2, name: '수요 예배', day: 3, start: [19, 0], end: [20, 20] }
+    ];
+    let autoSwitchedFor = '';
+
+    function atTime(base, hm) {
+        const d = new Date(base);
+        d.setHours(hm[0], hm[1], 0, 0);
+        return d;
+    }
+    function findServiceState(now) {
+        let live = null;
+        let next = null;
+        SERVICES.forEach(svc => {
+            const weekStart = new Date(now);
+            weekStart.setDate(now.getDate() + ((svc.day - now.getDay() + 7) % 7));
+            let start = atTime(weekStart, svc.start);
+            let end = atTime(weekStart, svc.end);
+            if (end <= now) {
+                start = new Date(start.getTime() + 604800000);
+                end = new Date(end.getTime() + 604800000);
+            }
+            if (now >= start && now < end) {
+                live = { svc: svc, start: start, end: end, diff: end - now };
+            } else if (start > now) {
+                const cand = { svc: svc, start: start, end: end, diff: start - now };
+                if (!next || cand.diff < next.diff) next = cand;
+            }
+        });
+        return live ? { state: 'live', info: live } : { state: 'next', info: next };
+    }
+    function humanGap(ms) {
+        const total = Math.max(0, Math.round(ms / 1000));
+        const d = Math.floor(total / 86400);
+        const h = Math.floor((total % 86400) / 3600);
+        const m = Math.floor((total % 3600) / 60);
+        const s = total % 60;
+        if (d > 0) return d + '일 ' + h + '시간 ' + pad2(m) + '분';
+        if (h > 0) return h + '시간 ' + pad2(m) + '분 ' + pad2(s) + '초';
+        return pad2(m) + '분 ' + pad2(s) + '초';
+    }
+    function clearLiveService() {
+        SERVICES.forEach(svc => {
+            const panel = document.getElementById(svc.id);
+            if (!panel) return;
+            panel.querySelectorAll('.tl').forEach(tl => tl.classList.remove('is-live', 'is-done'));
+        });
+    }
+    function applyLiveService(info, elapsed, total) {
+        const panel = document.getElementById(info.svc.id);
+        if (!panel) return;
+        clearLiveService();
+        const rows = panel.querySelectorAll('.tl');
+        if (rows.length) {
+            const idx = Math.min(rows.length - 1, Math.floor((rows.length * elapsed) / Math.max(1, total)));
+            rows.forEach((tl, i) => {
+                tl.classList.toggle('is-done', i < idx);
+                tl.classList.toggle('is-live', i === idx);
+            });
+        }
+        if (autoSwitchedFor !== info.svc.id) {
+            const btn = document.querySelectorAll('.seg-btn')[info.svc.tab];
+            if (btn) switchService(info.svc.id, btn);
+            autoSwitchedFor = info.svc.id;
+        }
+    }
+    function tickCountdown() {
+        const label = document.getElementById('cd-label');
+        const time = document.getElementById('cd-time');
+        const sub = document.getElementById('cd-sub');
+        if (!label || !time || !sub) return;
+        const now = new Date();
+        const res = findServiceState(now);
+        if (res.state === 'live') {
+            const info = res.info;
+            label.innerText = '예배 중 · LIVE';
+            time.innerText = info.svc.name;
+            sub.innerText = '지금 예배가 진행 중입니다 · ' + humanGap(now - info.start) + ' 경과 · ' +
+                pad2(info.end.getHours()) + ':' + pad2(info.end.getMinutes()) + ' 종료 예정';
+            applyLiveService(info, now - info.start, info.end - info.start);
+        } else if (res.info) {
+            autoSwitchedFor = '';
+            const info = res.info;
+            const d = info.start;
+            label.innerText = '다음 예배까지';
+            time.innerText = humanGap(info.diff);
+            sub.innerText = info.svc.name + ' · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' +
+                pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ' 시작';
+            clearLiveService();
+        }
+    }
+    function initCountdown() {
+        if (!document.getElementById('cd-time')) return;
+        tickCountdown();
+        setInterval(tickCountdown, 1000);
+    }
+
+    /* ============================================================
+       오늘의 말씀 카드
+       ============================================================ */
+    const VERSES = [
+        { t: '오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라', r: '고린도전서 7:17' },
+        { t: '내가 능히 모든 일을 할 수 있음은 나를 강하게 하시는 이로 말미암음이라', r: '빌립보서 4:13' },
+        { t: '여호와는 나의 목자시니 내게 부족함이 없으리로다', r: '시편 23:1' },
+        { t: '수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라', r: '마태복음 11:28' },
+        { t: '우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라', r: '로마서 8:28' },
+        { t: '이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라', r: '갈라디아서 2:20' },
+        { t: '두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라', r: '이사야 41:10' },
+        { t: '너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라', r: '베드로전서 5:7' }
+    ];
+    let verseIdx = 0;
+
+    function setVerseStatus(msg) {
+        const el = document.getElementById('verse-status');
+        if (el) el.innerText = msg;
+    }
+    function renderVerse() {
+        const v = VERSES[verseIdx] || VERSES[0];
+        const tEl = document.getElementById('verse-text');
+        const rEl = document.getElementById('verse-ref');
+        if (!tEl) return;
+        tEl.innerText = '“' + v.t + '”';
+        if (rEl) rEl.innerText = v.r;
+        tEl.classList.remove('is-swap');
+        void tEl.offsetWidth;
+        tEl.classList.add('is-swap');
+    }
+    function initVerseCard() {
+        const saved = loadStore().verseIdx;
+        verseIdx = (typeof saved === 'number' && VERSES[saved]) ? saved : 0;
+        renderVerse();
+    }
+    function drawVerse() {
+        let i = Math.floor(Math.random() * VERSES.length);
+        if (VERSES.length > 1 && i === verseIdx) i = (i + 1) % VERSES.length;
+        verseIdx = i;
+        patchStore({ verseIdx: i });
+        renderVerse();
+        setVerseStatus('새 말씀 카드를 뽑았습니다. 저장하거나 복사해 보세요.');
+    }
+    function wrapLines(g, text, maxWidth) {
+        const words = String(text).split(' ');
+        const lines = [];
+        let line = '';
+        words.forEach(w => {
+            const test = line ? line + ' ' + w : w;
+            if (g.measureText(test).width > maxWidth && line) { lines.push(line); line = w; }
+            else line = test;
+        });
+        if (line) lines.push(line);
+        return lines;
+    }
+    function saveVerseCard() {
+        const v = VERSES[verseIdx] || VERSES[0];
+        const W = 1080, H = 1350;
+        const cv = document.createElement('canvas');
+        cv.width = W; cv.height = H;
+        const g = cv.getContext('2d');
+        const dark = document.body.classList.contains('dark-mode');
+        const bg = dark ? '#1A1715' : '#F7F4EF';
+        const ink = dark ? '#F7F2EC' : '#1A1512';
+        const accent = tokenColor('--accent', '#AB4E25');
+        const accent2 = tokenColor('--accent-2', '#845A20');
+
+        g.fillStyle = bg;
+        g.fillRect(0, 0, W, H);
+        g.strokeStyle = hexToRGBA(accent, 0.35);
+        g.lineWidth = 3;
+        g.strokeRect(48, 48, W - 96, H - 96);
+
+        g.textAlign = 'center';
+        g.fillStyle = accent2;
+        g.font = '900 30px Pretendard, sans-serif';
+        g.fillText('오 늘 의 말 씀', W / 2, 172);
+
+        g.fillStyle = accent;
+        g.fillRect(W / 2 - 40, 212, 80, 4);
+
+        g.fillStyle = ink;
+        g.font = '700 58px "Gowun Batang", Georgia, serif';
+        const lines = wrapLines(g, v.t, W - 260);
+        const lh = 96;
+        let y = H / 2 - ((lines.length - 1) * lh) / 2;
+        lines.forEach(ln => { g.fillText(ln, W / 2, y); y += lh; });
+
+        g.fillStyle = ink;
+        g.font = '900 34px Pretendard, sans-serif';
+        g.fillText(v.r, W / 2, H - 230);
+
+        g.fillStyle = accent2;
+        g.font = '800 26px Pretendard, sans-serif';
+        g.fillText('원종제일교회 · 주일 주보', W / 2, H - 152);
+
+        try {
+            const url = cv.toDataURL('image/png');
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'wonjong-verse-' + todayKey() + '.png';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setVerseStatus('말씀 카드를 이미지로 저장했습니다.');
+        } catch (e) {
+            setVerseStatus('이미지 저장을 지원하지 않는 환경입니다.');
+        }
+    }
+    function copyVerse() {
+        const v = VERSES[verseIdx] || VERSES[0];
+        const text = '“' + v.t + '” - ' + v.r;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(
+                () => setVerseStatus('말씀을 클립보드에 복사했습니다.'),
+                () => setVerseStatus('복사 권한이 없습니다. 길게 눌러 선택해 주세요.')
+            );
+        } else {
+            setVerseStatus('이 브라우저에서는 복사를 지원하지 않습니다.');
+        }
+    }
+
+    /* ============================================================
+       기억절 빈칸 채우기
+       ============================================================ */
+    const QUIZ_TOKENS = ['오직', '주께서', '각', '사람에게', '나눠', '주신', '대로', '하나님이', '각', '사람을',
+        '부르신', '그대로', '행하라', '내가', '모든', '교회에서', '이와', '같이', '명하노라'];
+    const QUIZ_BLANK_POS = [4, 10, 12, 18];
+    const QUIZ_EXTRA = ['기억하라', '가르치신'];
+    const QUIZ_BLANK_LABEL = ['나눠', '부르신', '행하라', '명하노라'];
+
+    function setQuizStatus(msg) {
+        const el = document.getElementById('quiz-status');
+        if (el) el.innerText = msg;
+    }
+    function updateQuizScore() {
+        const el = document.getElementById('quiz-score');
+        if (!el) return;
+        const filled = document.querySelectorAll('#quiz-verse .blank.is-filled').length;
+        el.innerText = filled + ' / ' + QUIZ_BLANK_POS.length;
+    }
+    function initQuiz() {
+        const verseEl = document.getElementById('quiz-verse');
+        const wordsEl = document.getElementById('quiz-words');
+        if (!verseEl || !wordsEl) return;
+        verseEl.innerHTML = QUIZ_TOKENS.map((w, i) =>
+            QUIZ_BLANK_POS.indexOf(i) >= 0
+                ? '<span class="blank" data-pos="' + i + '" onclick="clearSlot(this)"></span>'
+                : '<span class="wordchip">' + w + '</span>'
+        ).join(' ');
+        const chips = QUIZ_BLANK_POS.map(p => QUIZ_TOKENS[p]).concat(QUIZ_EXTRA);
+        for (let i = chips.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const t = chips[i]; chips[i] = chips[j]; chips[j] = t;
+        }
+        wordsEl.innerHTML = chips.map(w =>
+            '<button type="button" class="wordchip is-pick" onclick="fillSlot(this)">' + w + '</button>'
+        ).join('');
+        setQuizStatus('빈칸에 알맞은 말씀 조각을 순서대로 눌러 채워보세요.');
+        updateQuizScore();
+    }
+    function fillSlot(btn) {
+        if (!btn || btn.disabled) return;
+        const blanks = document.querySelectorAll('#quiz-verse .blank');
+        let target = null;
+        blanks.forEach(b => { if (!target && !b.classList.contains('is-filled')) target = b; });
+        if (!target) { setQuizStatus('빈칸이 모두 찼습니다. 정답을 확인해 보세요.'); return; }
+        target.innerText = btn.innerText;
+        target.classList.add('is-filled');
+        target.dataset.word = btn.innerText;
+        target.classList.remove('is-right', 'is-wrong');
+        btn.disabled = true;
+        btn.classList.add('is-used');
+        updateQuizScore();
+        setQuizStatus('빈칸 ' + document.querySelectorAll('#quiz-verse .blank.is-filled').length + ' / ' + QUIZ_BLANK_POS.length + ' 완료');
+    }
+    function clearSlot(el) {
+        if (!el || !el.classList.contains('is-filled')) return;
+        const w = el.dataset.word;
+        el.innerText = '';
+        el.classList.remove('is-filled', 'is-right', 'is-wrong');
+        delete el.dataset.word;
+        document.querySelectorAll('#quiz-words .wordchip.is-pick').forEach(b => {
+            if (b.innerText === w) { b.disabled = false; b.classList.remove('is-used'); }
+        });
+        updateQuizScore();
+    }
+    function checkQuiz() {
+        const blanks = document.querySelectorAll('#quiz-verse .blank');
+        if (!blanks.length) return;
+        let right = 0, filled = 0;
+        blanks.forEach(b => {
+            if (!b.classList.contains('is-filled')) return;
+            filled++;
+            const pos = Number(b.dataset.pos);
+            const ok = (b.dataset.word === QUIZ_TOKENS[pos]);
+            b.classList.toggle('is-right', ok);
+            b.classList.toggle('is-wrong', !ok);
+            if (ok) right++;
+        });
+        if (filled < blanks.length) {
+            setQuizStatus('아직 빈칸이 ' + (blanks.length - filled) + '개 남아 있습니다.');
+            return;
+        }
+        if (right === blanks.length) {
+            setQuizStatus('정답입니다! 말씀이 마음에 새겨졌습니다. 🎉');
+            try {
+                confetti({ particleCount: 90, spread: 70, origin: { y: 0.65 }, colors: CONFETTI_COLORS });
+            } catch (e) { }
+            patchStore({ quizCleared: (Number(loadStore().quizCleared) || 0) + 1 });
+        } else {
+            setQuizStatus(right + '개를 맞혔습니다. 다시 한번 시도해 보세요.');
+        }
+    }
+
+    /* ============================================================
+       3분 기도 타이머
+       ============================================================ */
+    const PRAYER_PRESETS = [60, 180, 300];
+    const RING_C = 2 * Math.PI * 84;
+    let prayerTotal = 180, prayerLeft = 180, prayerTick = null, prayerRunning = false;
+
+    function fmtClock(sec) {
+        const s = Math.max(0, Math.round(sec));
+        return Math.floor(s / 60) + ':' + pad2(s % 60);
+    }
+    function setPrayerStatus(msg) {
+        const el = document.getElementById('prayer-status');
+        if (el) el.innerText = msg;
+    }
+    function updatePrayerUI() {
+        const timeEl = document.getElementById('prayer-time');
+        const ring = document.getElementById('prayer-ring');
+        if (timeEl) timeEl.innerText = fmtClock(prayerLeft);
+        if (ring) {
+            const ratio = prayerTotal > 0 ? Math.max(0, prayerLeft / prayerTotal) : 0;
+            ring.style.strokeDashoffset = (RING_C * (1 - ratio)).toFixed(2);
+        }
+    }
+    function setPrayerDuration(sec) {
+        prayerTotal = Number(sec) || 180;
+        prayerLeft = prayerTotal;
+        prayerRunning = false;
+        if (prayerTick) { clearInterval(prayerTick); prayerTick = null; }
+        const btn = document.getElementById('prayer-toggle');
+        if (btn) btn.innerHTML = '<i class="fas fa-play text-[11px]"></i>시작';
+        document.querySelectorAll('#prayer-presets .btn-mini').forEach(b => {
+            b.classList.toggle('is-active', Number(b.dataset.sec) === prayerTotal);
+        });
+        setPrayerStatus('기도 시간을 ' + fmtClock(prayerTotal) + '으로 맞췄습니다.');
+        updatePrayerUI();
+    }
+    function togglePrayer() {
+        if (prayerRunning) { pausePrayer(); return; }
+        if (prayerLeft <= 0) prayerLeft = prayerTotal;
+        prayerRunning = true;
+        const btn = document.getElementById('prayer-toggle');
+        if (btn) btn.innerHTML = '<i class="fas fa-pause text-[11px]"></i>일시정지';
+        setPrayerStatus('조용히 마음을 열고 기도해 보세요.');
+        prayerTick = setInterval(() => {
+            prayerLeft -= 1;
+            if (prayerLeft <= 0) { prayerLeft = 0; updatePrayerUI(); finishPrayer(); return; }
+            updatePrayerUI();
+        }, 1000);
+        updatePrayerUI();
+    }
+    function pausePrayer() {
+        prayerRunning = false;
+        if (prayerTick) { clearInterval(prayerTick); prayerTick = null; }
+        const btn = document.getElementById('prayer-toggle');
+        if (btn) btn.innerHTML = '<i class="fas fa-play text-[11px]"></i>이어서';
+        setPrayerStatus('잠시 쉬었습니다 · 남은 시간 ' + fmtClock(prayerLeft));
+    }
+    function resetPrayer() {
+        setPrayerDuration(prayerTotal);
+        setPrayerStatus('타이머를 처음으로 되돌렸습니다.');
+    }
+    function showPrayerStreak() {
+        const el = document.getElementById('prayer-streak');
+        if (!el) return;
+        const s = loadStore();
+        const streak = Number(s.prayerStreak) || 0;
+        const total = Number(s.prayerCount) || 0;
+        el.innerText = streak > 0
+            ? ('연속 ' + streak + '일 · 누적 ' + total + '회 기도')
+            : ('기도 기록을 시작해 보세요 · 누적 ' + total + '회');
+    }
+    function finishPrayer() {
+        prayerRunning = false;
+        if (prayerTick) { clearInterval(prayerTick); prayerTick = null; }
+        const btn = document.getElementById('prayer-toggle');
+        if (btn) btn.innerHTML = '<i class="fas fa-rotate-right text-[11px]"></i>다시';
+        setPrayerStatus('기도 시간을 마쳤습니다. 주님과 함께한 이 시간을 기억하세요. 🙏');
+        const st = loadStore();
+        const today = todayKey();
+        const y = new Date();
+        y.setDate(y.getDate() - 1);
+        if (st.prayerLastDone !== today) {
+            const streak = (st.prayerLastDone === todayKey(y)) ? (Number(st.prayerStreak) || 0) + 1 : 1;
+            patchStore({
+                prayerLastDone: today,
+                prayerStreak: streak,
+                prayerCount: (Number(st.prayerCount) || 0) + 1
+            });
+        }
+        showPrayerStreak();
+        playChime();
+        try {
+            confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 }, colors: CONFETTI_COLORS });
+        } catch (e) { }
+    }
+    function playChime() {
+        try {
+            const AC = window.AudioContext || window.webkitAudioContext;
+            if (!AC) return;
+            const actx = new AC();
+            [660, 880, 1174].forEach((f, i) => {
+                const o = actx.createOscillator();
+                const g = actx.createGain();
+                o.type = 'sine';
+                o.frequency.value = f;
+                o.connect(g);
+                g.connect(actx.destination);
+                const t0 = actx.currentTime + i * 0.18;
+                g.gain.setValueAtTime(0.0001, t0);
+                g.gain.exponentialRampToValueAtTime(0.16, t0 + 0.05);
+                g.gain.exponentialRampToValueAtTime(0.0001, t0 + 1.1);
+                o.start(t0);
+                o.stop(t0 + 1.2);
+            });
+        } catch (e) { }
+    }
+    function initPrayerTimer() {
+        const ring = document.getElementById('prayer-ring');
+        if (!ring) return;
+        ring.style.strokeDasharray = RING_C.toFixed(2);
+        ring.style.strokeDashoffset = '0';
+        setPrayerDuration(180);
+        const st = loadStore();
+        if (st.prayerLastDone === todayKey()) {
+            setPrayerStatus('오늘 기도 기록을 남겼습니다. 수고하셨습니다.');
+        }
+        showPrayerStreak();
+    }
+
+    /* ============================================================
+       1년 통독 체크 트래커
+       ============================================================ */
+    let readingSet = {};
+
+    function cellKey(d, mIdx) { return d + '-' + (mIdx + 1); }
+    function eligibleByMonth() {
+        const map = {};
+        fullBibleData.forEach(row => {
+            row.forEach((cell, m) => {
+                if (cell && cell !== '-') map[m] = (map[m] || 0) + 1;
+            });
+        });
+        return map;
+    }
+    function refreshReadingRows() {
+        document.querySelectorAll('#bible-full-body td[data-cell]').forEach(td => {
+            td.classList.toggle('read', !!readingSet[td.dataset.cell]);
+        });
+    }
+    function setReadNote(msg) {
+        const note = document.getElementById('read-note');
+        if (note) note.innerText = msg;
+    }
+    function updateReadingProgress(now) {
+        const per = eligibleByMonth();
+        const m = (now || new Date()).getMonth();
+        const total = per[m] || 0;
+        let done = 0;
+        Object.keys(readingSet).forEach(k => {
+            if (Number(String(k).split('-')[1]) === m + 1) done++;
+        });
+        done = Math.min(done, total);
+        const pct = total ? Math.round((done / total) * 100) : 0;
+
+        const pEl = document.getElementById('read-percent');
+        if (pEl) pEl.innerText = pct + '%';
+        const cEl = document.getElementById('read-count');
+        if (cEl) cEl.innerText = done + ' / ' + total;
+        const fEl = document.getElementById('read-fill');
+        if (fEl) fEl.style.width = pct + '%';
+        const mEl = document.getElementById('month-progress-text');
+        if (mEl) mEl.innerHTML = '이번 달 <b>' + pct + '%</b>';
+
+        const bEl = document.getElementById('read-badge');
+        if (bEl) {
+            let icon = 'fa-seedling', label = '새싹';
+            if (pct >= 100) { icon = 'fa-crown'; label = '완주'; }
+            else if (pct >= 70) { icon = 'fa-apple-whole'; label = '풍성'; }
+            else if (pct >= 40) { icon = 'fa-tree'; label = '나무'; }
+            else if (pct >= 15) { icon = 'fa-leaf'; label = '잎새'; }
+            bEl.innerHTML = '<i class="fas ' + icon + ' text-[10px]"></i>' + label;
+        }
+    }
+    function toggleReading(key) {
+        if (!key) return;
+        if (readingSet[key]) delete readingSet[key];
+        else readingSet[key] = true;
+        patchStore({ reading: Object.keys(readingSet) });
+        refreshReadingRows();
+        updateReadingProgress(new Date());
+        setReadNote(readingSet[key]
+            ? '통독 체크 · 이번 달 진행률이 업데이트되었습니다.'
+            : '체크를 해제했습니다.');
+    }
+    function initReadingTracker(now) {
+        const raw = loadStore().reading;
+        readingSet = {};
+        if (Array.isArray(raw)) raw.forEach(k => { readingSet[k] = true; });
+        document.querySelectorAll('#bible-full-body td[data-cell]').forEach(td => {
+            td.addEventListener('click', () => toggleReading(td.dataset.cell));
+        });
+        refreshReadingRows();
+        updateReadingProgress(now || new Date());
+    }
+    function checkTodayReading() {
+        const now = new Date();
+        const key = cellKey(now.getDate(), now.getMonth());
+        const td = document.querySelector('#bible-full-body td[data-cell="' + key + '"]');
+        if (!td || td.dataset.reading === '-') {
+            setReadNote('오늘(' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일)은 통독 쉼 구간입니다.');
+            return;
+        }
+        readingSet[key] = true;
+        patchStore({ reading: Object.keys(readingSet) });
+        refreshReadingRows();
+        updateReadingProgress(now);
+        setReadNote('오늘(' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일) 통독 체크 완료 · ' + td.dataset.reading);
+        try {
+            confetti({ particleCount: 45, spread: 55, origin: { y: 0.75 }, colors: CONFETTI_COLORS });
+        } catch (e) { }
+    }
+    function resetReading() {
+        readingSet = {};
+        patchStore({ reading: [] });
+        refreshReadingRows();
+        updateReadingProgress(new Date());
+        setReadNote('통독 기록을 모두 지웠습니다. 오늘부터 다시 시작해 보세요.');
+    }
     </script>
 </body>
 </html>

@@ -1,2134 +1,907 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#ffffff">
-    <title>원종제일교회 · 주일 주보</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026.10.16 새벽기도회 | 헵시바와 쁄라</title>
+  <!-- Google Fonts: 나눔명조 & 프리텐다드 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-deep: #0b111e;
+      --bg-card: rgba(20, 30, 50, 0.75);
+      --gold-light: #f3e5ab;
+      --gold-main: #d4af37;
+      --gold-dark: #aa8010;
+      --text-white: #f8f9fa;
+      --text-muted: #b0b8c8;
+      --accent-rose: #e09f9f;
+    }
 
-    <!-- External Resources -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+     html {
+      scroll-behavior: smooth;
+    }
 
-        /* ============================================================
-           DESIGN TOKENS — 모노크롬 시스템 (라이트 / 다크 자동 전환)
-           ============================================================ */
-        :root {
-            /* 종이 · 잉크 — 웜 뉴트럴 */
-            --canvas: #F7F4EF;
-            --paper: #FFFFFF;
-            --soft: #FBF8F3;
-            --chip: #F2ECE3;
-            --ink: #1A1512;
-            --ink-2: #4A403A;
-            --ink-3: #7C6F66;
-            --ink-4: #8B7E73;
-            --line: rgba(26, 21, 18, 0.09);
-            --line-2: rgba(26, 21, 18, 0.18);
-            --header: rgba(255, 253, 250, 0.80);
-            --stamp-bg: rgba(255, 253, 250, 0.90);
-            --shadow: 0 24px 50px -32px rgba(58, 38, 26, 0.35);
-            /* 가을 액센트 — 감 · 황금 · 올리브 */
-            --accent: #AB4E25;
-            --accent-2: #845A20;
-            --accent-2-bright: #D4A34A;
-            --accent-3: #5F6649;
-            --accent-soft: rgba(171, 78, 37, 0.07);
-            --accent-2-soft: rgba(212, 163, 74, 0.11);
-            --accent-3-soft: rgba(108, 115, 85, 0.10);
-            --accent-line: rgba(171, 78, 37, 0.32);
-            --on-accent: #FFFFFF;
-            --poster-accent: #D9A34E;
-            --r: 24px;
-            --ease: cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        body.dark-mode {
-            --canvas: #121010;
-            --paper: #1A1715;
-            --soft: #1F1B18;
-            --chip: #262019;
-            --ink: #F7F2EC;
-            --ink-2: #DCD3CB;
-            --ink-3: #A79C93;
-            --ink-4: #8C8177;
-            --line: rgba(247, 242, 236, 0.10);
-            --line-2: rgba(247, 242, 236, 0.20);
-            --header: rgba(26, 23, 21, 0.76);
-            --stamp-bg: rgba(26, 23, 21, 0.92);
-            --shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.95);
-            --accent: #E08A5B;
-            --accent-2: #DDAF5F;
-            --accent-2-bright: #E5BE72;
-            --accent-3: #A3AC85;
-            --accent-soft: rgba(224, 138, 91, 0.14);
-            --accent-2-soft: rgba(221, 175, 95, 0.13);
-            --accent-3-soft: rgba(163, 172, 133, 0.13);
-            --accent-line: rgba(224, 138, 91, 0.38);
-            --on-accent: #1A1512;
-            --poster-accent: #9E4520;
-        }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-white);
+      line-height: 1.8;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        /* ============================================================
-           BASE
-           ============================================================ */
-        * { -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-            background: var(--canvas);
-            color: var(--ink);
-            letter-spacing: -0.035em;
-            overflow-x: hidden;
-            transition: background-color .4s var(--ease), color .4s var(--ease);
-        }
-        .serif { font-family: 'Gowun Batang', ui-serif, Georgia, serif; }
-        ::selection { background: var(--accent-2-soft); color: var(--ink); }
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 99px; }
+    /* 상단 스크롤 진행 바 */
+    #progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+    }
 
-        /* 글자 크기 모드 */
-        body.large-text { font-size: 1.08rem; }
-        body.large-text .tl .k { font-size: 1.02rem; }
-        body.large-text .tl .v { font-size: .95rem; }
-        body.large-text .verse-lg { font-size: clamp(1.3rem, 2.6vw, 1.7rem); }
-        body.large-text .gcap { font-size: 13.5px; }
+    #progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+      width: 0%;
+      transition: width 0.1s ease-out;
+      box-shadow: 0 0 10px var(--gold-main);
+    }
 
-        /* 스크롤 진행 바 */
-        #progress {
-            position: fixed; top: 0; left: 0; height: 2px; width: 0;
-            background: linear-gradient(90deg, var(--accent-2-bright), var(--accent));
-            z-index: 300; transition: width .12s linear;
-        }
+    /* 배경 캔버스 (별빛 효과) */
+    #dawn-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at 50% 10%, #1a2744 0%, #0b111e 70%, #060911 100%);
+    }
 
-        /* ============================================================
-           HEADER
-           ============================================================ */
-        .site-header {
-            position: sticky; top: 0; z-index: 100;
-            background: var(--header);
-            backdrop-filter: saturate(180%) blur(22px);
-            -webkit-backdrop-filter: saturate(180%) blur(22px);
-            border-bottom: 1px solid var(--line);
-        }
-        .logo-img { filter: grayscale(1) contrast(1.05); }
-        .nav-link {
-            font-size: 12px; font-weight: 800; letter-spacing: 0.02em;
-            color: var(--ink-3); position: relative; padding: 4px 0;
-            transition: color .25s var(--ease);
-        }
-        .nav-link::after {
-            content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 0;
-            background: var(--accent); transition: width .3s var(--ease);
-        }
-        .nav-link:hover { color: var(--ink); }
-        .nav-link:hover::after { width: 100%; }
-        .icon-btn {
-            width: 38px; height: 38px; border-radius: 999px;
-            border: 1px solid var(--line-2); background: var(--paper);
-            display: inline-flex; align-items: center; justify-content: center;
-            color: var(--ink-2);
-            transition: transform .25s var(--ease), color .25s, border-color .25s;
-        }
-        .icon-btn:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
-        .icon-btn:active { transform: scale(.94); }
+    /* 플로팅 네비게이션 */
+    .floating-nav {
+      position: fixed;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 900;
+    }
 
-        /* ============================================================
-           HERO
-           ============================================================ */
-        .hero {
-            position: relative; overflow: hidden;
-            background:
-                radial-gradient(110% 90% at 88% -10%, var(--accent-soft) 0%, transparent 55%),
-                radial-gradient(90% 80% at 2% 105%, var(--accent-2-soft) 0%, transparent 62%),
-                var(--paper);
-            border-bottom: 1px solid var(--line);
-        }
-        .hero-grid {
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(var(--line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--line) 1px, transparent 1px);
-            background-size: 58px 58px;
-            -webkit-mask-image: radial-gradient(125% 95% at 50% 0%, #000 15%, transparent 82%);
-            mask-image: radial-gradient(125% 95% at 50% 0%, #000 15%, transparent 82%);
-        }
-        .hero-ghost {
-            position: absolute; left: -1vw; bottom: -1.5vw;
-            font-size: 21vw; font-weight: 900; letter-spacing: -0.07em; line-height: 0.78;
-            color: var(--accent); opacity: 0.07; white-space: nowrap; pointer-events: none;
-        }
-        .hero-title {
-            font-size: clamp(3rem, 12.5vw, 7.5rem);
-            font-weight: 900; line-height: 0.9; letter-spacing: -0.065em; color: var(--ink);
-        }
-        .hero-inner { position: relative; z-index: 10; }
-        .chip {
-            display: inline-flex; align-items: center; gap: 7px;
-            padding: 8px 14px; border-radius: 999px;
-            border: 1px solid var(--line-2); background: var(--paper);
-            font-size: 11.5px; font-weight: 800; color: var(--ink-2); white-space: nowrap;
-        }
-        .chip b { color: var(--accent); font-variant-numeric: tabular-nums; }
-        .chip-accent { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.3);
+      border: 1px solid var(--gold-main);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
 
-        /* TICKER */
-        .ticker { overflow: hidden; background: var(--paper); border-bottom: 1px solid var(--line); }
-        .ticker-track {
-            display: flex; gap: 46px; width: max-content; padding: 13px 0;
-            animation: marquee 36s linear infinite;
-        }
-        .ticker-item {
-            font-size: 11px; font-weight: 800; letter-spacing: 0.22em;
-            text-transform: uppercase; color: var(--ink-3); white-space: nowrap;
-        }
-        .ticker-item i { color: var(--accent-2); margin-right: 12px; font-size: 9px; }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .nav-dot:hover, .nav-dot.active {
+      background: var(--gold-main);
+      transform: scale(1.3);
+      box-shadow: 0 0 8px var(--gold-light);
+    }
 
-        /* ============================================================
-           공통 컴포넌트
-           ============================================================ */
-        .section { padding-top: 4.25rem; }
-        .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; }
-        .sec-num { font-size: 11px; font-weight: 900; letter-spacing: 0.18em; color: var(--accent); font-variant-numeric: tabular-nums; }
-        .sec-title { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.045em; color: var(--ink); }
-        .sec-line { flex: 1; height: 1px; background: var(--line); }
+    .nav-dot span {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(11, 17, 30, 0.9);
+      color: var(--gold-light);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
 
-        .label {
-            font-size: 10px; font-weight: 900; letter-spacing: 0.22em;
-            text-transform: uppercase; color: var(--ink-3);
-        }
-        .kicker { color: var(--accent); }
-        .kicker-2 { color: var(--accent-2); }
-        .kicker-3 { color: var(--accent-3); }
-        .surface {
-            background: var(--paper); border: 1px solid var(--line); border-radius: var(--r);
-            transition: border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
-        }
-        .surface-hover:hover { border-color: var(--accent-line); transform: translateY(-2px); box-shadow: var(--shadow); }
-        .tint-clay { background: var(--accent-soft); }
-        .tint-amber { background: var(--accent-2-soft); }
-        .tint-olive { background: var(--accent-3-soft); }
+    .nav-dot:hover span {
+      opacity: 1;
+    }
 
-        .btn-ink {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: var(--ink); color: var(--paper);
-            font-size: 12.5px; font-weight: 800; padding: 13px 22px; border-radius: 999px;
-            transition: transform .25s var(--ease), opacity .25s;
-        }
-        .btn-ink:hover { transform: translateY(-1px); opacity: .92; }
-        .btn-ink:active { transform: scale(.97); }
-        .btn-accent {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: var(--accent); color: var(--on-accent);
-            font-size: 12.5px; font-weight: 800; padding: 13px 22px; border-radius: 999px;
-            box-shadow: 0 16px 30px -20px var(--accent-line);
-            transition: transform .25s var(--ease), filter .25s;
-        }
-        .btn-accent:hover { transform: translateY(-1px); filter: brightness(1.06); }
-        .btn-accent:active { transform: scale(.97); }
-        .btn-line {
-            display: inline-flex; align-items: center; gap: 8px;
-            border: 1px solid var(--line-2); background: var(--paper); color: var(--ink);
-            font-size: 12.5px; font-weight: 800; padding: 12px 20px; border-radius: 999px;
-            transition: transform .25s var(--ease), border-color .25s;
-        }
-        .btn-line:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-        .btn-mini {
-            display: inline-flex; align-items: center; gap: 6px;
-            font-size: 10.5px; font-weight: 800; letter-spacing: 0.05em;
-            padding: 6px 11px; border-radius: 999px;
-            border: 1px solid var(--line-2); background: var(--paper); color: var(--ink);
-            transition: all .22s var(--ease);
-        }
-        .btn-mini:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-        .btn-mini:active { transform: scale(.95); }
+    @media (max-width: 768px) {
+      .floating-nav {
+        display: none;
+      }
+    }
 
-        /* ============================================================
-           말씀 · 은혜 온도 · 통독
-           ============================================================ */
-        .verse-lg { font-size: clamp(1.15rem, 2.4vw, 1.5rem); line-height: 1.9; font-weight: 700; color: var(--ink); word-break: keep-all; }
-        .temp-num { font-size: clamp(3rem, 10vw, 4.5rem); font-weight: 900; letter-spacing: -0.07em; line-height: 1; font-variant-numeric: tabular-nums; }
-        .meter { height: 8px; border-radius: 99px; background: var(--chip); border: 1px solid var(--line); overflow: hidden; }
-        .meter-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent-2-bright), var(--accent)); border-radius: 99px; transition: width 2.2s var(--ease); }
+    /* 타이포그래피 */
+    h1, h2, h3, .serif {
+      font-family: 'Nanum Myeongjo', serif;
+    }
 
-        .daycell {
-            border: 1px solid var(--line); border-radius: 16px; background: var(--soft);
-            padding: 13px 8px; text-align: center;
-            transition: border-color .25s, background-color .25s;
-        }
-        .daycell .d { font-size: 10px; font-weight: 900; letter-spacing: 0.06em; color: var(--ink-3); }
-        .daycell .d span { opacity: .45; margin-left: 3px; font-variant-numeric: tabular-nums; }
-        .daycell .r { margin-top: 7px; font-size: 11px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; }
-        .daycell.is-sun .d { color: var(--accent-2); }
-        .daycell.is-today { background: var(--accent); border-color: var(--accent); }
-        .daycell.is-today .d, .daycell.is-today .r { color: var(--on-accent); }
-        .daycell.is-today .d span { opacity: .6; }
+    /* 레이아웃 컨테이너 */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-        /* ============================================================
-           예배 — 세그먼트 탭 + 타임라인
-           ============================================================ */
-        .seg {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
-            padding: 4px; border-radius: 999px; background: var(--chip);
-            border: 1px solid var(--line); margin-bottom: 14px;
-        }
-        .seg-btn {
-            display: flex; flex-direction: column; align-items: center; gap: 1px;
-            padding: 10px 4px; border-radius: 999px;
-            font-size: 12px; font-weight: 800; color: var(--ink-3);
-            transition: all .28s var(--ease);
-        }
-        .seg-btn em { font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; opacity: .8; font-variant-numeric: tabular-nums; }
-        .seg-btn.is-active { background: var(--paper); color: var(--accent); box-shadow: 0 8px 20px -14px var(--accent-line); }
+    section {
+      padding: 90px 0;
+      position: relative;
+    }
 
-        .panel { overflow: hidden; }
-        .panel-head {
-            display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-            padding: 26px 24px 22px; border-bottom: 1px solid var(--line); background: var(--soft);
-        }
-        .panel-title { font-size: clamp(1.4rem, 3.4vw, 1.9rem); font-weight: 900; letter-spacing: -0.05em; color: var(--ink); }
-        .panel-sub { margin-top: 7px; font-size: 12px; font-weight: 700; color: var(--ink-3); }
-        .panel-body { padding: 8px 24px 22px; }
-        .panel-foot {
-            padding: 14px 24px; border-top: 1px solid var(--line);
-            font-size: 11px; font-weight: 600; color: var(--ink-4); text-align: center; background: var(--soft);
-        }
+    /* 히어로 섹션 (표지) */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+    }
 
-        .tl {
-            display: grid; grid-template-columns: 2rem 1fr auto; gap: 14px;
-            align-items: start; padding: 15px 2px; border-bottom: 1px solid var(--line);
-            transition: background-color .25s var(--ease);
-        }
-        .tl:last-child { border-bottom: none; }
-        .tl:hover { background: var(--soft); }
-        .tl:hover .n { color: var(--accent); }
-        body.dark-mode .tl:hover { background: var(--soft); }
-        .tl .n { font-size: 10px; font-weight: 900; color: var(--ink-3); font-variant-numeric: tabular-nums; padding-top: 3px; }
-        .tl .k { font-size: 14.5px; font-weight: 800; color: var(--ink); }
-        .tl .k small { display: block; margin-top: 4px; font-size: 11.5px; font-weight: 700; color: var(--ink-3); letter-spacing: -0.02em; }
-        .tl .k .btn-mini { margin-top: 9px; }
-        .tl .v { font-size: 13px; font-weight: 700; color: var(--ink-2); text-align: right; white-space: nowrap; }
+    .badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border: 1px solid var(--gold-main);
+      border-radius: 30px;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      background: rgba(212, 175, 55, 0.1);
+      animation: pulseGlow 3s infinite alternate;
+    }
 
-        .poster {
-            margin: 26px 0; padding: 40px 22px; border-radius: 22px;
-            background: var(--ink); color: var(--paper); text-align: center;
-        }
-        .poster::before {
-            content: ''; display: block; width: 34px; height: 3px; border-radius: 99px;
-            background: var(--poster-accent); margin: 0 auto 24px;
-        }
-        .poster .label { color: var(--poster-accent); opacity: 1; }
-        .poster-title { margin-top: 12px; font-size: clamp(1.35rem, 4vw, 2rem); font-weight: 700; letter-spacing: -0.04em; word-break: keep-all; }
-        .poster-by { margin-top: 14px; font-size: 12.5px; font-weight: 800; opacity: .7; }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
+      100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+    }
 
-        /* 참석 도장 */
-        .stamp {
-            position: absolute; top: 18px; right: 18px; width: 74px; height: 74px;
-            border-radius: 999px; border: 3px solid var(--accent); color: var(--accent);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 900; line-height: 1.15; text-align: center;
-            background: var(--stamp-bg); backdrop-filter: blur(3px);
-            transform: rotate(-12deg) scale(1); opacity: 0; pointer-events: none; z-index: 60;
-        }
-        .stamp-animate { animation: stampIn .6s forwards cubic-bezier(.34, 1.56, .64, 1); }
-        @keyframes stampIn {
-            0% { opacity: 0; transform: rotate(-12deg) scale(3); }
-            100% { opacity: .92; transform: rotate(-12deg) scale(1); }
-        }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--gold-light) 60%, var(--gold-main) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      word-break: keep-all;
+    }
 
-        /* ============================================================
-           소식
-           ============================================================ */
-        .news-item {
-            display: flex; gap: 16px; padding: 16px 4px; border-bottom: 1px solid var(--line);
-            transition: padding-left .3s var(--ease);
-        }
-        .news-item:last-child { border-bottom: none; }
-        .news-item:hover { padding-left: 10px; }
-        .news-item .num {
-            flex: none; width: 26px; height: 26px; border-radius: 999px;
-            border: 1px solid var(--line-2); color: var(--ink-3);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 10.5px; font-weight: 900; font-variant-numeric: tabular-nums;
-        }
-        .news-item:hover .num { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-        .news-item p { font-size: 13.5px; font-weight: 600; color: var(--ink-2); line-height: 1.75; }
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
 
-        .sched-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-        .sched-item:last-child { border-bottom: none; }
-        .sched-item i { color: var(--accent-2); font-size: 13px; margin-top: 4px; }
-        .sched-item p { font-size: 13.5px; font-weight: 700; color: var(--ink-2); line-height: 1.7; }
-        .sched-item strong { color: var(--ink); font-weight: 900; }
+    .meta-box {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 16px;
+      padding: 24px 36px;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
 
-        .names { font-size: 15px; font-weight: 900; color: var(--ink); line-height: 2; word-break: keep-all; }
-        .names span { color: var(--ink-4); margin: 0 8px; font-weight: 400; }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
 
-        /* ============================================================
-           갤러리 — 스냅 캐러셀
-           ============================================================ */
-        .gallery {
-            display: grid; grid-auto-flow: column; grid-auto-columns: 80%;
-            gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
-            padding: 2px 2px 8px; scrollbar-width: none;
-        }
-        .gallery::-webkit-scrollbar { display: none; }
-        @media (min-width: 768px) { .gallery { grid-auto-columns: 31%; } }
-        .gcard {
-            scroll-snap-align: start; background: var(--paper); border: 1px solid var(--line);
-            border-radius: 20px; padding: 10px;
-            transition: border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
-        }
-        .gcard:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
-        .gcard .ph { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--chip); }
-        .gcard img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: transform .8s var(--ease); }
-        .gcard:hover img { transform: scale(1.05); }
-        .gcap { margin-top: 12px; font-size: 12.5px; font-weight: 700; color: var(--ink-2); text-align: center; letter-spacing: -0.02em; }
+    .meta-label {
+      color: var(--gold-main);
+      font-weight: 700;
+      min-width: 55px;
+    }
 
-        /* ============================================================
-           안내 링크
-           ============================================================ */
-        .link-row {
-            display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px;
-            padding: 20px 22px; border: 1px solid var(--line); border-radius: 18px;
-            background: var(--paper); transition: all .3s var(--ease);
-        }
-        .link-row:hover { border-color: var(--accent); transform: translateX(3px); }
-        .link-row .idx { font-size: 10.5px; font-weight: 900; letter-spacing: 0.16em; color: var(--ink-3); }
-        .link-row:hover .idx { color: var(--accent); }
-        .link-row h4 { font-size: 15px; font-weight: 800; color: var(--ink); }
+    /* 스크롤 유도 아이콘 */
+    .scroll-down {
+      position: absolute;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-light);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      opacity: 0.7;
+      animation: bounce 2s infinite;
+      text-decoration: none;
+    }
 
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .foot-mark {
-            font-size: clamp(2.6rem, 12vw, 7rem); font-weight: 900; letter-spacing: -0.07em;
-            line-height: .85; color: transparent;
-            -webkit-text-stroke: 1px var(--accent-line); text-stroke: 1px var(--accent-line);
-        }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+      40% { transform: translate(-50%, -10px); }
+      60% { transform: translate(-50%, -5px); }
+    }
 
-        /* ============================================================
-           DOCK
-           ============================================================ */
-        .dock {
-            position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom));
-            transform: translateX(-50%); z-index: 150;
-            display: flex; align-items: center; gap: 4px; padding: 7px;
-            border-radius: 999px; border: 1px solid var(--line-2);
-            background: var(--header);
-            backdrop-filter: saturate(180%) blur(22px);
-            -webkit-backdrop-filter: saturate(180%) blur(22px);
-            box-shadow: var(--shadow);
-        }
-        .dock-btn {
-            display: flex; flex-direction: column; align-items: center; gap: 3px;
-            width: 78px; padding: 7px 0; border-radius: 999px;
-            color: var(--ink-3); font-size: 9.5px; font-weight: 900; letter-spacing: 0.04em;
-            transition: color .25s, background-color .25s;
-        }
-        .dock-btn i { font-size: 15px; }
-        .dock-btn:hover { color: var(--ink); background: var(--chip); }
-        .dock-btn:active { transform: scale(.94); }
-        .dock-main {
-            width: 52px; height: 52px; border-radius: 999px; flex: none;
-            background: var(--accent); color: var(--on-accent);
-            display: flex; align-items: center; justify-content: center; font-size: 19px;
-            box-shadow: 0 16px 32px -16px var(--accent-line);
-            transition: transform .3s var(--ease);
-        }
-        .dock-main:hover { transform: translateY(-2px) scale(1.03); }
-        .dock-main:active { transform: scale(.95); }
+    /* 스크롤 등장 애니메이션 클래스 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-        /* ============================================================
-           MODAL / BOTTOM SHEET
-           ============================================================ */
-        .modal {
-            position: fixed; inset: 0; z-index: 200; display: none;
-            align-items: flex-end; justify-content: center;
-            background: rgba(26, 21, 18, .55); backdrop-filter: blur(8px);
-        }
-        .modal.active { display: flex; animation: fadeIn .3s var(--ease); }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .sheet {
-            position: relative; background: var(--paper); width: 100%; max-width: 42rem;
-            max-height: 90vh; border-radius: 28px 28px 0 0; border: 1px solid var(--line);
-            display: flex; flex-direction: column; overflow: hidden;
-            animation: sheetUp .45s var(--ease);
-        }
-        .sheet-wide { max-width: 64rem; }
-        @keyframes sheetUp { from { transform: translateY(30px); opacity: .5; } to { transform: translateY(0); opacity: 1; } }
-        .grabber { width: 40px; height: 4px; border-radius: 99px; background: var(--line-2); margin: 10px auto 0; flex: none; }
-        .sheet-head {
-            display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-            padding: 20px 24px 16px; border-bottom: 1px solid var(--line);
-        }
-        .sheet-title { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.045em; color: var(--ink); }
-        .sheet-body { overflow-y: auto; padding: 22px 24px; }
-        .sheet-foot { padding: 14px 24px calc(18px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
-        @media (min-width: 768px) {
-            .modal { align-items: center; padding: 24px; }
-            .sheet { border-radius: 28px; max-height: 84vh; }
-            .sheet-foot { padding-bottom: 18px; }
-            .grabber { display: none; }
-        }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .scripture p { font-size: 15.5px; font-weight: 500; line-height: 1.95; color: var(--ink-2); margin-bottom: 20px; word-break: keep-all; }
-        .scripture sup { font-size: 10.5px; font-weight: 900; color: var(--accent-2); margin-right: 7px; letter-spacing: 0.04em; }
-        .divider-dash { height: 1px; border-top: 1px dashed var(--line-2); margin: 22px 0; }
+    /* 섹션 헤더 */
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
 
-        /* ============================================================
-           1년 통독표
-           ============================================================ */
-        .bible-scroll { overflow: auto; max-height: 62vh; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); }
-        .btable { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; min-width: 900px; }
-        .btable th {
-            position: sticky; top: 0; z-index: 20; background: var(--soft); color: var(--ink);
-            font-weight: 900; padding: 14px 8px; border-bottom: 1px solid var(--line-2);
-        }
-        .btable td {
-            padding: 12px 5px; text-align: center; color: var(--ink-2);
-            border-bottom: 1px solid var(--line); border-right: 1px solid var(--line);
-        }
-        .btable .day-col {
-            position: sticky; left: 0; z-index: 10; width: 52px;
-            font-weight: 900; color: var(--ink); background: var(--soft);
-            border-right: 1px solid var(--line-2);
-        }
-        .btable .is-today-cell { background: var(--accent); color: var(--on-accent); font-weight: 900; }
+    .section-num {
+      font-family: 'Nanum Myeongjo', serif;
+      color: var(--gold-main);
+      font-size: 1rem;
+      letter-spacing: 3px;
+      display: block;
+      margin-bottom: 10px;
+    }
 
-        /* ============================================================
-           만나 스크래치 카드
-           ============================================================ */
-        .scratch-wrap { position: relative; overflow: hidden; border-radius: 22px; }
-        #scratch-canvas {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            z-index: 20; border-radius: 22px; cursor: crosshair; touch-action: none;
-        }
-        .manna-icon {
-            width: 60px; height: 60px; border-radius: 999px; margin: 0 auto 24px;
-            border: 1px solid var(--accent-line); background: var(--accent-soft); color: var(--accent);
-            display: flex; align-items: center; justify-content: center; font-size: 21px;
-        }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      color: var(--gold-light);
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
 
-        /* ============================================================
-           말씀 놀이터 · LIVE (새 기능)
-           ============================================================ */
-        [hidden] { display: none !important; }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: var(--gold-main);
+    }
 
-        /* 예배 카운트다운 스트립 */
-        .cd-strip {
-            display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
-            padding: 16px 18px; border-radius: 20px;
-            border: 1px solid var(--accent-line); background: var(--accent-soft);
-        }
-        .cd-dot {
-            width: 8px; height: 8px; border-radius: 999px; flex: none;
-            background: var(--accent); animation: liveDot 1.8s ease-in-out infinite;
-        }
-        @keyframes liveDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: .3; transform: scale(.6); }
-        }
-        .cd-num { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
-        .cd-sub { font-size: 11.5px; font-weight: 700; color: var(--ink-2); }
+    /* 카드 공통 스타일 */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
 
-        /* 예배 진행 하이라이트 */
-        .tl.is-live { background: var(--accent-soft); border-radius: 12px; }
-        .tl.is-live .n { color: var(--accent); }
-        .tl.is-live .k::after {
-            content: 'LIVE'; margin-left: 8px; font-size: 9px; font-weight: 900; letter-spacing: .12em;
-            color: var(--on-accent); background: var(--accent); padding: 2px 6px; border-radius: 99px;
-            vertical-align: middle;
-        }
-        .tl.is-done { opacity: .5; }
+    .card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-4px);
+    }
 
-        /* 오늘의 말씀 카드 */
-        .vcard {
-            border: 1px solid var(--line); border-radius: 20px; background: var(--soft);
-            padding: 28px 22px; text-align: center; min-height: 190px;
-            display: flex; flex-direction: column; justify-content: center;
-        }
-        .vcard .vswap { font-size: 1.05rem; font-weight: 700; line-height: 1.85; color: var(--ink); word-break: keep-all; }
-        .vswap.is-swap { animation: vswap .5s var(--ease); }
-        @keyframes vswap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    /* 기도문 스타일 */
+    .prayer-card {
+      border-left: 4px solid var(--gold-main);
+      background: linear-gradient(135deg, rgba(20, 30, 50, 0.85) 0%, rgba(15, 22, 38, 0.9) 100%);
+    }
 
-        /* 기억절 빈칸 채우기 */
-        .wordchip {
-            display: inline-block; padding: 2px 7px; border-radius: 8px;
-            background: var(--chip); color: var(--ink); font-weight: 800;
-        }
-        .wordchip.is-pick {
-            cursor: pointer; border: 1px solid var(--line-2); background: var(--paper);
-            font-size: 13px;
-            transition: transform .2s var(--ease), border-color .2s, background-color .2s, color .2s;
-        }
-        .wordchip.is-pick:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-        .wordchip.is-pick:active { transform: scale(.95); }
-        .wordchip.is-used { opacity: .28; pointer-events: none; }
-        .blank {
-            display: inline-block; min-width: 66px; height: 1.45em; vertical-align: middle;
-            border-bottom: 2px solid var(--accent-line); background: var(--accent-soft);
-            border-radius: 6px 6px 0 0; margin: 0 3px; cursor: pointer;
-        }
-        .blank.is-filled { color: var(--ink); background: var(--accent-2-soft); border-bottom-color: var(--accent); text-align: center; padding: 0 6px; }
-        .blank.is-right { background: var(--accent-3-soft); border-bottom-color: var(--accent-3); }
-        .blank.is-wrong { animation: shakeX .45s var(--ease); border-bottom-color: var(--accent); }
-        @keyframes shakeX {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-5px); }
-            40% { transform: translateX(5px); }
-            60% { transform: translateX(-3px); }
-            80% { transform: translateX(3px); }
-        }
+    .prayer-text p {
+      margin-bottom: 20px;
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: #e6e9f0;
+      text-align: justify;
+    }
 
-        /* 3분 기도 타이머 */
-        .ring-wrap { position: relative; width: 190px; height: 190px; margin: 0 auto; }
-        .ring-svg { width: 100%; height: 100%; display: block; }
-        .ring-bg { fill: none; stroke: var(--chip); stroke-width: 9; }
-        .ring-fg { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; transition: stroke-dashoffset .3s linear; }
-        .ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
-        .ring-time { font-size: 2rem; font-weight: 900; letter-spacing: -0.05em; color: var(--ink); font-variant-numeric: tabular-nums; }
-        .btn-mini.is-active { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+    .prayer-text p:last-child {
+      margin-bottom: 0;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
 
-        /* 통독 체크 트래커 */
-        .btable td[data-cell] { cursor: pointer; }
-        .btable td.read { background: var(--accent-2-soft); color: var(--accent); font-weight: 900; }
-        .btable td.read.is-today-cell { background: var(--accent); color: var(--on-accent); }
-        .read-bar { height: 8px; border-radius: 99px; background: var(--chip); border: 1px solid var(--line); overflow: hidden; }
-        .read-fill { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--accent-2-bright), var(--accent)); transition: width .6s var(--ease); }
-        /* ============================================================
-           애니메이션 / 유틸
-           ============================================================ */
-        .reveal-on-scroll {
-            opacity: 0; transform: translateY(26px);
-            transition: opacity .9s var(--ease), transform .9s var(--ease);
-        }
-        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-        /* 반응형 노출 제어 (Tailwind display 유틸과 충돌하지 않도록 자체 정의) */
-        .only-desktop { display: none; }
-        @media (min-width: 640px) { .only-desktop { display: inline-flex; } }
-        .only-mobile { display: inline-flex; }
-        @media (min-width: 640px) { .only-mobile { display: none; } }
-        .hair-top { border-top: 1px solid var(--line); }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            .ticker-track { animation: none; }
-            .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
-        }
-    </style>
+    /* 성경 본문 스타일 */
+    .scripture-box {
+      display: grid;
+      gap: 16px;
+    }
+
+    .verse {
+      display: flex;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      transition: background 0.3s ease;
+    }
+
+    .verse:hover {
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .verse.highlight-verse {
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .verse-num {
+      color: var(--gold-main);
+      font-weight: 700;
+      font-family: 'Nanum Myeongjo', serif;
+      min-width: 26px;
+      padding-top: 2px;
+    }
+
+    .verse-text {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: #f1f3f5;
+    }
+
+    /* 설교 본문 포인트 카드 */
+    .sermon-intro {
+      background: rgba(212, 175, 55, 0.07);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 40px;
+      border: 1px dashed rgba(212, 175, 55, 0.35);
+    }
+
+    .quote-box {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.12rem;
+      color: var(--gold-light);
+      padding: 20px 24px;
+      margin: 24px 0;
+      background: rgba(0, 0, 0, 0.25);
+      border-left: 3px solid var(--gold-main);
+      border-radius: 0 12px 12px 0;
+      line-height: 1.8;
+    }
+
+    .point-badge {
+      display: inline-block;
+      background: var(--gold-main);
+      color: #0b111e;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    .point-title {
+      font-size: 1.55rem;
+      color: var(--gold-light);
+      margin-bottom: 24px;
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    .sermon-p {
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+      color: #d8dee9;
+      line-height: 1.9;
+    }
+
+    .sermon-p strong {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    /* 헵시바 & 쁄라 비교 카드 */
+    .name-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    @media (max-width: 640px) {
+      .name-comparison {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 26px 20px;
+      }
+    }
+
+    .name-card {
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .name-card.old {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+    }
+
+    .name-card.new {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(224, 159, 159, 0.15));
+      border: 1px solid var(--gold-main);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+    }
+
+    .name-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--gold-light);
+    }
+
+    /* 공동 기도 제목 그리드 */
+    .prayer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .topic-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 16px;
+      padding: 26px;
+      transition: all 0.3s ease;
+    }
+
+    .topic-card:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .topic-num {
+      font-size: 0.85rem;
+      color: var(--gold-main);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .topic-title {
+      font-size: 1.2rem;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+
+    /* 통성기도 강조 박스 */
+    .cry-prayer-box {
+      background: linear-gradient(135deg, rgba(170, 128, 16, 0.2) 0%, rgba(20, 30, 50, 0.95) 100%);
+      border: 2px solid var(--gold-main);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cry-call {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin: 24px 0;
+      letter-spacing: 4px;
+      animation: glowText 2s infinite alternate;
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+      to { text-shadow: 0 0 20px rgba(243, 229, 171, 0.9); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
-<body id="top">
+<body>
 
-    <div id="progress" aria-hidden="true"></div>
+  <!-- 상단 진행 표시줄 -->
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
 
-    <!-- ================= NAVIGATION ================= -->
-    <nav class="site-header">
-        <div class="mx-auto max-w-6xl px-5 h-16 flex items-center justify-between gap-4">
-            <a href="#top" class="flex items-center gap-3 shrink-0">
-                <img src="https://ikyullee-byte.github.io/TEST01/logo.png" alt="원종제일교회" class="logo-img h-8 w-auto">
-                <span class="hidden sm:block leading-none">
-                    <span class="block text-[13px] font-black tracking-tight">원종제일교회</span>
-                    <span class="block mt-1 text-[9px] font-black tracking-[0.2em] uppercase" style="color:var(--ink-4)">Wonjong First</span>
-                </span>
-            </a>
+  <!-- 새벽 별빛 배경 캔버스 -->
+  <canvas id="dawn-canvas"></canvas>
 
-            <div class="hidden md:flex items-center gap-6">
-                <a href="#word" class="nav-link">말씀</a>
-                <a href="#services" class="nav-link">예배</a>
-                <a href="#news" class="nav-link">소식</a>
-                <a href="#gallery" class="nav-link">갤러리</a>
-                <a href="#play" class="nav-link">놀이터</a>
-                <a href="#guide" class="nav-link">안내</a>
-            </div>
+  <!-- 우측 플로팅 네비게이션 -->
+  <nav class="floating-nav">
+    <a href="#top" class="nav-dot active"><span>표지</span></a>
+    <a href="#opening-prayer" class="nav-dot"><span>1. 시작 기도</span></a>
+    <a href="#scripture" class="nav-dot"><span>2. 성경 본문</span></a>
+    <a href="#sermon" class="nav-dot"><span>3. 설교 말씀</span></a>
+    <a href="#closing-prayer" class="nav-dot"><span>4. 결단 기도</span></a>
+    <a href="#joint-prayer" class="nav-dot"><span>5. 공동·통성기도</span></a>
+  </nav>
 
-            <div class="flex items-center gap-2 shrink-0">
-                <button class="icon-btn" onclick="document.body.classList.toggle('large-text')" aria-label="글자 크기 조절">
-                    <span class="text-[11px] font-black tracking-tight">가+</span>
-                </button>
-                <button class="icon-btn" onclick="toggleDark(this)" aria-label="다크 모드 전환">
-                    <i class="fas fa-moon text-[12px]"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+  <!-- 0. 표지 (Hero Section) -->
+  <header class="hero" id="top">
+    <div class="badge">2026년 10월 16일 (금) 새벽기도회</div>
+    <h1>헵시바와 쁄라,<br>신랑이 신부를 기뻐함 같이</h1>
+    <p class="hero-subtitle">우리를 향하여 잠잠하지 않으시는 하나님의 열심과 사랑의 반전</p>
 
-    <!-- ================= HERO ================= -->
-    <header class="hero">
-        <div class="hero-grid" aria-hidden="true"></div>
-        <div class="hero-ghost" aria-hidden="true">WONJONG FIRST</div>
-
-        <div class="hero-inner mx-auto max-w-6xl px-5 pt-14 pb-12 md:pt-20 md:pb-16">
-            <p class="label kicker">2026 · 주일 주보 &nbsp;/&nbsp; Sunday Bulletin</p>
-
-            <h1 class="hero-title mt-6">주일 예배</h1>
-
-            <div class="mt-7 flex items-center gap-4">
-                <span class="h-px flex-1" style="background:var(--line-2)"></span>
-                <span class="text-[11px] font-black tracking-[0.3em] uppercase" style="color:var(--ink-4)">No. 42</span>
-            </div>
-
-            <div class="mt-7 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                <div>
-                    <p class="text-[17px] font-black tracking-tight" style="color:var(--ink)">2026. 10. 18</p>
-                    <p class="mt-2 text-[12.5px] font-bold" style="color:var(--ink-3)">오순절 후 스물두 번째 주일</p>
-                    <p class="mt-2 text-[12px] font-bold" id="greeting" style="color:var(--ink-3)">오늘도 주님의 은혜 안에서 평안하시기를 바랍니다.</p>
-                    <p class="serif mt-4 text-[15px] font-bold leading-relaxed" style="color:var(--ink-2)">십자가로 완성하신 충분한 사랑과 은혜</p>
-                </div>
-
-                <div class="flex flex-wrap gap-2 md:justify-end">
-                    <span class="chip">주일 오전 <b>11:00</b></span>
-                    <span class="chip">주일 오후 <b>13:15</b></span>
-                    <span class="chip">수요 <b>19:00</b></span>
-                </div>
-            </div>
-
-            <div id="countdown-strip" class="cd-strip mt-9">
-                <span class="cd-dot" aria-hidden="true"></span>
-                <span class="label kicker" id="cd-label">다음 예배까지</span>
-                <span class="cd-num" id="cd-time">—</span>
-                <span class="cd-sub" id="cd-sub">예배 시간을 불러오는 중입니다.</span>
-            </div>
-            <div class="mt-9 flex flex-wrap gap-3">
-                <button onclick="openMannaModal()" class="btn-accent">
-                    <i class="fas fa-gift text-[12px]"></i>오늘의 만나
-                </button>
-                <button onclick="openBibleModal()" class="btn-line">
-                    <i class="fas fa-book-open text-[12px]"></i>1년 통독표
-                </button>
-                <a href="#play" class="btn-line">
-                    <i class="fas fa-wand-magic-sparkles text-[11px]"></i>말씀 놀이터
-                </a>
-                <a href="#services" class="btn-line">
-                    예배 순서 <i class="fas fa-arrow-down text-[11px]"></i>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- ================= TICKER ================= -->
-    <div class="ticker" aria-hidden="true">
-        <div class="ticker-track" id="ticker-track">
-            <span class="ticker-item"><i class="fas fa-cross"></i>오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라</span>
-            <span class="ticker-item"><i class="fas fa-church"></i>경기도 부천시 오정구 원종로36번길20</span>
-            <span class="ticker-item"><i class="fas fa-cross"></i>고린도전서 7:17</span>
-            <span class="ticker-item"><i class="fas fa-dove"></i>주일 오전 11:00 · 오후 13:15 · 수요 19:00</span>
-        </div>
+    <div class="meta-box">
+      <div class="meta-item">
+        <span class="meta-label">본문</span>
+        <span>이사야 62장 1절 ~ 12절 (개역개정)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">찬송</span>
+        <span>210장 (시온성과 같은 교회), 550장 (시온의 영광이 빛나는 아침)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">핵심</span>
+        <span>쉬지 않으시는 하나님 · 새 이름(헵시바와 쁄라) · 구원의 기치</span>
+      </div>
     </div>
 
-    <main class="mx-auto max-w-6xl px-5">
+    <a href="#opening-prayer" class="scroll-down">
+      <span>SCROLL DOWN</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+      </svg>
+    </a>
+  </header>
 
-        <!-- ================= 01 말씀 ================= -->
-        <section id="word" class="section reveal-on-scroll">
-            <div class="sec-head">
-                <span class="sec-num">01</span>
-                <h2 class="sec-title">이번 주 말씀</h2>
-                <span class="sec-line"></span>
-                <button onclick="openBibleModal()" class="btn-mini only-desktop">통독표 전체보기 <i class="fas fa-arrow-right text-[9px]"></i></button>
-            </div>
+  <main class="container">
 
-            <div class="grid gap-4 lg:grid-cols-12">
-                <!-- 말씀 카드 -->
-                <article class="surface p-7 md:p-10 lg:col-span-7">
-                    <div class="flex items-center gap-3">
-                        <span class="label kicker">Scripture</span>
-                        <span class="h-px flex-1" style="background:var(--line)"></span>
-                    </div>
-                    <p class="serif verse-lg mt-7">“오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라 내가 모든 교회에서 이와 같이 명하노라”</p>
-                    <div class="mt-8 flex items-center justify-between gap-4">
-                        <p class="text-[12.5px] font-black tracking-[0.18em] uppercase" style="color:var(--ink)">고린도전서 7:17</p>
-                        <button onclick="openMannaModal()" class="btn-mini">말씀 만나 긁기 <i class="fas fa-hand-pointer text-[9px]"></i></button>
-                    </div>
-                </article>
+    <!-- 1. 설교 전 시작 기도문 -->
+    <section id="opening-prayer" class="reveal">
+      <div class="section-header">
+        <span class="section-num">PART 01</span>
+        <h2 class="section-title">설교 전 시작 기도문</h2>
+      </div>
 
-                <!-- 은혜 온도 -->
-                <article class="surface p-7 md:p-8 lg:col-span-5 flex flex-col justify-between">
-                    <div class="flex items-start justify-between">
-                        <p class="label">Church Temperature</p>
-                        <i class="fas fa-temperature-half text-[13px]" style="color:var(--ink-4)"></i>
-                    </div>
-                    <div class="mt-8">
-                        <div class="temp-num" id="temp-num">0°</div>
-                        <div class="meter mt-7"><div id="grace-thermometer" class="meter-fill"></div></div>
-                        <div class="mt-3 flex items-center justify-between text-[10.5px] font-black tracking-wider" style="color:var(--ink-3)">
-                            <span>0°</span>
-                            <span>목표 100°</span>
-                        </div>
-                    </div>
-                    <p class="mt-8 text-[12px] font-bold leading-relaxed" style="color:var(--ink-3)">함께 모여 예배할수록 교회의 온도가 올라갑니다.</p>
-                </article>
-
-                <!-- 주간 통독 -->
-                <article class="surface p-6 md:p-8 lg:col-span-12">
-                    <div class="mb-5 flex items-center justify-between gap-4">
-                        <p class="label">이번 주 통독 · Daily Reading</p>
-                        <div class="flex items-center gap-2">
-                            <span class="chip" id="month-progress"><i class="fas fa-check-double text-[10px]"></i><span id="month-progress-text">이번 달 <b>0%</b></span></span>
-                            <button onclick="openBibleModal()" class="btn-mini only-mobile">전체보기</button>
-                        </div>
-                    </div>
-                    <div id="weekly-bible-grid" class="grid grid-cols-4 md:grid-cols-8 gap-2"></div>
-                </article>
-            </div>
-        </section>
-
-        <!-- ================= 02 예배 ================= -->
-        <section id="services" class="section reveal-on-scroll">
-            <div class="sec-head">
-                <span class="sec-num">02</span>
-                <h2 class="sec-title">예배 순서</h2>
-                <span class="sec-line"></span>
-            </div>
-
-            <div class="seg" role="tablist" aria-label="예배 선택">
-                <button class="seg-btn is-active" role="tab" aria-selected="true" onclick="switchService('svc-morning', this)">주일 오전<em>11:00</em></button>
-                <button class="seg-btn" role="tab" aria-selected="false" onclick="switchService('svc-afternoon', this)">주일 오후<em>13:15</em></button>
-                <button class="seg-btn" role="tab" aria-selected="false" onclick="switchService('svc-wed', this)">수요 예배<em>19:00</em></button>
-            </div>
-
-            <!-- 주일 오전 -->
-            <div id="svc-morning" class="panel surface">
-                <div id="stamp-morning" class="stamp">예배<br>참석</div>
-                <div class="panel-head">
-                    <div>
-                        <p class="label">Sunday Morning Worship</p>
-                        <h3 class="panel-title mt-2.5">주일 오전 예배</h3>
-                        <p class="panel-sub">집례 이성결 목사 · 오순절 후 스물두 번째 주일</p>
-                    </div>
-                    <button onclick="checkAttendance(this, 'morning')" class="btn-line shrink-0"><i class="fas fa-check text-[11px]"></i>출석 체크</button>
-                </div>
-                <div class="panel-body">
-                    <div class="tl"><span class="n">01</span><span class="k">오르겐 연주</span><span class="v">반주자</span></div>
-                    <div class="tl"><span class="n">02</span><span class="k">예배 선포</span><span class="v">집례자</span></div>
-                    <div class="tl"><span class="n">03</span><span class="k">*찬송<small>9장</small></span><span class="v">다같이</span></div>
-                    <div class="tl"><span class="n">04</span><span class="k">*통성 기도<small>주님여 이 손을</small></span><span class="v">다같이</span></div>
-                    <div class="tl"><span class="n">05</span><span class="k">*성시 교독<small>81번</small></span><span class="v">집례자와 회중</span></div>
-                    <div class="tl"><span class="n">06</span><span class="k">*신앙 고백<small>사도신경</small></span><span class="v">다같이</span></div>
-                    <div class="tl"><span class="n">07</span><span class="k">찬송<small>165장</small></span><span class="v">다같이</span></div>
-                    <div class="tl"><span class="n">08</span><span class="k">대표 기도</span><span class="v">김성래 안수집사</span></div>
-                    <div class="tl">
-                        <span class="n">09</span>
-                        <span class="k">성경 봉독
-                            <small>에베소서 2:12-14, 19-22</small>
-                            <button onclick="openScriptureModal()" class="btn-mini"><i class="fas fa-book-open text-[9px]"></i>본문 읽기</button>
-                        </span>
-                        <span class="v">이성결 목사</span>
-                    </div>
-                    <div class="tl"><span class="n">10</span><span class="k">찬양</span><span class="v">찬양대</span></div>
-
-                    <div class="poster">
-                        <p class="label">Sermon</p>
-                        <h4 class="poster-title serif">“십자가로 충분한 은혜”</h4>
-                        <p class="poster-by">이성결 목사</p>
-                    </div>
-
-                    <div class="tl"><span class="n">11</span><span class="k">찬송<small>304장</small></span><span class="v">다같이</span></div>
-                    <div class="tl"><span class="n">12</span><span class="k">봉헌 기도</span><span class="v">이성결 목사</span></div>
-                    <div class="tl"><span class="n">13</span><span class="k">교회 소식</span><span class="v">집례자</span></div>
-                    <div class="tl"><span class="n">14</span><span class="k">새신자 소개</span><span class="v">집례자</span></div>
-                    <div class="tl"><span class="n">15</span><span class="k">*송영<small>좋으신 하나님</small></span><span class="v">다같이</span></div>
-                    <div class="tl"><span class="n">16</span><span class="k">*축도</span><span class="v">이성결 목사</span></div>
-                </div>
-                <p class="panel-foot">*는 일어서서, 불편하신 성도님들은 앉으셔서 예배를 드립니다.</p>
-            </div>
-
-            <!-- 주일 오후 -->
-            <div id="svc-afternoon" class="panel surface hidden">
-                <div id="stamp-afternoon" class="stamp">예배<br>참석</div>
-                <div class="panel-head">
-                    <div>
-                        <p class="label">Sunday Afternoon Worship</p>
-                        <h3 class="panel-title mt-2.5">주일 오후 예배</h3>
-                        <p class="panel-sub">사회 이성결 목사</p>
-                    </div>
-                    <button onclick="checkAttendance(this, 'afternoon')" class="btn-line shrink-0"><i class="fas fa-check text-[11px]"></i>출석 체크</button>
-                </div>
-                <div class="panel-body">
-                    <div class="tl"><span class="n">01</span><span class="k">찬양 인도</span><span class="v">찬양단</span></div>
-                    <div class="tl"><span class="n">02</span><span class="k">기도 인도</span><span class="v">이서영 집사</span></div>
-                    <div class="tl">
-                        <span class="n">03</span>
-                        <span class="k">성경 봉독
-                            <small>요한복음 15:1-8</small>
-                            <button onclick="openAfternoonScriptureModal()" class="btn-mini"><i class="fas fa-book-open text-[9px]"></i>본문 읽기</button>
-                        </span>
-                        <span class="v">사회자</span>
-                    </div>
-                    <div class="tl"><span class="n">04</span><span class="k">특송</span><span class="v">자원자</span></div>
-
-                    <div class="poster">
-                        <p class="label">Sermon</p>
-                        <h4 class="poster-title serif">“주님은 포도나무 나는 가지입니다”</h4>
-                        <p class="poster-by">이성결 목사</p>
-                    </div>
-
-                    <div class="tl"><span class="n">05</span><span class="k">교회 소식</span><span class="v">사회자</span></div>
-                    <div class="tl"><span class="n">06</span><span class="k">축도</span><span class="v">이성결 목사</span></div>
-                </div>
-            </div>
-
-            <!-- 수요 예배 -->
-            <div id="svc-wed" class="panel surface hidden">
-                <div id="stamp-wednesday" class="stamp">예배<br>참석</div>
-                <div class="panel-head">
-                    <div>
-                        <p class="label">Wednesday Bible Study</p>
-                        <h3 class="panel-title mt-2.5">수요 성서강해</h3>
-                        <p class="panel-sub">사회 이성결 목사</p>
-                    </div>
-                    <button onclick="checkAttendance(this, 'wednesday')" class="btn-line shrink-0"><i class="fas fa-check text-[11px]"></i>출석 체크</button>
-                </div>
-                <div class="panel-body">
-                    <div class="tl"><span class="n">01</span><span class="k">찬양</span><span class="v">다같이</span></div>
-                    <div class="tl"><span class="n">02</span><span class="k">기도</span><span class="v">변지민 권사</span></div>
-
-                    <div class="poster">
-                        <p class="label">Sermon</p>
-                        <h4 class="poster-title serif">“수요 예배 설교”</h4>
-                        <p class="poster-by">이성결 목사</p>
-                    </div>
-
-                    <div class="tl"><span class="n">03</span><span class="k">주기도문</span><span class="v">다같이</span></div>
-                </div>
-                <p class="panel-foot">주기도문으로 예배를 마칩니다.</p>
-            </div>
-        </section>
-
-        <!-- ================= 03 말씀 놀이터 ================= -->
-        <section id="play" class="section reveal-on-scroll">
-            <div class="sec-head">
-                <span class="sec-num">03</span>
-                <h2 class="sec-title">말씀 놀이터</h2>
-                <span class="sec-line"></span>
-                <span class="hidden sm:block text-[10.5px] font-black tracking-widest uppercase" style="color:var(--ink-3)">말씀으로 쉬어가기</span>
-            </div>
-
-            <div class="grid gap-4 lg:grid-cols-12">
-                <!-- 오늘의 말씀 카드 -->
-                <article class="surface p-7 lg:col-span-5 flex flex-col">
-                    <div class="flex items-center justify-between">
-                        <p class="label kicker">오늘의 말씀 카드</p>
-                        <i class="fas fa-image text-[13px]" style="color:var(--accent)"></i>
-                    </div>
-                    <div class="vcard mt-5">
-                        <p class="vswap serif" id="verse-text">“말씀을 뽑아보세요”</p>
-                        <p class="mt-4 text-[11px] font-black tracking-[0.18em] uppercase" id="verse-ref" style="color:var(--accent-2)"></p>
-                    </div>
-                    <div class="mt-5 flex flex-wrap gap-2">
-                        <button onclick="drawVerse()" class="btn-accent"><i class="fas fa-wand-magic-sparkles text-[11px]"></i>말씀 뽑기</button>
-                        <button onclick="saveVerseCard()" class="btn-line"><i class="fas fa-download text-[11px]"></i>이미지 저장</button>
-                        <button onclick="copyVerse()" class="btn-line"><i class="fas fa-copy text-[11px]"></i>복사</button>
-                    </div>
-                    <p id="verse-status" class="mt-4 text-[11.5px] font-bold" style="color:var(--ink-3)">버튼을 눌러 오늘의 말씀을 뽑아보세요.</p>
-                </article>
-
-                <!-- 기억절 빈칸 채우기 -->
-                <article class="surface p-7 lg:col-span-7">
-                    <div class="flex items-center justify-between gap-4">
-                        <p class="label kicker-2">기억절 빈칸 채우기 · 고린도전서 7:17</p>
-                        <span class="chip" id="quiz-score">0 / 4</span>
-                    </div>
-                    <p id="quiz-verse" class="mt-6 text-[14.5px] font-bold leading-loose" style="color:var(--ink)"></p>
-                    <div id="quiz-words" class="mt-5 flex flex-wrap gap-2"></div>
-                    <div class="mt-6 flex flex-wrap gap-2">
-                        <button onclick="checkQuiz()" class="btn-ink"><i class="fas fa-check text-[11px]"></i>정답 확인</button>
-                        <button onclick="initQuiz()" class="btn-line"><i class="fas fa-rotate-right text-[11px]"></i>다시 섞기</button>
-                    </div>
-                    <p id="quiz-status" class="mt-4 text-[11.5px] font-bold" style="color:var(--ink-3)"></p>
-                </article>
-
-                <!-- 3분 기도 타이머 -->
-                <article class="surface p-7 lg:col-span-12">
-                    <div class="grid gap-8 md:grid-cols-12 md:items-center">
-                        <div class="md:col-span-5">
-                            <div class="ring-wrap">
-                                <svg class="ring-svg" viewBox="0 0 200 200" aria-hidden="true">
-                                    <circle class="ring-bg" cx="100" cy="100" r="84"></circle>
-                                    <circle class="ring-fg" id="prayer-ring" cx="100" cy="100" r="84" transform="rotate(-90 100 100)"></circle>
-                                </svg>
-                                <div class="ring-center">
-                                    <div class="ring-time" id="prayer-time">3:00</div>
-                                    <p class="label">Prayer</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:col-span-7">
-                            <p class="label kicker-3">3분 기도 타이머</p>
-                            <h4 class="mt-3 text-[17px] font-black tracking-tight" style="color:var(--ink)">잠시 멈추고 주님께 마음을 여세요</h4>
-                            <p class="mt-3 text-[12.5px] font-bold leading-relaxed" style="color:var(--ink-3)">기도 시간을 고르고 시작을 누르면 남은 시간이 링 위에 표시됩니다. 끝나면 조용한 종소리와 함께 기록이 저장됩니다.</p>
-                            <div id="prayer-presets" class="mt-6 flex flex-wrap gap-2">
-                                <button class="btn-mini" data-sec="60" onclick="setPrayerDuration(60)">1분</button>
-                                <button class="btn-mini" data-sec="180" onclick="setPrayerDuration(180)">3분</button>
-                                <button class="btn-mini" data-sec="300" onclick="setPrayerDuration(300)">5분</button>
-                            </div>
-                            <div class="mt-3 flex flex-wrap gap-2">
-                                <button id="prayer-toggle" onclick="togglePrayer()" class="btn-accent"><i class="fas fa-play text-[11px]"></i>시작</button>
-                                <button onclick="resetPrayer()" class="btn-line"><i class="fas fa-rotate-left text-[11px]"></i>되돌리기</button>
-                            </div>
-                            <p id="prayer-status" class="mt-4 text-[11.5px] font-bold" style="color:var(--ink-3)">1분 · 3분 · 5분 중에서 선택해 보세요.</p>
-                            <p id="prayer-streak" class="mt-1 text-[11.5px] font-black" style="color:var(--accent)"></p>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section>
-        <!-- ================= 04 소식 ================= -->
-        <section id="news" class="section reveal-on-scroll">
-            <div class="sec-head">
-                <span class="sec-num">04</span>
-                <h2 class="sec-title">교회 소식</h2>
-                <span class="sec-line"></span>
-            </div>
-
-            <div class="grid gap-4 lg:grid-cols-12">
-                <!-- 주요 모임 -->
-                <article class="surface surface-hover tint-amber p-7 lg:col-span-5 flex flex-col justify-between">
-                    <div class="flex items-start justify-between">
-                        <p class="label kicker-2">모임 안내</p>
-                        <span class="chip chip-accent"><i class="fas fa-bullhorn text-[10px]"></i>오늘</span>
-                    </div>
-                    <h4 class="mt-6 text-[19px] font-black tracking-tight" style="color:var(--ink)">기관장 회의</h4>
-                    <p class="mt-3 text-[13.5px] font-semibold leading-relaxed" style="color:var(--ink-2)">
-                        오늘 오후 예배 후, 기관장 회의가 있습니다.<br>모든 기관장님들의 참석을 바랍니다.
-                    </p>
-                </article>
-
-                <!-- 교역자 일정 -->
-                <article class="surface p-7 lg:col-span-7">
-                    <div class="flex items-center justify-between">
-                        <p class="label kicker-2">Pastoral Schedule</p>
-                        <i class="fas fa-calendar-check text-[13px]" style="color:var(--accent-2)"></i>
-                    </div>
-                    <h4 class="mt-5 text-[17px] font-black tracking-tight" style="color:var(--ink)">교역자 주간 일정</h4>
-                    <div class="mt-4">
-                        <div class="sched-item">
-                            <i class="fas fa-circle text-[5px] mt-2.5"></i>
-                            <p><strong>담임목사</strong> · 10월 12-13일 부천지방회 교역자 수련회 참석</p>
-                        </div>
-                        <div class="sched-item">
-                            <i class="fas fa-circle text-[5px] mt-2.5"></i>
-                            <p><strong>원로목사님 사모님</strong> · 10월 14일(수) 장흥성결교회 예배 인도 <span style="color:var(--ink-3)">(기도 부탁드립니다)</span></p>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 일반 소식 -->
-                <article class="surface p-7 lg:col-span-7">
-                    <p class="label">알림</p>
-                    <div class="mt-4">
-                        <div class="news-item">
-                            <span class="num">1</span>
-                            <p>예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p>
-                        </div>
-                        <div class="news-item">
-                            <span class="num">2</span>
-                            <p>수요예배에 적극적인 참여를 부탁 드립니다.</p>
-                        </div>
-                        <div class="news-item">
-                            <span class="num">3</span>
-                            <p>10월 예배위원들은 기도로 준비하시기 바랍니다.</p>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 새신자 환영 -->
-                <article class="surface tint-olive p-7 lg:col-span-5 flex flex-col justify-between">
-                    <div class="flex items-center justify-between">
-                        <p class="label kicker-3">새신자 환영</p>
-                        <i class="fas fa-handshake text-[13px]" style="color:var(--accent-3)"></i>
-                    </div>
-                    <p class="names mt-6">정순자<span>|</span>조향지<span>|</span>김병기<span>|</span>김기혜</p>
-                    <p class="mt-5 text-[11.5px] font-bold tracking-wider" style="color:var(--ink-3)">주님의 이름으로 환영합니다!</p>
-                </article>
-
-                <!-- 환우 기도 -->
-                <article class="surface tint-clay p-7 lg:col-span-12">
-                    <div class="flex items-center justify-between">
-                        <p class="label kicker">환우를 위한 기도</p>
-                        <i class="fas fa-hands-praying text-[13px]" style="color:var(--accent)"></i>
-                    </div>
-                    <p class="names mt-6">임선우 어린이<span>|</span>한용희 권사님<span>|</span>박성심 권사님</p>
-                    <p class="mt-5 text-[11.5px] font-bold tracking-wider" style="color:var(--ink-3)">위하여 함께 기도해 주시기 바랍니다.</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- ================= 05 갤러리 ================= -->
-        <section id="gallery" class="section reveal-on-scroll">
-            <div class="sec-head">
-                <span class="sec-num">05</span>
-                <h2 class="sec-title">은혜의 순간</h2>
-                <span class="sec-line"></span>
-                <span class="hidden sm:block text-[10.5px] font-black tracking-widest uppercase" style="color:var(--ink-3)">좌우로 넘겨보세요</span>
-            </div>
-
-            <div class="gallery">
-                <figure class="gcard">
-                    <div class="ph">
-                        <img src="https://ikyullee-byte.github.io/TEST01/retreat2026.jpg" alt="청년부 리트릿" loading="lazy" decoding="async" onclick="openImage(this)" onerror="this.src='https://via.placeholder.com/800x600/F1F5F9/64748B?text=Youth+Retreat'">
-                    </div>
-                    <figcaption class="gcap">은혜와 비전 가득했던 청년부 리트릿 ⛺</figcaption>
-                </figure>
-
-                <figure class="gcard">
-                    <div class="ph">
-                        <img src="https://ikyullee-byte.github.io/TEST01/summer2026.jpg" alt="여름성경학교" loading="lazy" decoding="async" onclick="openImage(this)" onerror="this.src='https://via.placeholder.com/800x600/F1F5F9/64748B?text=Photo+Upload+Here'">
-                    </div>
-                    <figcaption class="gcap">은혜 충만했던 주일학교 여름성경학교 ☀️</figcaption>
-                </figure>
-
-                <figure class="gcard">
-                    <div class="ph">
-                        <img src="https://ikyullee-byte.github.io/TEST01/choir2026.jpg" alt="성가대 모임" loading="lazy" decoding="async" onclick="openImage(this)" onerror="this.src='https://via.placeholder.com/800x600/F1F5F9/64748B?text=Photo+Upload+Here'">
-                    </div>
-                    <figcaption class="gcap">아름다운 찬양의 교제, 성가대 모임 🎶</figcaption>
-                </figure>
-
-                <figure class="gcard">
-                    <div class="ph">
-                        <img src="https://ikyullee-byte.github.io/TEST01/hyodo2026.jpg" alt="효도관광" loading="lazy" decoding="async" onclick="openImage(this)" onerror="this.src='https://via.placeholder.com/800x600/F1F5F9/64748B?text=Photo+Upload+Here'">
-                    </div>
-                    <figcaption class="gcap">은혜로운 효도관광 다녀왔습니다 🌸</figcaption>
-                </figure>
-
-                <figure class="gcard">
-                    <div class="ph">
-                        <img src="https://ikyullee-byte.github.io/TEST01/outdoor2026.jpg" alt="야외예배" loading="lazy" decoding="async" onclick="openImage(this)" onerror="this.src='https://via.placeholder.com/800x600/F1F5F9/64748B?text=Photo+Upload+Here'">
-                    </div>
-                    <figcaption class="gcap">기쁨 넘쳤던 전교회 야외예배 🌳</figcaption>
-                </figure>
-            </div>
-        </section>
-
-        <!-- ================= 06 안내 ================= -->
-        <section id="guide" class="section reveal-on-scroll">
-            <div class="sec-head">
-                <span class="sec-num">06</span>
-                <h2 class="sec-title">안내</h2>
-                <span class="sec-line"></span>
-            </div>
-
-            <div class="grid gap-4 lg:grid-cols-12">
-                <div class="lg:col-span-8 space-y-3">
-                    <a href="#" class="link-row">
-                        <span class="idx">01</span>
-                        <h4>교회 소개</h4>
-                        <i class="fas fa-arrow-right text-[12px]" style="color:var(--ink-4)"></i>
-                    </a>
-                    <a href="https://ikyullee-byte.github.io/wjnotice/" target="_blank" rel="noopener" class="link-row">
-                        <span class="idx">02</span>
-                        <h4>40주년 역사관</h4>
-                        <i class="fas fa-arrow-up-right-from-square text-[12px]" style="color:var(--ink-4)"></i>
-                    </a>
-                    <a href="https://ikyullee-byte.github.io/worship/" target="_blank" rel="noopener" class="link-row">
-                        <span class="idx">03</span>
-                        <h4>찬양단 아카이브</h4>
-                        <i class="fas fa-arrow-up-right-from-square text-[12px]" style="color:var(--ink-4)"></i>
-                    </a>
-                </div>
-
-                <article class="surface p-7 lg:col-span-4 flex flex-col justify-between">
-                    <div>
-                        <p class="label kicker">Online Offering</p>
-                        <h4 class="mt-4 text-[17px] font-black tracking-tight" style="color:var(--ink)">온라인 헌금 안내</h4>
-                        <p class="mt-3 text-[12.5px] font-bold leading-relaxed" style="color:var(--ink-3)">농협 · 원종제일교회</p>
-                        <p class="mt-5 font-mono text-[19px] font-black tracking-tight" style="color:var(--ink)">302-1765-3728-91</p>
-                    </div>
-                    <button onclick="openGiveModal()" class="btn-accent mt-8 w-full">
-                        <i class="fas fa-hand-holding-heart text-[12px]"></i>헌금 안내 보기
-                    </button>
-                </article>
-            </div>
-        </section>
-
-        <!-- ================= FOOTER ================= -->
-        <footer class="mt-20 hair-top pt-14 pb-40">
-            <p class="foot-mark" aria-hidden="true">WONJONG FIRST</p>
-            <div class="mt-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-                <div>
-                    <p class="text-[13px] font-black tracking-tight" style="color:var(--ink)">원종제일교회</p>
-                    <p class="mt-2 text-[12px] font-semibold" style="color:var(--ink-3)">경기도 부천시 오정구 원종로36번길20</p>
-                    <p class="mt-1 text-[12px] font-semibold" style="color:var(--ink-3)">주일 오전 11:00 · 오후 13:15 · 수요 19:00</p>
-                </div>
-                <div class="flex items-center gap-4">
-                    <a href="#top" class="btn-mini">맨 위로 <i class="fas fa-arrow-up text-[9px]"></i></a>
-                    <span class="text-[10.5px] font-black tracking-widest uppercase" style="color:var(--ink-4)">© 2026. All rights reserved.</span>
-                </div>
-            </div>
-        </footer>
-    </main>
-
-    <!-- ================= DOCK ================= -->
-    <div class="dock">
-        <button onclick="openBibleModal()" class="dock-btn" aria-label="1년 통독표">
-            <i class="fas fa-book-open"></i>통독표
-        </button>
-        <button onclick="openMannaModal()" class="dock-main" aria-label="오늘의 만나">
-            <i class="fas fa-gift"></i>
-        </button>
-        <button onclick="openGiveModal()" class="dock-btn" aria-label="온라인 헌금">
-            <i class="fas fa-won-sign"></i>온라인 헌금
-        </button>
-    </div>
-
-    <!-- ================= MODALS ================= -->
-    <!-- 오전 본문 (에베소서 2:12-14, 19-22) -->
-    <div id="scriptureModal" class="modal" onclick="closeScriptureModal()">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <div class="grabber"></div>
-            <div class="sheet-head">
-                <div>
-                    <p class="label">Scripture</p>
-                    <h3 class="sheet-title mt-2">에베소서 2장</h3>
-                </div>
-                <button class="icon-btn" onclick="closeScriptureModal()" aria-label="닫기"><i class="fas fa-xmark text-[13px]"></i></button>
-            </div>
-            <div class="sheet-body scripture">
-                <p><sup>12</sup>그 때에 너희는 그리스도 밖에 있었고 이스라엘 나라 밖의 사람이라 약속의 언약들에 대하여는 외인이요 세상에서 소망이 없고 하나님도 없는 자이더니</p>
-                <p><sup>13</sup>이제는 전에 멀리 있던 너희가 그리스도 예수 안에서 그리스도의 피로 가까워졌느니라</p>
-                <p><sup>14</sup>그는 우리의 화평이신지라 둘로 하나를 만드사 원수 된 것 곧 중간에 막힌 담을 자기 육체로 허시고</p>
-                <div class="divider-dash"></div>
-                <p><sup>19</sup>그러므로 이제부터 너희는 외인도 아니요 나그네도 아니요 오직 성도들과 동일한 시민이요 하나님의 권속이라</p>
-                <p><sup>20</sup>너희는 사도들과 선지자들의 터 위에 세우심을 입은 자라 그리스도 예수께서 친히 모퉁잇돌이 되셨느니라</p>
-                <p><sup>21</sup>그의 안에서 건물마다 서로 연결하여 주 안에서 성전이 되어 가고</p>
-                <p><sup>22</sup>너희도 성령 안에서 하나님이 거하실 처소가 되기 위하여 그리스도 예수 안에서 함께 지어져 가느니라</p>
-            </div>
-            <div class="sheet-foot">
-                <button onclick="closeScriptureModal()" class="btn-ink w-full">아멘, 닫기</button>
-            </div>
+      <div class="card prayer-card">
+        <div class="prayer-text">
+          <p>시온을 위하여 잠시도 쉬지 아니하시며 예루살렘을 위하여 잠잠하지 아니하시는 열심과 사랑의 하나님 아버지. 2026년 10월 16일 금요일, 어둠을 헤치고 이 거룩한 새벽의 제단으로 우리의 발걸음을 인도하여 주심에 감사를 드립니다. 한 주간의 삶을 마무리해 가는 이 금요일 아침, 세상의 거친 풍파와 분주함 속에서 고단해진 우리의 영혼을 주님의 따스한 품에 안아 주시고, 하늘의 영원한 생수로 채워 주시옵소서. 이 아침, 하늘 문을 활짝 여시고 주의 영으로 이 자리에 충만히 임하여 주시옵소서.</p>
+          <p>사랑의 주님, 지난 하루의 삶을 되돌아봅니다. 우리는 여전히 세상의 눈으로 자신을 바라보며 스스로를 황무지와 같다고 낙심했고, 사람들의 평가에 흔들려 '버림받은 자'처럼 외로워하고 근심했던 불신앙을 고백합니다. 내 안에 거하시는 주님의 가치와 사랑을 잊은 채, 내 힘으로 무언가를 이루려 애쓰다 지쳐 버린 우리의 연약함을 불쌍히 여겨 주시옵소서. 이 시간 십자가의 보혈로 우리의 모든 죄와 허물을 깨끗이 씻어 주시고, 성령의 정결한 기름으로 우리의 영혼을 다시 새롭게 세워 주시옵소서.</p>
+          <p>오늘 이사야 62장의 말씀을 통하여, 버려진 것 같던 우리 인생을 향해 '헵시바(나의 기쁨이 그에게 있다)'라 부르시고, 황폐했던 우리의 삶을 '쁄라(결혼한 여인)'라 칭하시는 하나님의 위대한 사랑과 반전의 역사를 묵상합니다. 신랑이 신부를 맞아 기뻐함 같이 우리를 기뻐하시는 주님의 음성이, 오늘 이 새벽 기도의 자리에 참여한 모든 성도들의 심령 깊은 곳에 울려 퍼지게 하옵소서.</p>
+          <p>단 위에 세우신 종을 온전히 성령으로 사로잡으사 하나님의 마음과 권능의 말씀만을 온전히 대언하게 하시고, 이 말씀을 듣는 모든 성도가 영적 자신감을 회복하여 담대히 거룩한 기도의 파수꾼으로 일어서게 하옵소서. 감사를 드리며 우리를 구원하신 주 예수 그리스도의 이름으로 간절히 기도드리옵나이다. 아멘.</p>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- 오후 본문 (요한복음 15:1-8) -->
-    <div id="afternoonScriptureModal" class="modal" onclick="closeAfternoonScriptureModal()">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <div class="grabber"></div>
-            <div class="sheet-head">
-                <div>
-                    <p class="label">Scripture</p>
-                    <h3 class="sheet-title mt-2">요한복음 15:1-8</h3>
-                </div>
-                <button class="icon-btn" onclick="closeAfternoonScriptureModal()" aria-label="닫기"><i class="fas fa-xmark text-[13px]"></i></button>
-            </div>
-            <div class="sheet-body scripture">
-                <p><sup>1</sup>나는 참포도나무요 내 아버지는 농부라</p>
-                <p><sup>2</sup>무릇 내게 붙어 있어 열매를 맺지 아니하는 가지는 아버지께서 그것을 제거해 버리시고 무릇 열매를 맺는 가지는 더 열매를 맺게 하려 하여 그것을 깨끗하게 하시느니라</p>
-                <p><sup>3</sup>너희는 내가 일러준 말로 이미 깨끗하여졌으니</p>
-                <p><sup>4</sup>내 안에 거하라 나도 너희 안에 거하리라 가지가 포도나무에 붙어 있지 아니하면 스스로 열매를 맺을 수 없음 같이 너희도 내 안에 있지 아니하면 그러하리라</p>
-                <p><sup>5</sup>나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라</p>
-                <p><sup>6</sup>사람이 내 안에 거하지 아니하면 가지처럼 밖에 버려져 마르나니 사람들이 그것을 모아다가 불에 던져 사르느니라</p>
-                <p><sup>7</sup>너희가 내 안에 거하고 내 말이 너희 안에 거하면 무엇이든지 원하는 대로 구하라 그리하면 이루리라</p>
-                <p><sup>8</sup>너희가 열매를 많이 맺으면 내 아버지께서 영광을 받으실 것이요 너희는 내 제자가 되리라</p>
-            </div>
-            <div class="sheet-foot">
-                <button onclick="closeAfternoonScriptureModal()" class="btn-ink w-full">아멘, 닫기</button>
-            </div>
+    <!-- 2. 성경 본문 -->
+    <section id="scripture" class="reveal">
+      <div class="section-header">
+        <span class="section-num">PART 02</span>
+        <h2 class="section-title">성경 본문 : 이사야 62:1-12</h2>
+      </div>
+
+      <div class="card">
+        <div class="scripture-box">
+          <div class="verse highlight-verse">
+            <span class="verse-num">1</span>
+            <span class="verse-text">나는 시온의 의가 빛 같이, 예루살렘의 구원이 횃불 같이 나타나도록 시온을 위하여 잠잠하지 아니하며 예루살렘을 위하여 쉬지 아니할 것인즉</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">2</span>
+            <span class="verse-text">이방 나라들이 네 공의를, 뭇 왕이 다 네 영광을 볼 것이요 너는 여호와의 입으로 정하실 새 이름으로 일컬음이 될 것이며</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">3</span>
+            <span class="verse-text">너는 또 여호와의 손의 아름다운 관, 네 하나님의 손의 왕관이 될 것이라</span>
+          </div>
+          <div class="verse highlight-verse">
+            <span class="verse-num">4</span>
+            <span class="verse-text">다시는 너를 버림 받은 자라 부르지 아니하며 다시는 네 땅을 황무지라 부르지 아니하고 오직 너를 헵시바라 하며 네 땅을 쁄라라 하리니 이는 여호와께서 너를 기뻐하실 것이며 네 땅이 결혼한 것처럼 될 것임이라</span>
+          </div>
+          <div class="verse highlight-verse">
+            <span class="verse-num">5</span>
+            <span class="verse-text">마치 청년이 처녀와 결혼함 같이 네 아들들이 너를 취하겠고 신랑이 신부를 기뻐함 같이 네 하나님이 너를 기뻐하시리라</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">6</span>
+            <span class="verse-text">예루살렘이여 내가 너의 성벽 위에 파수꾼을 세우고 그들로 하여금 주야로 계속 잠잠하지 않게 하였느니라 너희 여호와로 기억하시게 하는 자들아 너희는 쉬지 말며</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">7</span>
+            <span class="verse-text">또 여호와께서 예루살렘을 세워 세상에서 찬송을 받게 하시기까지 그로 쉬지 못하시게 하라</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">8</span>
+            <span class="verse-text">여호와께서 그 오른손, 그 능력의 팔로 맹세하시되 내가 다시는 네 곡식을 네 원수들에게 양식으로 주지 아니하겠고 네가 수고하여 얻은 포도주를 이방인이 마시지 못하게 할 것인즉</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">9</span>
+            <span class="verse-text">오직 추수한 자가 그것을 먹고 나 여호와를 찬송할 것이요 거둔 자가 그것을 나의 성소 뜰에서 마시리라 하셨느니라</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">10</span>
+            <span class="verse-text">성문으로 나아가라 나아가라 백성이 올 길을 닦으라 큰 길을 수축하고 수축하라 돌을 제하라 만민을 위하여 기치를 들라</span>
+          </div>
+          <div class="verse">
+            <span class="verse-num">11</span>
+            <span class="verse-text">여호와께서 땅 끝까지 선포하시되 너희는 딸 시온에게 이르라 보라 네 구원이 이르렀느니라 보라 상급이 그에게 있고 보응이 그 앞에 있느니라 하셨느니라</span>
+          </div>
+          <div class="verse highlight-verse">
+            <span class="verse-num">12</span>
+            <span class="verse-text">사람들이 너를 일컬어 거룩한 백성이라 여호와께서 구속하신 자라 하겠고 또 너를 일컬어 찾은 바 된 자요 버림 받지 아니한 성읍이라 하리라</span>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- 1년 통독표 -->
-    <div id="bibleModal" class="modal" onclick="closeBibleModal()">
-        <div class="sheet sheet-wide" onclick="event.stopPropagation()">
-            <div class="grabber"></div>
-            <div class="sheet-head">
-                <div>
-                    <p class="label">Bible Reading Plan</p>
-                    <h3 class="sheet-title mt-2">1년 1독 전체 일정표</h3>
-                </div>
-                <button class="icon-btn" onclick="closeBibleModal()" aria-label="닫기"><i class="fas fa-xmark text-[13px]"></i></button>
-            </div>
-            <div class="px-6 pt-5">
-                <div class="rounded-[18px] border p-5" style="border-color:var(--line); background:var(--soft)">
-                    <div class="flex items-start justify-between gap-4">
-                        <div>
-                            <p class="label">이번 달 통독 진행</p>
-                            <p class="mt-2 text-[13.5px] font-black" style="color:var(--ink)"><span id="read-percent">0%</span> · <span id="read-count">0 / 0</span>일</p>
-                        </div>
-                        <span class="chip" id="read-badge"><i class="fas fa-seedling text-[10px]"></i>새싹</span>
-                    </div>
-                    <div class="read-bar mt-4"><div class="read-fill" id="read-fill"></div></div>
-                    <p id="read-note" class="mt-3 text-[11.5px] font-bold" style="color:var(--ink-3)">표에서 읽은 날짜를 눌러 체크해 보세요. 자동으로 저장됩니다.</p>
-                    <div class="mt-3 flex flex-wrap gap-2">
-                        <button onclick="checkTodayReading()" class="btn-mini">오늘 통독 체크</button>
-                        <button onclick="resetReading()" class="btn-mini">기록 초기화</button>
-                    </div>
-                </div>
-            </div>
-            <div class="sheet-body pt-4">
-                <div class="bible-scroll">
-                    <table class="btable">
-                        <thead id="bible-head"></thead>
-                        <tbody id="bible-full-body"></tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="sheet-foot">
-                <button onclick="closeBibleModal()" class="btn-line w-full">닫기</button>
-            </div>
+    <!-- 3. 설교 말씀 -->
+    <section id="sermon">
+      <div class="section-header reveal">
+        <span class="section-num">PART 03</span>
+        <h2 class="section-title">설교 말씀</h2>
+      </div>
+
+      <!-- 서론 -->
+      <div class="sermon-intro reveal">
+        <p class="sermon-p">사랑하는 성도 여러분, 한 주간의 모든 수고와 삶의 짐을 주님 앞에 내려놓고 나아온 복된 금요일 새벽입니다. 오늘도 어두운 새벽길을 걸어 이 거룩한 기도의 자리에 나오신 성도님들의 심령 위에, 우리를 향하여 한순간도 잠잠하지 않으시는 하나님의 뜨거운 사랑이 가득 차기를 주님의 이름으로 축원합니다.</p>
+        <p class="sermon-p">어제 이사야 61장에서 우리는 성령의 기름 부으심으로 오신 메시아와, 슬픔이 기쁨으로 바뀌는 희년의 은혜를 함께 묵상했습니다. 그리고 61장은 이렇게 마무리되었습니다.</p>
+        <div class="quote-box">
+          "내가 여호와로 말미암아 크게 기뻐하며 내 영혼이 나의 하나님으로 말미암아 즐거워하리니 이는 그가 구원의 옷을 내게 입히시며 공의의 겉옷을 내게 더하심이 신랑이 사모를 쓰며 신부가 자기 보석으로 단장함 같게 하셨음이라" (사 61:10)
         </div>
-    </div>
+        <p class="sermon-p" style="margin-bottom:0;">구원의 옷을 입고 신부처럼 단장한 백성의 모습으로 61장은 끝이 났습니다. 오늘 이어지는 이사야 62장은 바로 그 신부를 향한 신랑 하나님의 사랑이 터져 나오는 장입니다. 하나님은 여기서 당신의 백성에게 <strong>세 가지 은혜</strong>를 선포하십니다.</p>
+      </div>
 
-    <!-- 오늘의 만나 (스크래치) -->
-    <div id="mannaModal" class="modal" onclick="closeMannaModal()">
-        <div class="sheet" style="max-width:26rem" onclick="event.stopPropagation()">
-            <div class="grabber"></div>
-            <div class="scratch-wrap p-10 pt-6 text-center">
-                <div class="manna-icon"><i class="fas fa-seedling"></i></div>
-                <p class="label">Today's Manna</p>
-                <p id="manna-text" class="serif mt-6 text-[16px] font-bold leading-relaxed" style="color:var(--ink)">“말씀을 긁어보세요!”</p>
-                <p id="manna-ref" class="mt-6 text-[12px] font-black tracking-[0.15em] uppercase opacity-0 transition-opacity duration-1000" style="color:var(--ink-3)">-</p>
-                <button onclick="closeMannaModal()" class="btn-line mt-8 w-full">아멘, 닫기</button>
-                <canvas id="scratch-canvas"></canvas>
-            </div>
+      <!-- 대지 1 -->
+      <div class="card reveal">
+        <span class="point-badge">첫째 은혜</span>
+        <h3 class="point-title">1. 하나님은 우리를 위해 결코 쉬지 않으십니다 (1절, 6-7절)</h3>
+        <div class="quote-box">
+          "나는 시온의 의가 빛 같이, 예루살렘의 구원이 횃불 같이 나타나도록 시온을 위하여 잠잠하지 아니하며 예루살렘을 위하여 쉬지 아니할 것인즉" (1절)
         </div>
-    </div>
-
-    <!-- 온라인 헌금 -->
-    <div id="giveModal" class="modal" onclick="closeGiveModal()">
-        <div class="sheet" style="max-width:24rem" onclick="event.stopPropagation()">
-            <div class="grabber"></div>
-            <div class="p-9 text-center">
-                <div class="manna-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                <p class="label kicker">Online Offering</p>
-                <h3 class="sheet-title mt-3">온라인 헌금 안내</h3>
-
-                <div class="mt-8 rounded-[20px] border p-7" style="border-color:var(--line); background:var(--soft)">
-                    <p class="font-mono text-[21px] font-black tracking-tight select-all" style="color:var(--ink)">302-1765-3728-91</p>
-                    <p class="mt-3 text-[12px] font-bold tracking-wide" style="color:var(--ink-3)">농협 · 원종제일교회</p>
-                </div>
-
-                <button onclick="closeGiveModal()" class="btn-ink mt-8 w-full">닫기</button>
-            </div>
+        <p class="sermon-p">여기서 우리는 참으로 놀라운 하나님의 모습을 봅니다. 하나님은 우리가 넘어졌을 때 "이제 너희는 끝났다" 하시고 등을 돌리시는 분이 아니라, 당신의 백성이 다시 일어나 빛나게 될 때까지 스스로 <strong>"잠잠하지 아니하며 쉬지 아니하겠다"</strong>고 선언하시는 분이십니다. 하나님께는 우리를 향한 '쉼'이 없으십니다.</p>
+        <p class="sermon-p">이스라엘은 오랜 세월 하나님을 떠났고, 그 결과 예루살렘은 폐허가 되고 말았습니다. 그러나 하나님은 그 폐허를 바라보며 결코 침묵하지 않으셨습니다. 밤새 자녀의 이마를 짚으며 열이 내리기를 기다리는 어머니의 마음처럼, 하나님은 지금도 우리의 회복을 위하여 일하고 계십니다. 세상이 우리를 포기할 때에도 하나님은 우리를 포기하지 않으십니다. 이것이 오늘 우리가 붙들 소망입니다.</p>
+        <div class="quote-box">
+          "예루살렘이여 내가 너의 성벽 위에 파수꾼을 세우고 그들로 하여금 주야로 계속 잠잠하지 않게 하였느니라 너희 여호와로 기억하시게 하는 자들아 너희는 쉬지 말며 또 여호와께서 예루살렘을 세워 세상에서 찬송을 받게 하시기까지 그로 쉬지 못하시게 하라" (6-7절)
         </div>
-    </div>
+        <p class="sermon-p">하나님은 성벽 위에 파수꾼을 세우시고 그들에게 주야로 쉬지 말고 기도하라고 명하십니다. 그리고 이어서 <strong>"너희 여호와로 기억하시게 하는 자들아"</strong>, 곧 하나님을 기억나게 하는 자들이 되어, 이제는 하나님께서 쉬지 못하시게 하라고까지 하십니다. 피조물의 부르짖음이 창조주의 손을 움직인다니, 이 얼마나 엄청난 특권입니까.</p>
+        <p class="sermon-p" style="margin-bottom:0;">예수님도 이 진리를 불의한 재판관의 비유로 가르쳐 주셨습니다(눅 18:6-8). 밤낮 부르짖는 택하신 자들의 호소를 하나님이 외면하실 리 없으며, 반드시 속히 그들을 위하여 일하신다는 것입니다. 그러므로 오늘 새벽 여러분의 기도는 허공에 흩어지는 소리가 아닙니다. 그것은 우리를 향해 쉬지 않으시는 하나님의 열심과 정확히 만나는 거룩한 통로입니다. 우리가 이 자리에서 무릎을 꿇는 이 시간, 하늘에서는 이미 응답의 역사가 시작되고 있습니다.</p>
+      </div>
 
-    <script>
-        /* ===== 1년 1독 데이터 (원본 유지) ===== */
-        const fullBibleData = [["창1-3","레7-9","신20-22","삼하1-3","대상19-21","욥16-18","시100-104","사13-15","렘40-42","호10-14","눅4-6","고전7-9"],["창4-7","레10-12","신23-25","삼하4-6","대상22-24","욥19-21","시105-108","사16-18","렘43-45","욜1-3","눅7-9","고전10-12"],["창8-11","레13-15","신26-28","삼하7-9","대상25-27","욥22-24","시109-113","사19-21","렘46-48","암1-3","눅10-12","고전13-16"],["창12-14","레16-18","신29-31","삼하10-12","대상28-29","욥25-27","시114-118","사22-24","렘49-50","암4-6","눅13-15","고후1-3"],["창15-17","레19-21","신32-34","삼하13-15","대하1-3","욥28-30","시119:1","사25-27","렘51-52","암7-9","눅16-18","고후4-6"],["창18-20","레22-24","수1-3","삼하16-18","대하4-6","욥31-33","시119:89","사28-30","애1-3","옵-욘4","눅19-21","고후7-9"],["창21-24","레25-27","수4-7","삼하19-21","대하7-9","욥34-36","시120-125","사31-33","애4-5","미1-3","눅22-24","고후10-13"],["창25-27","민1-3","수8-9","삼하22-24","대하10-12","욥37-39","시126-131","사34-36","겔1-3","미4-7","요1-3","갈1-3"],["창28-30","민4-6","수10-12","왕상1-3","대하13-15","욥40-42","시132-137","사37-39","겔4-6","나1-합3","요4-6","갈4-6"],["창31-33","민7-9","수13-15","왕상4-6","대하16-18","시1-4","시138-143","사40-42","겔7-9","습1-학2","요7-9","엡1-3"],["창34-36","민10-12","수16-18","왕상7-9","대하19-21","시5-8","시144-150","사43-45","겔10-12","슥1-3","요10-12","엡4-6"],["창37-39","민13-15","수19-21","왕상10-12","대하22-24","시9-14","잠1-3","사46-48","겔13-15","슥4-6","요13-15","빌1-4"],["창40-42","민16-18","수22-24","왕상13-15","대하25-27","시15-18","잠4-6","사49-51","겔16-18","슥7-9","요16-18","골1-4"],["창43-45","민19-21","삿1-3","왕상16-18","대하28-30","시19-22","잠7-9","사52-54","겔19-21","슥10-14","요19-21","살전1-5"],["창46-48","민22-24","삿4-6","왕상19-21","대하31-33","시23-27","잠10-12","사55-57","겔19-21","슥10-14","요19-21","살전1-5"],["창49-출1","민25-27","삿7-9","왕상22-왕2","대하34-36","시28-32","잠13-15","사58-60","겔25-27","마1-3","행4-6","딤전1-6"],["출2-4","민28-30","삿10-12","왕하3-5","스1-3","시33-36","잠16-18","사61-63","겔28-30","마4-6","행7-9","딤후1-4"],["출5-7","민31-33","삿13-15","왕하6-8","스4-6","시37-41","잠19-21","사64-66","겔31-33","마7-9","행10-12","딛1-몬1"],["출8-10","민34-36","삿16-18","왕하9-11","스7-10","시42-46","잠22-24","렘1-3","겔34-36","마10-12","행13-15","히1-4"],["출11-13","신1-2","삿19-21","왕하12-14","느1-3","시47-51","잠25-27","렘4-6","겔37-39","마13-15","행16-18","히5-8"],["출14-16","신3-4","룻1-4","왕하15-17","느4-6","시52-56","잠28-31","렘7-9","겔40-42","마16-18","행19-21","히9-13"],["출17-19","신5-6","삼상1-3","왕하18-20","느7-9","시57-61","전1-3","렘10-12","겔43-45","마19-21","행22-24","약1-5"],["출20-22","신7-8","삼상4-6","왕하21-23","느10-13","시62-66","전4-6","렘13-15","겔46-48","마22-24","행25-28","벧전-벧후"],["출23-25","신9-10","삼상7-9","왕하24-25","에1-3","시67-71","전7-9","렘16-18","단1-3","마25-27","롬1-3","요일-유"],["출26-28","신11-12","삼상10-12","대상1-3","에4-7","시72-76","전10-12","렘19-21","단4-6","마28-막2","롬4-6","계1-3"],["출29-31","신13-14","삼상13-15","대상4-6","에8-10","시77-80","아1-4","레22-24","단7-9","막3-5","롬7-9","계4-6"],["출32-34","신15-16","삼상16-18","대상7-9","욥1-3","시81-85","아5-8","레25-27","단10-12","막6-8","롬10-12","계7-9"],["출35-37","신17-19","삼상19-21","대상10-12","욥4-6","시86-89","사1-3","레28-30","호1-3","막9-11","롬13-16","계10-12"],["출38-40","-","삼상22-24","대상13-15","욥7-9","시90-94","사4-6","레31-33","호4-6","막12-14","고전1-3","계13-15"],["레1-3","-","삼상25-27","대상16-18","욥10-12","시95-99","사7-9","레34-36","호7-9","막15-16","고전4-6","계16-18"],["레4-6","-","삼상28-31","-","욥13-15","-","사10-12","레37-39","-","눅1-3","-","계19-22"]];
+      <!-- 대지 2 -->
+      <div class="card reveal">
+        <span class="point-badge">둘째 은혜</span>
+        <h3 class="point-title">2. 우리는 버림받은 자가 아니라 '헵시바'와 '쁄라'입니다 (2-5절)</h3>
+        <div class="quote-box">
+          "너는 또 여호와의 손의 아름다운 관, 네 하나님의 손의 왕관이 될 것이라 다시는 너를 버림 받은 자라 부르지 아니하며 다시는 네 땅을 황무지라 부르지 아니하고 오직 너를 헵시바라 하며 네 땅을 쁄라라 하리니 이는 여호와께서 너를 기뻐하실 것이며 네 땅이 결혼한 것처럼 될 것임이라" (3-4절)
+        </div>
+        <p class="sermon-p">이스라엘의 과거는 참혹했습니다. 에스겔 선지자는 예루살렘을, 아무도 돌보지 않아 거리에 버려진 갓난아기와 같다고 묘사했습니다(에스겔 16장). 이름조차 없이 '버림받은 자', '황무지'로 불릴 수밖에 없었던 존재였습니다. 그런데 오늘 본문에서 하나님은 그 백성의 이름을 완전히 바꾸십니다.</p>
 
-        /* ===== 초기화 ===== */
-        document.addEventListener('DOMContentLoaded', () => {
-            const now = new Date();
-            buildTicker();
-            initWeeklyBible(now);
-            initFullBibleTable(now);
-            initScratchCanvas();
-            initScrollAnimations();
-            initProgressBar();
-            initGreeting();
-            initCountdown();
-            initVerseCard();
-            initQuiz();
-            initPrayerTimer();
-            initReadingTracker(now);
+        <div class="name-comparison">
+          <div class="name-card old">
+            <h4>과거의 이름 (세상의 시선)</h4>
+            <p>버림받은 자 (아즈바)<br>황무지 (쉐마마)</p>
+          </div>
+          <div class="name-card new">
+            <h4>하나님이 주신 새 이름</h4>
+            <p><strong>헵시바</strong> (나의 기쁨이 그에게 있다)<br><strong>쁄라</strong> (결혼한 여인 · 왕관)</p>
+          </div>
+        </div>
 
-            setTimeout(() => {
-                const targetTemp = 98;
-                document.getElementById('grace-thermometer').style.width = targetTemp + '%';
-                animateCounter('temp-num', targetTemp);
-            }, 700);
-        });
+        <p class="sermon-p">성도 여러분, 이 두 이름은 하나님이 우리를 어떻게 보시는지를 보여 주는 안경과 같습니다. 세상은 우리를 능력 없고 부족한 사람, 실패한 인생이라 부를지 모릅니다. 그러나 더 큰 문제는 우리가 스스로 그 이름을 받아들이는 것입니다. 스스로를 향해 "나는 안 된다, 나는 버림받은 사람이다"라고 되뇌이며 살아갑니다. 그러나 오늘 본문은 선언합니다. <strong>우리는 버려진 자가 아니라 여호와의 손에 들린 아름다운 왕관이며, 하나님께서 기뻐하시는 신부입니다.</strong></p>
+        <p class="sermon-p" style="margin-bottom:0;">흥미롭게도 '헵시바'라는 이름은 훗날 유다 왕 므낫세의 어머니의 실제 이름이 됩니다(왕하 21:1). 어두운 시대에 한 가정이 자녀에게 '하나님의 기쁨'이라는 이름을 붙여 준 것입니다. 신랑 되신 그리스도와 신부 된 성도의 이 사랑은 요한계시록의 어린양의 혼인 잔치(계 19:7)에서 완성됩니다. 그러므로 이 새벽에 드리는 예배는 언젠가 완성될 그 혼인 잔치를 미리 맛보는 시간입니다.</p>
+      </div>
 
-        /* 티커 무한 루프 (내용 2배 복제) */
-        function buildTicker() {
-            const track = document.getElementById('ticker-track');
-            track.innerHTML += track.innerHTML;
+      <!-- 대지 3 -->
+      <div class="card reveal">
+        <span class="point-badge">셋째 은혜</span>
+        <h3 class="point-title">3. 회복된 백성에게 구원의 기치를 들게 하십니다 (10-12절)</h3>
+        <div class="quote-box">
+          "성문으로 나아가라 나아가라 백성이 올 길을 닦으라 큰 길을 수축하고 수축하라 돌을 제하라 만민을 위하여 기치를 들라 ... 사람들이 너를 일컬어 거룩한 백성이라 여호와께서 구속하신 자라 하겠고 또 너를 일컬어 찾은 바 된 자요 버림 받지 아니한 성읍이라 하리라" (10, 12절)
+        </div>
+        <p class="sermon-p">사랑받고 회복된 백성에게는 사명이 주어집니다. 바로 <strong>'나아가라'</strong>는 것입니다. 하나님은 그들에게 포로로 잡혀 있던 백성이 돌아올 길을 닦고, 그 길 위에 놓인 돌들을 제하고, 만민을 위하여 구원의 기치를 들라고 명하십니다. 이는 이사야 40장 3절에서 "너희는 광야에서 여호와의 길을 예비하라" 하신 말씀과 같은 사명입니다. 하나님은 구원받은 자를 그냥 두지 않으시고, 다른 사람의 회복을 준비하는 <strong>'길 닦는 자'</strong>로 세우십니다.</p>
+        <p class="sermon-p">그리고 기치, 곧 깃발을 들라고 하십니다. 이사야 11장 10절은 장차 오실 그리스도를 가리켜 "만민의 기치로 설 것"이라고 예언합니다. 결국 우리가 드는 기치는 우리 자신의 업적이 아니라 <strong>예수 그리스도 한 분</strong>이십니다. 그분을 높이는 삶이 곧 기치를 드는 삶입니다.</p>
+        <p class="sermon-p" style="margin-bottom:0;">12절에서 하나님은 회복된 백성을 다시 세 개의 이름으로 불러 주십니다. <strong>'거룩한 백성', '여호와께서 구속하신 자', '찾은 바 된 자요 버림 받지 아니한 성읍'</strong>입니다. 시작은 버림받은 황무지였으나, 마지막에는 하나님께 찾아진 거룩한 성읍이 되었습니다. 이것이 하나님의 방식이며, 하나님께서 우리에게 쓰고 계신 이야기입니다.</p>
+      </div>
+
+      <!-- 결론 -->
+      <div class="card reveal" style="border: 1px solid var(--gold-main);">
+        <h3 class="point-title" style="text-align: center;">[결론] 오늘 우리가 붙들어야 할 세 가지 결단</h3>
+        <p class="sermon-p"><strong>첫째, 기도의 파수꾼으로 서십시오.</strong><br>우리가 실패하고 넘어져도 하나님은 결코 우리를 포기하지 않으시고 일을 멈추지 않으십니다. 우리 가정과 교회와 이 민족의 성벽 위에 서서, 응답이 올 때까지 주야로 부르짖는 기도의 파수꾼이 되시기 바랍니다.</p>
+        <p class="sermon-p"><strong>둘째, '헵시바'와 '쁄라'의 정체성으로 살아가십시오.</strong><br>세상이 붙여 준 이름과 스스로 붙여 준 낙심의 이름을 다 내려놓으십시오. 하나님의 손에 들린 아름다운 왕관으로, 하나님의 기쁨이 되는 신부로 오늘을 살아가시기 바랍니다.</p>
+        <p class="sermon-p"><strong>셋째, 길을 닦고 구원의 기치를 높이 드십시오.</strong><br>회복된 이 자리에서 걸림돌을 제하며, 우리의 가정과 일터, 만나는 모든 사람에게 그리스도의 구원의 기치가 보이게 하십시오.</p>
+        <p class="sermon-p" style="text-align: center; color: var(--gold-light); font-weight: 700; margin-bottom: 0;">오늘 하루, 나를 '헵시바'라 부르시는 주님의 사랑을 품고 담대히 기도하며 승리하는 성도님들이 되시기를 주 예수 그리스도의 이름으로 간절히 축원합니다.</p>
+      </div>
+    </section>
+
+    <!-- 4. 설교 후 결단 기도문 -->
+    <section id="closing-prayer" class="reveal">
+      <div class="section-header">
+        <span class="section-num">PART 04</span>
+        <h2 class="section-title">설교 후 결단 기도문</h2>
+      </div>
+
+      <div class="card prayer-card">
+        <div class="prayer-text">
+          <p>우리를 향한 사랑과 열심을 그치지 아니하시며, 우리를 '헵시바'와 '쁄라'라 부르시는 신실하신 하나님 아버지. 오늘 이 아침, 이사야 62장의 가슴 설레는 사랑의 고백을 통해 고단했던 우리의 영혼을 어루만져 주시고 하늘의 신령한 위로를 더하여 주시니 감사를 드립니다.</p>
+          <p>주님, 고백하건대 우리는 세상의 평가와 비교 앞에서 스스로를 버림받은 자로 여겼고, 쉬지 않고 역사하시는 주님의 열심을 잊은 채 낙심하며 지쳐 살았습니다. 그런 우리를 오늘 다시 불러 주시고 새 이름을 주시니, 그 은혜 앞에 머리를 숙입니다.</p>
+          <p>우리를 위해 잠잠하지 아니하시고 쉬지 아니하시는 주님의 그 신실하신 열심을 바라봅니다. 오늘 우리도 성벽 위의 파수꾼이 되어 교회를 위해, 가정을 위해, 이 나라와 민족을 위해 쉬지 않고 부르짖는 기도의 파수꾼이 되게 하옵소서. 세상의 가치관으로 나 자신을 평가하지 않게 하시고, 여호와의 손에 들린 아름다운 왕관으로 나를 바라보게 하옵소서.</p>
+          <p>오늘 하루 만나는 모든 사람들에게 주님의 사랑을 전하게 하시고, 우리의 일터와 삶의 자리가 주님의 기쁨이 되는 거룩한 성읍이 되게 하옵소서. 특별히 근심과 질병 가운데 지쳐 있는 성도들과 환우들에게 위로와 새 힘을 더하여 주시옵소서. 우리를 기뻐하시는 신랑 되신 예수 그리스도의 이름으로 간절히 기도드리옵나이다. 아멘.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 공동 기도 제목과 통성기도문 -->
+    <section id="joint-prayer" class="reveal">
+      <div class="section-header">
+        <span class="section-num">PART 05</span>
+        <h2 class="section-title">오늘의 공동 기도 제목 및 통성기도</h2>
+      </div>
+
+      <div class="prayer-grid">
+        <div class="topic-card">
+          <span class="topic-num">PRAYER 01</span>
+          <h4 class="topic-title">기쁨과 사랑의 정체성 회복을 위하여</h4>
+          <p class="sermon-p" style="margin-bottom:0; font-size:0.95rem;">세상의 비난이나 자책에서 벗어나, 나를 '헵시바'와 '쁄라'라 부르시는 하나님의 절대적인 사랑을 확신하게 하소서.</p>
+        </div>
+        <div class="topic-card">
+          <span class="topic-num">PRAYER 02</span>
+          <h4 class="topic-title">쉬지 않는 기도의 파수꾼으로 서기 위하여</h4>
+          <p class="sermon-p" style="margin-bottom:0; font-size:0.95rem;">가정과 교회, 이 민족의 성벽 위에 깨어 있는 파수꾼으로 서서, 주님이 역사하실 때까지 쉬지 않고 기도하게 하소서.</p>
+        </div>
+        <div class="topic-card">
+          <span class="topic-num">PRAYER 03</span>
+          <h4 class="topic-title">영적 회복과 만민을 향한 기치를 들기 위하여</h4>
+          <p class="sermon-p" style="margin-bottom:0; font-size:0.95rem;">무너진 삶의 자리에서 길을 닦고 돌을 제하며, 세상 가운데 구원의 기치를 높이 들게 하소서.</p>
+        </div>
+        <div class="topic-card">
+          <span class="topic-num">PRAYER 04</span>
+          <h4 class="topic-title">환우와 지친 성도들의 회복을 위하여</h4>
+          <p class="sermon-p" style="margin-bottom:0; font-size:0.95rem;">근심과 질병, 경제적 어려움 가운데 있는 성도들의 가정과 일터를 붙드시고, 그 삶에 새 힘과 회복의 역사가 일어나게 하소서.</p>
+        </div>
+      </div>
+
+      <div class="cry-prayer-box">
+        <span class="point-badge">새벽 합심 통성기도문</span>
+        <p class="sermon-p" style="color: #fff;">"오늘 이 아침, 나를 기뻐하시는 하나님의 음성을 듣고 거룩한 기도의 파수꾼으로 바로 서게 해달라고,<br>우리 다 함께 주여 세 번 부르짖고 통성으로 기도합시다!"</p>
+        <div class="cry-call">주여! 주여! 주여!</div>
+        <div class="prayer-text" style="text-align: left; margin-top: 30px;">
+          <p>"우리를 사랑하시되 끝까지 사랑하시며, 우리를 위하여 잠시도 쉬지 아니하시는 전능하신 하나님 아버지! 2026년 10월 16일 금요일 이 거룩한 새벽, 우리를 기도의 자리로 부르시고 이사야 62장의 사랑의 말씀을 들려주시니 진심으로 감사를 드립니다!</p>
+          <p>주님! 우리가 얼마나 존귀한 존재인지를 깨닫게 하옵소서! 우리는 더 이상 버림받은 자가 아니라, 주님이 보혈로 사신 아름다운 왕관이며 주님이 기뻐하시는 신부임을 기억하며, 세상 속에서 낙심하지 않고 담대히 서게 하여 주시옵소서!</p>
+          <p>주님! 우리를 사랑하시느라 쉬지 않으시는 주님의 열심 앞에, 우리도 파수꾼으로 일어나기를 원합니다! 진리의 성벽 위에 서서 주님이 역사하실 때까지 주야로 부르짖는 기도의 용사가 되게 하시고, 우리의 가정과 교회와 이 나라 민족과 병상에 누운 환우들을 위하여 쉬지 않고 부르짖게 하여 주시옵소서! 오늘 하루의 모든 걸음 속에서 주님의 기쁨이 되게 하시고, 부르짖는 모든 기도가 하늘 보좌에 상달되게 하옵소서. 예수 그리스도의 이름으로 간절히 부르짖어 기도드립니다! 아멘!"</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>2026년 10월 16일 (금) 새벽기도회 말씀 묵상 자료</p>
+    <p style="margin-top: 6px; color: var(--gold-main);">"신랑이 신부를 기뻐함 같이 네 하나님이 너를 기뻐하시리라 (이사야 62:5)"</p>
+  </footer>
+
+  <!-- 자바스크립트: 별빛 애니메이션 & 스크롤 인터랙션 -->
+  <script>
+    // 1. 새벽 별빛 캔버스 배경 애니메이션
+    const canvas = document.getElementById('dawn-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Star {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.alpha = Math.random() * 0.8 + 0.1;
+        this.speedY = -(Math.random() * 0.25 + 0.05);
+        this.twinkleSpeed = Math.random() * 0.015 + 0.005;
+        this.twinkleDir = 1;
+      }
+      update() {
+        this.y += this.speedY;
+        this.alpha += this.twinkleSpeed * this.twinkleDir;
+        if (this.alpha >= 0.9 || this.alpha <= 0.15) {
+          this.twinkleDir *= -1;
         }
-
-        /* 스크롤 진행 바 */
-        function initProgressBar() {
-            const bar = document.getElementById('progress');
-            const update = () => {
-                const el = document.documentElement;
-                const max = el.scrollHeight - el.clientHeight;
-                bar.style.width = (max > 0 ? (el.scrollTop / max) * 100 : 0) + '%';
-            };
-            window.addEventListener('scroll', update, { passive: true });
-            window.addEventListener('resize', update);
-            update();
+        if (this.y < 0) {
+          this.y = canvas.height;
+          this.x = Math.random() * canvas.width;
         }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(243, 229, 171, ${this.alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#d4af37';
+        ctx.fill();
+      }
+    }
 
-        /* 스크롤 등장 애니메이션 */
-        function initScrollAnimations() {
-            if (!('IntersectionObserver' in window)) {
-                document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
-                return;
-            }
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.12 });
+    for (let i = 0; i < 85; i++) {
+      stars.push(new Star());
+    }
 
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        star.update();
+        star.draw();
+      });
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+
+    // 2. 스크롤 등장 효과 (Intersection Observer)
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
         }
+      });
+    }, { threshold: 0.12 });
 
-        /* 예배 탭 전환 */
-        function switchService(id, btn) {
-            document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-            document.querySelectorAll('.seg-btn').forEach(b => {
-                b.classList.remove('is-active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            btn.classList.add('is-active');
-            btn.setAttribute('aria-selected', 'true');
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // 3. 상단 스크롤 진행 바 및 우측 네비게이션 활성화
+    const progressBar = document.getElementById('progress-bar');
+    const sections = document.querySelectorAll('header, section');
+    const navDots = document.querySelectorAll('.nav-dot');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+
+      let currentSectionId = 'top';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 250;
+        if (scrollTop >= top) {
+          currentSectionId = sec.getAttribute('id');
         }
+      });
 
-        /* 다크 모드 전환 */
-        function toggleDark(btn) {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            btn.querySelector('i').className = isDark ? 'fas fa-sun text-[12px]' : 'fas fa-moon text-[12px]';
+      navDots.forEach(dot => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('href') === '#' + currentSectionId) {
+          dot.classList.add('active');
         }
-
-        /* 갤러리 원본 보기 */
-        function openImage(img) {
-            window.open(img.currentSrc || img.src, '_blank', 'noopener');
-        }
-
-        /* 이번 주 통독 그리드 */
-        function initWeeklyBible(now) {
-            const grid = document.getElementById('weekly-bible-grid');
-            const startOfWeek = new Date(now);
-            startOfWeek.setDate(now.getDate() - now.getDay());
-            const dayNames = ['주일', '월', '화', '수', '목', '금', '토', '주일'];
-            grid.innerHTML = '';
-            for (let i = 0; i < 8; i++) {
-                const d = new Date(startOfWeek);
-                d.setDate(startOfWeek.getDate() + i);
-                const isToday = d.toDateString() === now.toDateString();
-                const row = fullBibleData[d.getDate() - 1];
-                const reading = (row && row[d.getMonth()]) || '자유통독';
-                grid.innerHTML += `<div class="daycell ${isToday ? 'is-today' : ''} ${(i === 0 || i === 7) ? 'is-sun' : ''}">
-                    <div class="d">${dayNames[i]}<span>${d.getDate()}</span></div>
-                    <div class="r">${reading === '-' ? '쉼' : reading}</div></div>`;
-            }
-        }
-
-        /* 1년 통독 전체 표 */
-        function initFullBibleTable(now) {
-            const head = document.getElementById('bible-head');
-            const body = document.getElementById('bible-full-body');
-            head.innerHTML = `<tr><th class="day-col">일</th>${Array.from({ length: 12 }, (_, i) => `<th>${i + 1}월</th>`).join('')}</tr>`;
-
-            body.innerHTML = '';
-            fullBibleData.forEach((row, idx) => {
-                const tr = document.createElement('tr');
-                let rowHtml = `<td class="day-col">${idx + 1}</td>`;
-                row.forEach((cell, mIdx) => {
-                    const isToday = (idx + 1 === now.getDate() && mIdx === now.getMonth());
-                    rowHtml += `<td class="${isToday ? 'is-today-cell' : ''}" data-cell="${idx + 1}-${mIdx + 1}" data-reading="${cell}">${cell === '-' ? '' : cell}</td>`;
-                });
-                tr.innerHTML = rowHtml;
-                body.appendChild(tr);
-            });
-        }
-
-        /* 숫자 카운터 */
-        function animateCounter(id, target) {
-            const el = document.getElementById(id);
-            let current = 0;
-            const timer = setInterval(() => {
-                if (current >= target) {
-                    clearInterval(timer);
-                    el.innerText = target + '°';
-                    return;
-                }
-                el.innerText = current + '°';
-                current += 2;
-            }, 16);
-        }
-
-        /* 모달 열기/닫기 */
-        function openScriptureModal() { document.getElementById('scriptureModal').classList.add('active'); }
-        function closeScriptureModal() { document.getElementById('scriptureModal').classList.remove('active'); }
-        function openAfternoonScriptureModal() { document.getElementById('afternoonScriptureModal').classList.add('active'); }
-        function closeAfternoonScriptureModal() { document.getElementById('afternoonScriptureModal').classList.remove('active'); }
-        function openBibleModal() { document.getElementById('bibleModal').classList.add('active'); }
-        function closeBibleModal() { document.getElementById('bibleModal').classList.remove('active'); }
-        function openGiveModal() { document.getElementById('giveModal').classList.add('active'); }
-        function closeGiveModal() { document.getElementById('giveModal').classList.remove('active'); }
-
-        function openMannaModal() {
-            const pick = {
-                t: "오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라 내가 모든 교회에서 이와 같이 명하노라",
-                r: "고린도전서 7:17"
-            };
-            document.getElementById('manna-text').innerText = `“${pick.t}”`;
-            document.getElementById('manna-ref').innerText = `- ${pick.r} -`;
-            document.getElementById('manna-ref').style.opacity = '0';
-            document.getElementById('mannaModal').classList.add('active');
-            resetScratch();
-        }
-        function closeMannaModal() { document.getElementById('mannaModal').classList.remove('active'); }
-
-        /* 출석 체크 */
-        function checkAttendance(btn, id) {
-            btn.style.display = 'none';
-            document.getElementById(`stamp-${id}`).classList.add('stamp-animate');
-            confetti({
-                particleCount: 110, spread: 75, origin: { y: 0.7 },
-                colors: CONFETTI_COLORS
-            });
-        }
-
-        /* 만나 스크래치 카드 */
-        let canvas, ctx, isDrawing = false;
-
-        function initScratchCanvas() {
-            canvas = document.getElementById('scratch-canvas');
-            ctx = canvas.getContext('2d');
-            canvas.addEventListener('mousedown', () => isDrawing = true);
-            canvas.addEventListener('mousemove', scratch);
-            canvas.addEventListener('mouseup', () => isDrawing = false);
-            canvas.addEventListener('mouseleave', () => isDrawing = false);
-            canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, { passive: false });
-            canvas.addEventListener('touchmove', scratch, { passive: false });
-            canvas.addEventListener('touchend', () => isDrawing = false);
-        }
-
-        function resetScratch() {
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
-
-            const dark = document.body.classList.contains('dark-mode');
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, dark ? '#3A322C' : '#EBE3D7');
-            gradient.addColorStop(1, dark ? '#241F1B' : '#D3C8B6');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = dark ? '#A79C93' : '#8A7A6C';
-            ctx.font = 'bold 15px Pretendard, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('여기를 동전으로 긁어보세요', canvas.width / 2, canvas.height / 2);
-
-            ctx.globalCompositeOperation = 'destination-out';
-        }
-
-        function scratch(e) {
-            if (!isDrawing) return;
-            e.preventDefault();
-            const rect = canvas.getBoundingClientRect();
-            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-            const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-            ctx.beginPath();
-            ctx.arc(x, y, 38, 0, Math.PI * 2);
-            ctx.fill();
-
-            document.getElementById('manna-ref').style.opacity = '1';
-        }
-    /* ============================================================
-       저장소 · 공통 유틸
-       ============================================================ */
-    const STORE_KEY = 'wjcb.bulletin.v1';
-    const CONFETTI_COLORS = ['#B4552B', '#D9A34E', '#6C7355', '#8C4A2F'];
-
-    function loadStore() {
-        try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch (e) { return {}; }
-    }
-    function saveStore(obj) {
-        try { localStorage.setItem(STORE_KEY, JSON.stringify(obj)); } catch (e) { }
-    }
-    function patchStore(patch) {
-        const s = loadStore();
-        saveStore(Object.assign(s, patch));
-        return loadStore();
-    }
-    function pad2(n) { return String(n).padStart(2, '0'); }
-    function todayKey(d) {
-        const t = d || new Date();
-        return t.getFullYear() + '-' + pad2(t.getMonth() + 1) + '-' + pad2(t.getDate());
-    }
-    function hexToRGBA(hex, alpha) {
-        let h = String(hex || '').trim().replace('#', '');
-        if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
-        if (h.length !== 6) return 'rgba(171, 78, 37, ' + alpha + ')';
-        const n = parseInt(h, 16);
-        return 'rgba(' + ((n >> 16) & 255) + ', ' + ((n >> 8) & 255) + ', ' + (n & 255) + ', ' + alpha + ')';
-    }
-    function tokenColor(name, fallback) {
-        try {
-            const v = getComputedStyle(document.body).getPropertyValue(name).trim();
-            return v || fallback;
-        } catch (e) { return fallback; }
-    }
-
-    /* ============================================================
-       시간대 인사말
-       ============================================================ */
-    function initGreeting() {
-        const el = document.getElementById('greeting');
-        if (!el) return;
-        const h = new Date().getHours();
-        let g;
-        if (h < 5) g = '고요한 새벽, 주님과 함께 하루를 엽니다.';
-        else if (h < 11) g = '좋은 아침입니다. 오늘도 은혜롭게 시작하세요.';
-        else if (h < 14) g = '점심시간입니다. 감사로 잠시 쉬어가세요.';
-        else if (h < 18) g = '좋은 오후입니다. 말씀 안에서 평안을 누리세요.';
-        else if (h < 22) g = '편안한 저녁 되세요. 오늘 하루 감사합니다.';
-        else g = '늦은 밤에도 주님의 사랑은 한결같습니다.';
-        el.innerText = g;
-    }
-
-    /* ============================================================
-       LIVE — 다음 예배 카운트다운 · 진행 하이라이트
-       ============================================================ */
-    const SERVICES = [
-        { id: 'svc-morning', tab: 0, name: '주일 오전 예배', day: 0, start: [11, 0], end: [12, 30] },
-        { id: 'svc-afternoon', tab: 1, name: '주일 오후 예배', day: 0, start: [13, 15], end: [14, 15] },
-        { id: 'svc-wed', tab: 2, name: '수요 예배', day: 3, start: [19, 0], end: [20, 20] }
-    ];
-    let autoSwitchedFor = '';
-
-    function atTime(base, hm) {
-        const d = new Date(base);
-        d.setHours(hm[0], hm[1], 0, 0);
-        return d;
-    }
-    function findServiceState(now) {
-        let live = null;
-        let next = null;
-        SERVICES.forEach(svc => {
-            const weekStart = new Date(now);
-            weekStart.setDate(now.getDate() + ((svc.day - now.getDay() + 7) % 7));
-            let start = atTime(weekStart, svc.start);
-            let end = atTime(weekStart, svc.end);
-            if (end <= now) {
-                start = new Date(start.getTime() + 604800000);
-                end = new Date(end.getTime() + 604800000);
-            }
-            if (now >= start && now < end) {
-                live = { svc: svc, start: start, end: end, diff: end - now };
-            } else if (start > now) {
-                const cand = { svc: svc, start: start, end: end, diff: start - now };
-                if (!next || cand.diff < next.diff) next = cand;
-            }
-        });
-        return live ? { state: 'live', info: live } : { state: 'next', info: next };
-    }
-    function humanGap(ms) {
-        const total = Math.max(0, Math.round(ms / 1000));
-        const d = Math.floor(total / 86400);
-        const h = Math.floor((total % 86400) / 3600);
-        const m = Math.floor((total % 3600) / 60);
-        const s = total % 60;
-        if (d > 0) return d + '일 ' + h + '시간 ' + pad2(m) + '분';
-        if (h > 0) return h + '시간 ' + pad2(m) + '분 ' + pad2(s) + '초';
-        return pad2(m) + '분 ' + pad2(s) + '초';
-    }
-    function clearLiveService() {
-        SERVICES.forEach(svc => {
-            const panel = document.getElementById(svc.id);
-            if (!panel) return;
-            panel.querySelectorAll('.tl').forEach(tl => tl.classList.remove('is-live', 'is-done'));
-        });
-    }
-    function applyLiveService(info, elapsed, total) {
-        const panel = document.getElementById(info.svc.id);
-        if (!panel) return;
-        clearLiveService();
-        const rows = panel.querySelectorAll('.tl');
-        if (rows.length) {
-            const idx = Math.min(rows.length - 1, Math.floor((rows.length * elapsed) / Math.max(1, total)));
-            rows.forEach((tl, i) => {
-                tl.classList.toggle('is-done', i < idx);
-                tl.classList.toggle('is-live', i === idx);
-            });
-        }
-        if (autoSwitchedFor !== info.svc.id) {
-            const btn = document.querySelectorAll('.seg-btn')[info.svc.tab];
-            if (btn) switchService(info.svc.id, btn);
-            autoSwitchedFor = info.svc.id;
-        }
-    }
-    function tickCountdown() {
-        const label = document.getElementById('cd-label');
-        const time = document.getElementById('cd-time');
-        const sub = document.getElementById('cd-sub');
-        if (!label || !time || !sub) return;
-        const now = new Date();
-        const res = findServiceState(now);
-        if (res.state === 'live') {
-            const info = res.info;
-            label.innerText = '예배 중 · LIVE';
-            time.innerText = info.svc.name;
-            sub.innerText = '지금 예배가 진행 중입니다 · ' + humanGap(now - info.start) + ' 경과 · ' +
-                pad2(info.end.getHours()) + ':' + pad2(info.end.getMinutes()) + ' 종료 예정';
-            applyLiveService(info, now - info.start, info.end - info.start);
-        } else if (res.info) {
-            autoSwitchedFor = '';
-            const info = res.info;
-            const d = info.start;
-            label.innerText = '다음 예배까지';
-            time.innerText = humanGap(info.diff);
-            sub.innerText = info.svc.name + ' · ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' +
-                pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ' 시작';
-            clearLiveService();
-        }
-    }
-    function initCountdown() {
-        if (!document.getElementById('cd-time')) return;
-        tickCountdown();
-        setInterval(tickCountdown, 1000);
-    }
-
-    /* ============================================================
-       오늘의 말씀 카드
-       ============================================================ */
-    const VERSES = [
-        { t: '오직 주께서 각 사람에게 나눠 주신 대로 하나님이 각 사람을 부르신 그대로 행하라', r: '고린도전서 7:17' },
-        { t: '내가 능히 모든 일을 할 수 있음은 나를 강하게 하시는 이로 말미암음이라', r: '빌립보서 4:13' },
-        { t: '여호와는 나의 목자시니 내게 부족함이 없으리로다', r: '시편 23:1' },
-        { t: '수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라', r: '마태복음 11:28' },
-        { t: '우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라', r: '로마서 8:28' },
-        { t: '이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라', r: '갈라디아서 2:20' },
-        { t: '두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라', r: '이사야 41:10' },
-        { t: '너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라', r: '베드로전서 5:7' }
-    ];
-    let verseIdx = 0;
-
-    function setVerseStatus(msg) {
-        const el = document.getElementById('verse-status');
-        if (el) el.innerText = msg;
-    }
-    function renderVerse() {
-        const v = VERSES[verseIdx] || VERSES[0];
-        const tEl = document.getElementById('verse-text');
-        const rEl = document.getElementById('verse-ref');
-        if (!tEl) return;
-        tEl.innerText = '“' + v.t + '”';
-        if (rEl) rEl.innerText = v.r;
-        tEl.classList.remove('is-swap');
-        void tEl.offsetWidth;
-        tEl.classList.add('is-swap');
-    }
-    function initVerseCard() {
-        const saved = loadStore().verseIdx;
-        verseIdx = (typeof saved === 'number' && VERSES[saved]) ? saved : 0;
-        renderVerse();
-    }
-    function drawVerse() {
-        let i = Math.floor(Math.random() * VERSES.length);
-        if (VERSES.length > 1 && i === verseIdx) i = (i + 1) % VERSES.length;
-        verseIdx = i;
-        patchStore({ verseIdx: i });
-        renderVerse();
-        setVerseStatus('새 말씀 카드를 뽑았습니다. 저장하거나 복사해 보세요.');
-    }
-    function wrapLines(g, text, maxWidth) {
-        const words = String(text).split(' ');
-        const lines = [];
-        let line = '';
-        words.forEach(w => {
-            const test = line ? line + ' ' + w : w;
-            if (g.measureText(test).width > maxWidth && line) { lines.push(line); line = w; }
-            else line = test;
-        });
-        if (line) lines.push(line);
-        return lines;
-    }
-    function saveVerseCard() {
-        const v = VERSES[verseIdx] || VERSES[0];
-        const W = 1080, H = 1350;
-        const cv = document.createElement('canvas');
-        cv.width = W; cv.height = H;
-        const g = cv.getContext('2d');
-        const dark = document.body.classList.contains('dark-mode');
-        const bg = dark ? '#1A1715' : '#F7F4EF';
-        const ink = dark ? '#F7F2EC' : '#1A1512';
-        const accent = tokenColor('--accent', '#AB4E25');
-        const accent2 = tokenColor('--accent-2', '#845A20');
-
-        g.fillStyle = bg;
-        g.fillRect(0, 0, W, H);
-        g.strokeStyle = hexToRGBA(accent, 0.35);
-        g.lineWidth = 3;
-        g.strokeRect(48, 48, W - 96, H - 96);
-
-        g.textAlign = 'center';
-        g.fillStyle = accent2;
-        g.font = '900 30px Pretendard, sans-serif';
-        g.fillText('오 늘 의 말 씀', W / 2, 172);
-
-        g.fillStyle = accent;
-        g.fillRect(W / 2 - 40, 212, 80, 4);
-
-        g.fillStyle = ink;
-        g.font = '700 58px "Gowun Batang", Georgia, serif';
-        const lines = wrapLines(g, v.t, W - 260);
-        const lh = 96;
-        let y = H / 2 - ((lines.length - 1) * lh) / 2;
-        lines.forEach(ln => { g.fillText(ln, W / 2, y); y += lh; });
-
-        g.fillStyle = ink;
-        g.font = '900 34px Pretendard, sans-serif';
-        g.fillText(v.r, W / 2, H - 230);
-
-        g.fillStyle = accent2;
-        g.font = '800 26px Pretendard, sans-serif';
-        g.fillText('원종제일교회 · 주일 주보', W / 2, H - 152);
-
-        try {
-            const url = cv.toDataURL('image/png');
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'wonjong-verse-' + todayKey() + '.png';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            setVerseStatus('말씀 카드를 이미지로 저장했습니다.');
-        } catch (e) {
-            setVerseStatus('이미지 저장을 지원하지 않는 환경입니다.');
-        }
-    }
-    function copyVerse() {
-        const v = VERSES[verseIdx] || VERSES[0];
-        const text = '“' + v.t + '” - ' + v.r;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(
-                () => setVerseStatus('말씀을 클립보드에 복사했습니다.'),
-                () => setVerseStatus('복사 권한이 없습니다. 길게 눌러 선택해 주세요.')
-            );
-        } else {
-            setVerseStatus('이 브라우저에서는 복사를 지원하지 않습니다.');
-        }
-    }
-
-    /* ============================================================
-       기억절 빈칸 채우기
-       ============================================================ */
-    const QUIZ_TOKENS = ['오직', '주께서', '각', '사람에게', '나눠', '주신', '대로', '하나님이', '각', '사람을',
-        '부르신', '그대로', '행하라', '내가', '모든', '교회에서', '이와', '같이', '명하노라'];
-    const QUIZ_BLANK_POS = [4, 10, 12, 18];
-    const QUIZ_EXTRA = ['기억하라', '가르치신'];
-    const QUIZ_BLANK_LABEL = ['나눠', '부르신', '행하라', '명하노라'];
-
-    function setQuizStatus(msg) {
-        const el = document.getElementById('quiz-status');
-        if (el) el.innerText = msg;
-    }
-    function updateQuizScore() {
-        const el = document.getElementById('quiz-score');
-        if (!el) return;
-        const filled = document.querySelectorAll('#quiz-verse .blank.is-filled').length;
-        el.innerText = filled + ' / ' + QUIZ_BLANK_POS.length;
-    }
-    function initQuiz() {
-        const verseEl = document.getElementById('quiz-verse');
-        const wordsEl = document.getElementById('quiz-words');
-        if (!verseEl || !wordsEl) return;
-        verseEl.innerHTML = QUIZ_TOKENS.map((w, i) =>
-            QUIZ_BLANK_POS.indexOf(i) >= 0
-                ? '<span class="blank" data-pos="' + i + '" onclick="clearSlot(this)"></span>'
-                : '<span class="wordchip">' + w + '</span>'
-        ).join(' ');
-        const chips = QUIZ_BLANK_POS.map(p => QUIZ_TOKENS[p]).concat(QUIZ_EXTRA);
-        for (let i = chips.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            const t = chips[i]; chips[i] = chips[j]; chips[j] = t;
-        }
-        wordsEl.innerHTML = chips.map(w =>
-            '<button type="button" class="wordchip is-pick" onclick="fillSlot(this)">' + w + '</button>'
-        ).join('');
-        setQuizStatus('빈칸에 알맞은 말씀 조각을 순서대로 눌러 채워보세요.');
-        updateQuizScore();
-    }
-    function fillSlot(btn) {
-        if (!btn || btn.disabled) return;
-        const blanks = document.querySelectorAll('#quiz-verse .blank');
-        let target = null;
-        blanks.forEach(b => { if (!target && !b.classList.contains('is-filled')) target = b; });
-        if (!target) { setQuizStatus('빈칸이 모두 찼습니다. 정답을 확인해 보세요.'); return; }
-        target.innerText = btn.innerText;
-        target.classList.add('is-filled');
-        target.dataset.word = btn.innerText;
-        target.classList.remove('is-right', 'is-wrong');
-        btn.disabled = true;
-        btn.classList.add('is-used');
-        updateQuizScore();
-        setQuizStatus('빈칸 ' + document.querySelectorAll('#quiz-verse .blank.is-filled').length + ' / ' + QUIZ_BLANK_POS.length + ' 완료');
-    }
-    function clearSlot(el) {
-        if (!el || !el.classList.contains('is-filled')) return;
-        const w = el.dataset.word;
-        el.innerText = '';
-        el.classList.remove('is-filled', 'is-right', 'is-wrong');
-        delete el.dataset.word;
-        document.querySelectorAll('#quiz-words .wordchip.is-pick').forEach(b => {
-            if (b.innerText === w) { b.disabled = false; b.classList.remove('is-used'); }
-        });
-        updateQuizScore();
-    }
-    function checkQuiz() {
-        const blanks = document.querySelectorAll('#quiz-verse .blank');
-        if (!blanks.length) return;
-        let right = 0, filled = 0;
-        blanks.forEach(b => {
-            if (!b.classList.contains('is-filled')) return;
-            filled++;
-            const pos = Number(b.dataset.pos);
-            const ok = (b.dataset.word === QUIZ_TOKENS[pos]);
-            b.classList.toggle('is-right', ok);
-            b.classList.toggle('is-wrong', !ok);
-            if (ok) right++;
-        });
-        if (filled < blanks.length) {
-            setQuizStatus('아직 빈칸이 ' + (blanks.length - filled) + '개 남아 있습니다.');
-            return;
-        }
-        if (right === blanks.length) {
-            setQuizStatus('정답입니다! 말씀이 마음에 새겨졌습니다. 🎉');
-            try {
-                confetti({ particleCount: 90, spread: 70, origin: { y: 0.65 }, colors: CONFETTI_COLORS });
-            } catch (e) { }
-            patchStore({ quizCleared: (Number(loadStore().quizCleared) || 0) + 1 });
-        } else {
-            setQuizStatus(right + '개를 맞혔습니다. 다시 한번 시도해 보세요.');
-        }
-    }
-
-    /* ============================================================
-       3분 기도 타이머
-       ============================================================ */
-    const PRAYER_PRESETS = [60, 180, 300];
-    const RING_C = 2 * Math.PI * 84;
-    let prayerTotal = 180, prayerLeft = 180, prayerTick = null, prayerRunning = false;
-
-    function fmtClock(sec) {
-        const s = Math.max(0, Math.round(sec));
-        return Math.floor(s / 60) + ':' + pad2(s % 60);
-    }
-    function setPrayerStatus(msg) {
-        const el = document.getElementById('prayer-status');
-        if (el) el.innerText = msg;
-    }
-    function updatePrayerUI() {
-        const timeEl = document.getElementById('prayer-time');
-        const ring = document.getElementById('prayer-ring');
-        if (timeEl) timeEl.innerText = fmtClock(prayerLeft);
-        if (ring) {
-            const ratio = prayerTotal > 0 ? Math.max(0, prayerLeft / prayerTotal) : 0;
-            ring.style.strokeDashoffset = (RING_C * (1 - ratio)).toFixed(2);
-        }
-    }
-    function setPrayerDuration(sec) {
-        prayerTotal = Number(sec) || 180;
-        prayerLeft = prayerTotal;
-        prayerRunning = false;
-        if (prayerTick) { clearInterval(prayerTick); prayerTick = null; }
-        const btn = document.getElementById('prayer-toggle');
-        if (btn) btn.innerHTML = '<i class="fas fa-play text-[11px]"></i>시작';
-        document.querySelectorAll('#prayer-presets .btn-mini').forEach(b => {
-            b.classList.toggle('is-active', Number(b.dataset.sec) === prayerTotal);
-        });
-        setPrayerStatus('기도 시간을 ' + fmtClock(prayerTotal) + '으로 맞췄습니다.');
-        updatePrayerUI();
-    }
-    function togglePrayer() {
-        if (prayerRunning) { pausePrayer(); return; }
-        if (prayerLeft <= 0) prayerLeft = prayerTotal;
-        prayerRunning = true;
-        const btn = document.getElementById('prayer-toggle');
-        if (btn) btn.innerHTML = '<i class="fas fa-pause text-[11px]"></i>일시정지';
-        setPrayerStatus('조용히 마음을 열고 기도해 보세요.');
-        prayerTick = setInterval(() => {
-            prayerLeft -= 1;
-            if (prayerLeft <= 0) { prayerLeft = 0; updatePrayerUI(); finishPrayer(); return; }
-            updatePrayerUI();
-        }, 1000);
-        updatePrayerUI();
-    }
-    function pausePrayer() {
-        prayerRunning = false;
-        if (prayerTick) { clearInterval(prayerTick); prayerTick = null; }
-        const btn = document.getElementById('prayer-toggle');
-        if (btn) btn.innerHTML = '<i class="fas fa-play text-[11px]"></i>이어서';
-        setPrayerStatus('잠시 쉬었습니다 · 남은 시간 ' + fmtClock(prayerLeft));
-    }
-    function resetPrayer() {
-        setPrayerDuration(prayerTotal);
-        setPrayerStatus('타이머를 처음으로 되돌렸습니다.');
-    }
-    function showPrayerStreak() {
-        const el = document.getElementById('prayer-streak');
-        if (!el) return;
-        const s = loadStore();
-        const streak = Number(s.prayerStreak) || 0;
-        const total = Number(s.prayerCount) || 0;
-        el.innerText = streak > 0
-            ? ('연속 ' + streak + '일 · 누적 ' + total + '회 기도')
-            : ('기도 기록을 시작해 보세요 · 누적 ' + total + '회');
-    }
-    function finishPrayer() {
-        prayerRunning = false;
-        if (prayerTick) { clearInterval(prayerTick); prayerTick = null; }
-        const btn = document.getElementById('prayer-toggle');
-        if (btn) btn.innerHTML = '<i class="fas fa-rotate-right text-[11px]"></i>다시';
-        setPrayerStatus('기도 시간을 마쳤습니다. 주님과 함께한 이 시간을 기억하세요. 🙏');
-        const st = loadStore();
-        const today = todayKey();
-        const y = new Date();
-        y.setDate(y.getDate() - 1);
-        if (st.prayerLastDone !== today) {
-            const streak = (st.prayerLastDone === todayKey(y)) ? (Number(st.prayerStreak) || 0) + 1 : 1;
-            patchStore({
-                prayerLastDone: today,
-                prayerStreak: streak,
-                prayerCount: (Number(st.prayerCount) || 0) + 1
-            });
-        }
-        showPrayerStreak();
-        playChime();
-        try {
-            confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 }, colors: CONFETTI_COLORS });
-        } catch (e) { }
-    }
-    function playChime() {
-        try {
-            const AC = window.AudioContext || window.webkitAudioContext;
-            if (!AC) return;
-            const actx = new AC();
-            [660, 880, 1174].forEach((f, i) => {
-                const o = actx.createOscillator();
-                const g = actx.createGain();
-                o.type = 'sine';
-                o.frequency.value = f;
-                o.connect(g);
-                g.connect(actx.destination);
-                const t0 = actx.currentTime + i * 0.18;
-                g.gain.setValueAtTime(0.0001, t0);
-                g.gain.exponentialRampToValueAtTime(0.16, t0 + 0.05);
-                g.gain.exponentialRampToValueAtTime(0.0001, t0 + 1.1);
-                o.start(t0);
-                o.stop(t0 + 1.2);
-            });
-        } catch (e) { }
-    }
-    function initPrayerTimer() {
-        const ring = document.getElementById('prayer-ring');
-        if (!ring) return;
-        ring.style.strokeDasharray = RING_C.toFixed(2);
-        ring.style.strokeDashoffset = '0';
-        setPrayerDuration(180);
-        const st = loadStore();
-        if (st.prayerLastDone === todayKey()) {
-            setPrayerStatus('오늘 기도 기록을 남겼습니다. 수고하셨습니다.');
-        }
-        showPrayerStreak();
-    }
-
-    /* ============================================================
-       1년 통독 체크 트래커
-       ============================================================ */
-    let readingSet = {};
-
-    function cellKey(d, mIdx) { return d + '-' + (mIdx + 1); }
-    function eligibleByMonth() {
-        const map = {};
-        fullBibleData.forEach(row => {
-            row.forEach((cell, m) => {
-                if (cell && cell !== '-') map[m] = (map[m] || 0) + 1;
-            });
-        });
-        return map;
-    }
-    function refreshReadingRows() {
-        document.querySelectorAll('#bible-full-body td[data-cell]').forEach(td => {
-            td.classList.toggle('read', !!readingSet[td.dataset.cell]);
-        });
-    }
-    function setReadNote(msg) {
-        const note = document.getElementById('read-note');
-        if (note) note.innerText = msg;
-    }
-    function updateReadingProgress(now) {
-        const per = eligibleByMonth();
-        const m = (now || new Date()).getMonth();
-        const total = per[m] || 0;
-        let done = 0;
-        Object.keys(readingSet).forEach(k => {
-            if (Number(String(k).split('-')[1]) === m + 1) done++;
-        });
-        done = Math.min(done, total);
-        const pct = total ? Math.round((done / total) * 100) : 0;
-
-        const pEl = document.getElementById('read-percent');
-        if (pEl) pEl.innerText = pct + '%';
-        const cEl = document.getElementById('read-count');
-        if (cEl) cEl.innerText = done + ' / ' + total;
-        const fEl = document.getElementById('read-fill');
-        if (fEl) fEl.style.width = pct + '%';
-        const mEl = document.getElementById('month-progress-text');
-        if (mEl) mEl.innerHTML = '이번 달 <b>' + pct + '%</b>';
-
-        const bEl = document.getElementById('read-badge');
-        if (bEl) {
-            let icon = 'fa-seedling', label = '새싹';
-            if (pct >= 100) { icon = 'fa-crown'; label = '완주'; }
-            else if (pct >= 70) { icon = 'fa-apple-whole'; label = '풍성'; }
-            else if (pct >= 40) { icon = 'fa-tree'; label = '나무'; }
-            else if (pct >= 15) { icon = 'fa-leaf'; label = '잎새'; }
-            bEl.innerHTML = '<i class="fas ' + icon + ' text-[10px]"></i>' + label;
-        }
-    }
-    function toggleReading(key) {
-        if (!key) return;
-        if (readingSet[key]) delete readingSet[key];
-        else readingSet[key] = true;
-        patchStore({ reading: Object.keys(readingSet) });
-        refreshReadingRows();
-        updateReadingProgress(new Date());
-        setReadNote(readingSet[key]
-            ? '통독 체크 · 이번 달 진행률이 업데이트되었습니다.'
-            : '체크를 해제했습니다.');
-    }
-    function initReadingTracker(now) {
-        const raw = loadStore().reading;
-        readingSet = {};
-        if (Array.isArray(raw)) raw.forEach(k => { readingSet[k] = true; });
-        document.querySelectorAll('#bible-full-body td[data-cell]').forEach(td => {
-            td.addEventListener('click', () => toggleReading(td.dataset.cell));
-        });
-        refreshReadingRows();
-        updateReadingProgress(now || new Date());
-    }
-    function checkTodayReading() {
-        const now = new Date();
-        const key = cellKey(now.getDate(), now.getMonth());
-        const td = document.querySelector('#bible-full-body td[data-cell="' + key + '"]');
-        if (!td || td.dataset.reading === '-') {
-            setReadNote('오늘(' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일)은 통독 쉼 구간입니다.');
-            return;
-        }
-        readingSet[key] = true;
-        patchStore({ reading: Object.keys(readingSet) });
-        refreshReadingRows();
-        updateReadingProgress(now);
-        setReadNote('오늘(' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일) 통독 체크 완료 · ' + td.dataset.reading);
-        try {
-            confetti({ particleCount: 45, spread: 55, origin: { y: 0.75 }, colors: CONFETTI_COLORS });
-        } catch (e) { }
-    }
-    function resetReading() {
-        readingSet = {};
-        patchStore({ reading: [] });
-        refreshReadingRows();
-        updateReadingProgress(new Date());
-        setReadNote('통독 기록을 모두 지웠습니다. 오늘부터 다시 시작해 보세요.');
-    }
-    </script>
+      });
+    });
+  </script>
 </body>
 </html>

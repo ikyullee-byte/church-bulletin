@@ -317,7 +317,7 @@
   "inlineEditCommands": [],
   "projectList": [],
   "lastDismissedVersion": null,
-  "lastShownStartupVersion": null,
+  "lastShownStartupVersion": "4.0.15",
   "passMarkdownImages": true,
   "enableAutonomousAgent": true,
   "enableCustomPromptTemplating": true,
@@ -467,15 +467,6 @@
     {
       "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
       "info": {
-        "id": "ollama/qwen2.5:latest",
-        "displayName": "ollama/qwen2.5:latest"
-      },
-      "configuredModelId": "b9a19bda-c533-4645-a0c9-20836880909f",
-      "configuredAt": 1791901757634
-    },
-    {
-      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
-      "info": {
         "id": "opencode/big-pickle",
         "displayName": "opencode/Big Pickle"
       },
@@ -489,33 +480,6 @@
         "displayName": "opencode/Cat Jam Free"
       },
       "configuredModelId": "64c5a641-52e1-4cf5-86d1-6878e0f3617a",
-      "configuredAt": 1791901757634
-    },
-    {
-      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
-      "info": {
-        "id": "opencode/exo-free",
-        "displayName": "opencode/Exo Free"
-      },
-      "configuredModelId": "ca36ca52-77f7-482c-8c98-0770c9ea2972",
-      "configuredAt": 1791901757634
-    },
-    {
-      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
-      "info": {
-        "id": "opencode/ling-3.0-flash-fin-free",
-        "displayName": "opencode/Ling 3.0 Flash Fin Free"
-      },
-      "configuredModelId": "ebb40afc-df9a-46af-aab7-aef3cdffc58e",
-      "configuredAt": 1791901757634
-    },
-    {
-      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
-      "info": {
-        "id": "opencode/ling-3.1-flash-free",
-        "displayName": "opencode/Ling 3.1 Flash Free"
-      },
-      "configuredModelId": "558ea2cd-e4e3-45f3-bf4e-4272cc8da19a",
       "configuredAt": 1791901757634
     },
     {
@@ -575,11 +539,29 @@
     {
       "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
       "info": {
-        "id": "opencode/step-5-preview-free",
-        "displayName": "opencode/Step 5 Preview Free"
+        "id": "opencode/deepseek-v4.1-flash-free",
+        "displayName": "opencode/DeepSeek V4.1 Flash Free"
       },
-      "configuredModelId": "f4a36193-3265-4246-868e-d6e71a7181bf",
-      "configuredAt": 1791901757635
+      "configuredModelId": "60049966-7d03-4892-929e-e11bd14138eb",
+      "configuredAt": 1792105706854
+    },
+    {
+      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
+      "info": {
+        "id": "opencode/nemotron-3.5-super-vl-free",
+        "displayName": "opencode/Nemotron 3.5 Super VL Free"
+      },
+      "configuredModelId": "969f6804-1c72-4ba1-adb5-e84c0c25257e",
+      "configuredAt": 1792105706855
+    },
+    {
+      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
+      "info": {
+        "id": "ollama/gemma4:12b",
+        "displayName": "ollama/gemma4:12b"
+      },
+      "configuredModelId": "1e5208b7-1c72-465d-a71a-4b8312e5c0c3",
+      "configuredAt": 1792105706856
     }
   ],
   "backends": {
@@ -593,7 +575,6 @@
     },
     "opencode": {
       "enabledModels": [
-        "b9a19bda-c533-4645-a0c9-20836880909f",
         "9fca1e5e-b9d0-4b38-9381-820e4b0bf78a",
         "64c5a641-52e1-4cf5-86d1-6878e0f3617a"
       ]

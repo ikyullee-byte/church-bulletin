@@ -334,7 +334,7 @@
   "parallelApiKey": "",
   "exaApiKey": "",
   "supadataApiKey": "",
-  "docProcessorBackend": "plus",
+  "enableMiyoDocumentProcessing": false,
   "enableLexicalBoosts": true,
   "suggestedDefaultCommands": false,
   "autonomousAgentEnabledToolIds": [
@@ -369,6 +369,7 @@
       }
     },
     "debugFullFrames": true,
+    "offerFeedbackCards": true,
     "notificationSound": true,
     "notificationSoundId": "piano",
     "welcomeDismissed": true,
@@ -379,9 +380,6 @@
           "disabled": true
         },
         "copilot-web-fetch": {
-          "disabled": true
-        },
-        "copilot-read-pdf": {
           "disabled": true
         }
       }
@@ -560,8 +558,8 @@
         "id": "ollama/gemma4:12b",
         "displayName": "ollama/gemma4:12b"
       },
-      "configuredModelId": "1e5208b7-1c72-465d-a71a-4b8312e5c0c3",
-      "configuredAt": 1792105706856
+      "configuredModelId": "409ce523-4e0a-47eb-9ea6-53d477d9508d",
+      "configuredAt": 1792105734276
     }
   ],
   "backends": {
@@ -754,7 +752,8 @@
       "minimax-m3"
     ]
   },
+  "docProcessorBackend": "plus",
   "miyoConnectionMode": "local",
   "_keychainVaultId": "07464d79",
-  "settingsVersion": 14
+  "settingsVersion": 15
 }

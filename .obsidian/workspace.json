@@ -11,14 +11,10 @@
             "id": "2a5dbfc7370e90e3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "qt.html.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "qt.html"
+              "title": "새 탭"
             }
           }
         ]
@@ -213,8 +209,11 @@
   },
   "active": "2a5dbfc7370e90e3",
   "lastOpenFiles": [
-    "study.html.md",
     "qt.html.md",
+    "study.html",
+    "qt.html",
+    "index.html",
+    "study.html.md",
     "index.html.md",
     "D86B81A6-85CE-47E8-BB75-A645F981884B.JPG",
     "02FD689A-CF5B-427A-A204-E6DE1322DC51.JPG",
@@ -247,9 +246,6 @@
     "개역개정/1-19시편.md",
     "개역개정/1-22아가.md",
     "개역개정",
-    "copilot/skills/copilot-fetch-x/fetch-x.ps1",
-    "copilot/skills/copilot-fetch-x/fetch-x.cmd",
-    "copilot/skills/copilot-fetch-x/fetch-x.sh",
     "outputs/shots/09-mobile390-dark.png",
     "outputs/shots/08-mobile390-light.png",
     "outputs/shots/07-play-dark.png",

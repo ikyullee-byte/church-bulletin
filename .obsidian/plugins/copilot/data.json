@@ -558,8 +558,8 @@
         "id": "ollama/gemma4:12b",
         "displayName": "ollama/gemma4:12b"
       },
-      "configuredModelId": "bc621bbb-c050-4889-800d-53c099f7dee7",
-      "configuredAt": 1792338993651
+      "configuredModelId": "a7f4f5b5-1ac6-4575-90f8-775ffb35b58e",
+      "configuredAt": 1792341037917
     }
   ],
   "backends": {

@@ -1,0 +1,541 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>새벽기도회 은혜의 기록</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0a0f1d;
+      --card-bg: rgba(22, 32, 53, 0.82);
+      --gold: #e5c158;
+      --gold-soft: #f5e6b8;
+      --text-main: #f4f6f9;
+      --text-sub: #a9b3c6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding-bottom: 90px;
+      overflow-x: hidden;
+    }
+
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(180deg, #131d36 0%, #0a0f1d 100%);
+    }
+
+    .mobile-wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .serif {
+      font-family: 'Nanum Myeongjo', serif;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 상단 요일 선택 탭 (가로 스크롤 지원) */
+    .day-selector-wrap {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 15px 0 5px;
+      scrollbar-width: none;
+    }
+    .day-selector-wrap::-webkit-scrollbar {
+      display: none;
+    }
+    .day-btn {
+      background: var(--card-bg);
+      border: 1px solid rgba(229, 193, 88, 0.3);
+      color: var(--text-sub);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-right: 6px;
+      transition: all 0.2s;
+    }
+    .day-btn.active {
+      background: var(--gold);
+      color: #0a0f1d;
+      font-weight: 700;
+      border-color: var(--gold);
+    }
+
+    /* 본문 영역 */
+    .hero {
+      padding: 30px 0 20px;
+      text-align: center;
+    }
+
+    .date-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--gold);
+      border: 1px solid rgba(229, 193, 88, 0.4);
+      background: rgba(229, 193, 88, 0.08);
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: 1.65rem;
+      line-height: 1.35;
+      color: #fff;
+      margin-bottom: 8px;
+      word-break: keep-all;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-bottom: 18px;
+    }
+
+    .info-bar {
+      display: flex;
+      justify-content: space-around;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 12px 10px;
+      font-size: 0.8rem;
+    }
+
+    .info-item strong {
+      display: block;
+      color: var(--gold);
+      font-size: 0.72rem;
+      margin-bottom: 2px;
+    }
+
+    section {
+      margin-bottom: 22px;
+    }
+
+    .sec-title {
+      font-size: 1.1rem;
+      color: var(--gold-soft);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 16px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .verse-item {
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .v-num {
+      color: var(--gold);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    .point-card {
+      border-left: 3px solid var(--gold);
+    }
+
+    .point-tag {
+      font-size: 0.7rem;
+      color: #0a0f1d;
+      background: var(--gold);
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .point-card h3 {
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    .point-desc {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+
+    .key-quote {
+      background: rgba(229, 193, 88, 0.1);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      color: var(--gold-soft);
+      font-weight: 500;
+    }
+
+    .prayer-list {
+      list-style: none;
+    }
+    .prayer-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+    .prayer-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+    .prayer-list strong {
+      color: var(--gold-soft);
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 2px;
+    }
+
+    .cry-box {
+      background: linear-gradient(135deg, rgba(229, 193, 88, 0.2), rgba(22, 32, 53, 0.95));
+      border: 1px solid var(--gold);
+      text-align: center;
+    }
+    .cry-title {
+      font-size: 1.2rem;
+      color: var(--gold);
+      font-weight: 800;
+      margin: 8px 0;
+      letter-spacing: 2px;
+    }
+
+    /* 하단 고정 네비게이션 (데이터 기반 동적 생성) */
+    .bottom-nav {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 36px);
+      max-width: 440px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(229, 193, 88, 0.35);
+      border-radius: 30px;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 6px;
+      z-index: 100;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .bottom-nav button {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .bottom-nav button.active {
+      background: var(--gold);
+      color: #0a0f1d;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="mobile-wrap">
+    
+    <!-- 요일 선택 상단 바 (자동 생성됨) -->
+    <div id="daySelector" class="day-selector-wrap"></div>
+
+    <!-- 설교 내용이 동적으로 들어올 자리 -->
+    <div id="contentArea"></div>
+
+  </div>
+
+  <!-- 하단 고정 탭바 (자동 생성됨) -->
+  <nav id="bottomNav" class="bottom-nav"></nav>
+
+  <script>
+    // =========================================================================
+    // 📂 [설교 데이터 관리 구역] 
+    // - 자료가 늘어나면 여기에 데이터 객체만 한 줄씩 추가하면 됩니다! (코드가 길어지지 않음)
+    // =========================================================================
+    const sermons = {
+      "2026-10-19": {
+        dateStr: "2026. 10. 19 (월)",
+        title: "새 일을 행하시는 하나님과 첫날의 믿음",
+        subtitle: "종일토록 손을 펼치시는 주님의 품으로",
+        bibleRange: "이사야 65:1-16",
+        hymn: "370장 · 455장",
+        summaryPrayer: "\"새로운 한 주의 첫 문을 여는 월요일 새벽, 우리의 연약함과 두려움을 내려놓습니다. 종일토록 손을 펼치사 우리를 기다리시는 주님의 품 안에서, 실패와 상처의 아골 골짜기가 변하여 축복의 땅이 되는 역사를 보게 하옵소서. 아멘.\"",
+        verses: [
+          { num: "1", text: "나는 나를 구하지 아니하던 자에게 물음을 받았으며 나를 찾지 아니하던 자에게 찾아 발견됨을 받았으며..." },
+          { num: "2", text: "내가 종일 내 손을 펼쳐 자기의 생각을 따라 불선한 길을 행하는 패역한 백성들을 부렀나니" },
+          { num: "10", text: "사론은 양 떼의 우리가 되겠고 <strong>아골 골짜기</strong>는 소 떼의 누울 곳이 되어 나를 찾은 내 백성의 소유가 되려니와" }
+        ],
+        points: [
+          { tag: "포인트 01", title: "종일토록 손을 펼치고 기다리십니다 (1-2절)", desc: "등을 돌릴 때조차도 두 손을 넓게 펼쳐 \"내가 여기 있노라\" 부르시는 아버지의 품을 신뢰하십시오.", quote: "월요일 아침, 우리를 향해 '내가 여기 있노라' 말씀하시는 아버지의 품 안으로 나아오십시오." },
+          { tag: "포인트 02", title: "아골 골짜기를 축복의 땅으로 바꾸십니다 (8-10절)", desc: "실패와 저주의 상징인 아골 골짜기를 변하여 평안히 쉬는 초장으로 만들어 주십니다.", quote: "눈물 흘리던 실패의 자리가 하나님의 은혜로 역전의 무대가 될 줄 믿으시기 바랍니다." },
+          { tag: "포인트 03", title: "진리의 하나님으로 인하여 마음의 즐거움을 주십니다 (13-16절)", desc: "세상의 헛된 복을 좇는 자들의 끝은 슬픔이지만, 진리의 하나님을 찾는 주의 백성들에게는 깊은 마음의 즐거움과 찬송이 넘치게 됩니다.", quote: "한 주의 첫날, 진리 되신 주님을 의지함으로 승리의 함성을 지르십시오." }
+        ],
+        prayers: [
+          "<strong>1. 한 주간의 첫날 위탁:</strong> 모든 일정을 주권 아래 드리고 종일 손 펼치시는 인도하심 신뢰",
+          "<strong>2. 아골 골짜기의 역전:</strong> 과거의 실패를 딛고 하나님이 예비하신 풍성한 은혜 누리도록",
+          "<strong>3. 환우들과 무거운 짐을 진 이들:</strong> 질병과 압박으로 월요일 아침을 시작하는 성도들에게 능력 베풀도록"
+        ],
+        cryPrayer: "\"종일토록 우리를 기다리시는 주님 품 안에서 새 한 주를 시작하오니, 실패와 낙심의 아골 골짜기를 축복의 땅으로 바꾸어 주옵소서!\""
+      },
+
+      "2026-10-16": {
+        dateStr: "2026. 10. 16 (금)",
+        title: "헵시바와 쁄라, 신랑이 신부를 기뻐함 같이",
+        subtitle: "우리를 향해 쉬지 않으시는 하나님의 사랑",
+        bibleRange: "이사야 62:1-12",
+        hymn: "210장 · 550장",
+        summaryPrayer: "\"시온을 위하여 쉬지 않으시는 하나님 아버지, 세상의 시선에 흔들려 스스로를 '버림받은 자'처럼 여겼던 연약함을 내려놓습니다. 오늘 우리를 '헵시바'와 '쁄라'라 부르시는 주님의 음성을 듣게 하옵소서. 아멘.\"",
+        verses: [
+          { num: "1", text: "나는 시온의 의가 빛 같이, 예루살렘의 구원이 횃불 같이 나타나도록 시온을 위하여 잠잠하지 아니하며..." },
+          { num: "4", text: "다시는 너를 버림 받은 자라 부르지 아니하며… 오직 너를 <strong>헵시바</strong>라 하며 네 땅을 <strong>쁄라</strong>라 하리라" },
+          { num: "5", text: "신랑이 신부를 기뻐함 같이 네 하나님이 너를 기뻐하시리라" }
+        ],
+        points: [
+          { tag: "포인트 01", title: "하나님은 우리를 위해 결코 쉬지 않으십니다 (1, 6-7절)", desc: "우리를 성벽 위 파수꾼으로 부르셔서 기도를 통해 하나님의 열심과 만나게 하십니다.", quote: "오늘 우리의 새벽 기도는 쉬지 않으시는 하나님의 열심과 만나는 거룩한 통로입니다." },
+          { tag: "포인트 02", title: "'버림받은 자'가 아니라 '헵시바'와 '쁄라'입니다 (2-5절)", desc: "나의 기쁨이 그에게 있다는 헵시바, 주님의 신부인 쁄라라는 새 정체성을 회복하셨습니다.", quote: "헵시바(나의 기쁨이 그에게 있다)와 쁄라(결혼한 여인)의 새 이름을 붙드십시오." }
+        ],
+        prayers: [
+          "<strong>1. 정체성 회복:</strong> 자책에서 벗어나 헵시바와 쁄라의 절대적 사랑 확신",
+          "<strong>2. 쉬지 않는 파수꾼:</strong> 가정과 교회, 민족의 성벽 위에서 응답까지 부르짖기"
+        ],
+        cryPrayer: "\"우리를 위하여 잠시도 쉬지 않으시는 주님, 우리는 버림받은 자가 아니라 주의 기쁨인 신부입니다. 파수꾼으로 부르심에 감사하며 부르짖습니다!\""
+      }
+      
+      // 💡 [자료 추가 방법]: 나중에 화요일, 수요일 자료가 생기면 아래에 콤마(,)를 찍고 요렇게만 추가하면 끝납니다!
+      // , "2026-10-20": { dateStr: "2026. 10. 20 (화)", ... }
+    };
+
+    // =========================================================================
+    // ⚙️ [동적 화면 렌더링 시스템 코드 (수정할 필요 없음)]
+    // =========================================================================
+    const keys = Object.keys(sermons); // 등록된 날짜 목록
+    let currentKey = keys[0]; // 기본은 가장 최신 날짜(첫 번째 데이터) 선택
+
+    function renderApp(targetKey) {
+      currentKey = targetKey;
+      const data = sermons[targetKey];
+
+      // 1. 상단 요일 버튼 렌더링
+      let selectorHtml = '';
+      keys.forEach((k, idx) => {
+        const activeClass = k === targetKey ? 'active' : '';
+        const label = sermons[k].dateStr;
+        selectorHtml += `<button class="day-btn ${activeClass}" onclick="renderApp('${k}')">${label}</button>`;
+      });
+      document.getElementById('daySelector').innerHTML = selectorHtml;
+
+      // 2. 하단 탭바 버튼 렌더링
+      let navHtml = '';
+      keys.forEach((k) => {
+        const activeClass = k === targetKey ? 'active' : '';
+        const shortLabel = sermons[k].dateStr.split(' ')[2] + ' ' + sermons[k].dateStr.split(' ')[1].replace('.', '/'); // 예: (월) 10/19
+        navHtml += `<button class="${activeClass}" onclick="renderApp('${k}')">${shortLabel}</button>`;
+      });
+      document.getElementById('bottomNav').innerHTML = navHtml;
+
+      // 3. 본문 컨텐츠 렌더링
+      let versesHtml = '';
+      data.verses.forEach(v => {
+        versesHtml += `<div class="verse-item"><span class="v-num">${v.num}</span>${v.text}</div>`;
+      });
+
+      let pointsHtml = '';
+      data.points.forEach(p => {
+        pointsHtml += `
+          <div class="card point-card fade-up">
+            <span class="point-tag">${p.tag}</span>
+            <h3 class="serif">${p.title}</h3>
+            <p class="point-desc">${p.desc}</p>
+            <div class="key-quote">💡 ${p.quote}</div>
+          </div>
+        `;
+      });
+
+      let prayersHtml = '';
+      data.prayers.forEach(pr => {
+        prayersHtml += `<li>${pr}</li>`;
+      });
+
+      const contentHtml = `
+        <header class="hero">
+          <div class="date-badge">${data.dateStr} 새벽기도회</div>
+          <h1 class="serif"><span>${data.title.split('와')[0] || data.title}</span></h1>
+          <h1 class="serif" style="font-size: 1.4rem; color: var(--gold);">${data.title.includes('와') ? '와 ' + data.title.split('와')[1] : ''}</h1>
+          <p class="hero-sub">${data.subtitle}</p>
+
+          <div class="info-bar">
+            <div class="info-item">
+              <strong>본문</strong>
+              <span>${data.bibleRange}</span>
+            </div>
+            <div class="info-item">
+              <strong>찬송</strong>
+              <span>${data.hymn}</span>
+            </div>
+          </div>
+        </header>
+
+        <section>
+          <div class="card">
+            <p style="font-size: 0.9rem; color: var(--gold-soft); font-style: italic;">
+              ${data.summaryPrayer}
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="sec-title serif">핵심 말씀 (${data.bibleRange})</h2>
+          <div class="card serif">
+            ${versesHtml}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="sec-title serif">설교 핵심 메시지</h2>
+          ${pointsHtml}
+        </section>
+
+        <section>
+          <h2 class="sec-title serif">공동 기도 & 합심기도</h2>
+          <div class="card">
+            <ul class="prayer-list">${prayersHtml}</ul>
+          </div>
+          <div class="card cry-box">
+            <span class="point-tag">새벽 합심 기도</span>
+            <div class="cry-title serif">주여! 주여! 주여!</div>
+            <p style="font-size: 0.88rem; color: var(--gold-soft); text-align: left; margin-top: 8px;">
+              ${data.cryPrayer}
+            </p>
+          </div>
+        </section>
+      `;
+
+      document.getElementById('contentArea').innerHTML = contentHtml;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 페이드업 애니메이션 재적용
+      setTimeout(() => {
+        document.querySelectorAll('.fade-up').forEach(el => el.classList.add('show'));
+      }, 50);
+    }
+
+    // 최초 실행
+    renderApp(currentKey);
+
+    // 별빛 캔버스 배경 애니메이션
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 40; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.5,
+        a: Math.random(),
+        da: Math.random() * 0.015 + 0.005,
+        dy: -(Math.random() * 0.2 + 0.05)
+      });
+    }
+
+    function drawStarss() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.y += s.dy;
+        s.a += s.da;
+        if (s.a > 0.9 || s.a < 0.1) s.da *= -1;
+        if (s.y < 0) s.y = canvas.height;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(229, 193, 88, ${s.a})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStarss);
+    }
+    drawStarss();
+  </script>
+</body>
+<<<<<<< HEAD:qt.html.md
+</html>
+=======
+</html> 
+>>>>>>> origin/main:qt.html

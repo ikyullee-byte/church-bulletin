@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "f9a242302b301dcc",
+        "id": "978b480ec0319e4b",
         "type": "tabs",
         "children": [
           {
-            "id": "2a5dbfc7370e90e3",
+            "id": "da064107c31542e0",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "study.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "study"
             }
           }
         ]
@@ -207,8 +211,11 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "2a5dbfc7370e90e3",
+  "active": "da064107c31542e0",
   "lastOpenFiles": [
+    "qt.md",
+    "index.md",
+    "study.md",
     "qt.html.md",
     "study.html",
     "qt.html",
@@ -243,8 +250,6 @@
     "개역개정/1-37학개.md",
     "개역개정/1-20잠언.md",
     "개역개정/2-14데살로니가후서.md",
-    "개역개정/1-19시편.md",
-    "개역개정/1-22아가.md",
     "개역개정",
     "outputs/shots/09-mobile390-dark.png",
     "outputs/shots/08-mobile390-light.png",

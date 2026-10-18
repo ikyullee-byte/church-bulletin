@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>10.16 새벽기도회 | 헵시바와 쁄라</title>
+  <title>새벽기도회 은혜의 기록</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -33,11 +33,10 @@
       background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.65;
-      padding-bottom: 80px; /* 하단 탭바 여백 */
+      padding-bottom: 90px;
       overflow-x: hidden;
     }
 
-    /* 배경 별빛 캔버스 */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -48,7 +47,6 @@
       background: linear-gradient(180deg, #131d36 0%, #0a0f1d 100%);
     }
 
-    /* 모바일 컨테이너 (최대 폭 480px 고정으로 PC에서도 모바일 뷰 유지) */
     .mobile-wrap {
       max-width: 480px;
       margin: 0 auto;
@@ -59,20 +57,48 @@
       font-family: 'Nanum Myeongjo', serif;
     }
 
-    /* 스크롤 등장 애니메이션 */
     .fade-up {
       opacity: 0;
-      transform: translateY(25px);
-      transition: all 0.6s ease-out;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
     }
     .fade-up.show {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* 1. 상단 표지 */
+    /* 상단 요일 선택 탭 (가로 스크롤 지원) */
+    .day-selector-wrap {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 15px 0 5px;
+      scrollbar-width: none;
+    }
+    .day-selector-wrap::-webkit-scrollbar {
+      display: none;
+    }
+    .day-btn {
+      background: var(--card-bg);
+      border: 1px solid rgba(229, 193, 88, 0.3);
+      color: var(--text-sub);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-right: 6px;
+      transition: all 0.2s;
+    }
+    .day-btn.active {
+      background: var(--gold);
+      color: #0a0f1d;
+      font-weight: 700;
+      border-color: var(--gold);
+    }
+
+    /* 본문 영역 */
     .hero {
-      padding: 50px 0 35px;
+      padding: 30px 0 20px;
       text-align: center;
     }
 
@@ -84,15 +110,14 @@
       background: rgba(229, 193, 88, 0.08);
       padding: 4px 14px;
       border-radius: 20px;
-      margin-bottom: 16px;
-      letter-spacing: 1px;
+      margin-bottom: 12px;
     }
 
     .hero h1 {
-      font-size: 1.85rem;
+      font-size: 1.65rem;
       line-height: 1.35;
       color: #fff;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       word-break: keep-all;
     }
 
@@ -101,9 +126,9 @@
     }
 
     .hero-sub {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-sub);
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
 
     .info-bar {
@@ -112,24 +137,23 @@
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
-      padding: 14px 10px;
-      font-size: 0.82rem;
+      padding: 12px 10px;
+      font-size: 0.8rem;
     }
 
     .info-item strong {
       display: block;
       color: var(--gold);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       margin-bottom: 2px;
     }
 
-    /* 공통 섹션 & 카드 */
     section {
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
 
     .sec-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: var(--gold-soft);
       margin-bottom: 12px;
       display: flex;
@@ -151,19 +175,15 @@
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
-      padding: 20px;
+      padding: 18px;
       margin-bottom: 14px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
-    /* 말씀 구절 */
     .verse-item {
-      margin-bottom: 14px;
-      font-size: 0.95rem;
+      margin-bottom: 12px;
+      font-size: 0.92rem;
       line-height: 1.7;
-    }
-    .verse-item:last-child {
-      margin-bottom: 0;
     }
     .v-num {
       color: var(--gold);
@@ -171,105 +191,53 @@
       margin-right: 6px;
     }
 
-    /* 아코디언 (더보기 버튼) */
-    details {
-      margin-top: 12px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.12);
-      padding-top: 12px;
-    }
-    summary {
-      font-size: 0.85rem;
-      color: var(--gold);
-      cursor: pointer;
-      list-style: none;
-      text-align: center;
-      font-weight: 500;
-    }
-    summary::-webkit-details-marker {
-      display: none;
-    }
-    .details-content {
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      line-height: 1.7;
-    }
-
-    /* 설교 3대 포인트 카드 */
     .point-card {
       border-left: 3px solid var(--gold);
     }
 
     .point-tag {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #0a0f1d;
       background: var(--gold);
       font-weight: 700;
-      padding: 2px 9px;
+      padding: 2px 8px;
       border-radius: 10px;
       display: inline-block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .point-card h3 {
-      font-size: 1.12rem;
+      font-size: 1.05rem;
       color: #fff;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       line-height: 1.4;
       word-break: keep-all;
     }
 
     .point-desc {
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--text-sub);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .key-quote {
       background: rgba(229, 193, 88, 0.1);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 0.88rem;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
       color: var(--gold-soft);
       font-weight: 500;
     }
 
-    /* 헵시바 & 쁄라 미니 비교 */
-    .name-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 12px 0;
-      text-align: center;
-    }
-    .name-item {
-      padding: 12px 8px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-    }
-    .name-old {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-sub);
-    }
-    .name-new {
-      background: rgba(229, 193, 88, 0.18);
-      border: 1px solid var(--gold);
-      color: #fff;
-    }
-
-    /* 공동 기도 제목 리스트 */
     .prayer-list {
       list-style: none;
     }
     .prayer-list li {
       position: relative;
-      padding-left: 22px;
-      margin-bottom: 12px;
-      font-size: 0.92rem;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 0.88rem;
       color: var(--text-main);
-    }
-    .prayer-list li:last-child {
-      margin-bottom: 0;
     }
     .prayer-list li::before {
       content: '✦';
@@ -280,30 +248,24 @@
     .prayer-list strong {
       color: var(--gold-soft);
       display: block;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       margin-bottom: 2px;
     }
 
-    /* 통성기도 강조 박스 */
     .cry-box {
       background: linear-gradient(135deg, rgba(229, 193, 88, 0.2), rgba(22, 32, 53, 0.95));
       border: 1px solid var(--gold);
       text-align: center;
     }
     .cry-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: var(--gold);
       font-weight: 800;
-      margin: 10px 0;
+      margin: 8px 0;
       letter-spacing: 2px;
-      animation: pulse 2s infinite alternate;
-    }
-    @keyframes pulse {
-      from { opacity: 0.8; }
-      to { opacity: 1; text-shadow: 0 0 12px var(--gold); }
     }
 
-    /* 하단 고정 네비게이션 */
+    /* 하단 고정 네비게이션 (데이터 기반 동적 생성) */
     .bottom-nav {
       position: fixed;
       bottom: 12px;
@@ -321,16 +283,19 @@
       z-index: 100;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
-    .bottom-nav a {
+    .bottom-nav button {
+      background: none;
+      border: none;
       color: var(--text-sub);
-      text-decoration: none;
+      font-family: inherit;
       font-size: 0.78rem;
       font-weight: 500;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 16px;
+      cursor: pointer;
       transition: all 0.2s;
     }
-    .bottom-nav a.active {
+    .bottom-nav button.active {
       background: var(--gold);
       color: #0a0f1d;
       font-weight: 700;
@@ -343,165 +308,193 @@
 
   <div class="mobile-wrap">
     
-    <!-- 1. 표지 -->
-    <header class="hero fade-up" id="top">
-      <div class="date-badge">2026. 10. 16 (금) 새벽기도회</div>
-      <h1 class="serif"><span>헵시바</span>와 <span>쁄라</span>,<br>신랑이 신부를 기뻐함 같이</h1>
-      <p class="hero-sub">우리를 향해 쉬지 않으시는 하나님의 사랑</p>
+    <!-- 요일 선택 상단 바 (자동 생성됨) -->
+    <div id="daySelector" class="day-selector-wrap"></div>
 
-      <div class="info-bar">
-        <div class="info-item">
-          <strong>본문</strong>
-          <span>이사야 62:1-12</span>
-        </div>
-        <div class="info-item">
-          <strong>찬송</strong>
-          <span>210장 · 550장</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- 2. 시작 기도 (요약) -->
-    <section class="fade-up">
-      <div class="card">
-        <p style="font-size: 0.92rem; color: var(--gold-soft); font-style: italic;">
-          "시온을 위하여 쉬지 않으시는 하나님 아버지, 세상의 시선에 흔들려 스스로를 '버림받은 자'처럼 여겼던 연약함을 내려놓습니다. 오늘 우리를 '헵시바'와 '쁄라'라 부르시는 주님의 음성을 듣고, 거룩한 기도의 파수꾼으로 일어서게 하옵소서. 아멘."
-        </p>
-      </div>
-    </section>
-
-    <!-- 3. 핵심 성경 본문 -->
-    <section id="word" class="fade-up">
-      <h2 class="sec-title serif">핵심 말씀 (이사야 62:1-12)</h2>
-      <div class="card serif">
-        <div class="verse-item">
-          <span class="v-num">1</span>나는 시온의 의가 빛 같이, 예루살렘의 구원이 횃불 같이 나타나도록 시온을 위하여 잠잠하지 아니하며 예루살렘을 위하여 쉬지 아니할 것인즉
-        </div>
-        <div class="verse-item">
-          <span class="v-num">4</span>다시는 너를 버림 받은 자라 부르지 아니하며 다시는 네 땅을 황무지라 부르지 아니하고 오직 너를 <strong>헵시바</strong>라 하며 네 땅을 <strong>쁄라</strong>라 하리니 이는 여호와께서 너를 기뻐하실 것이며 네 땅이 결혼한 것처럼 될 것임이라
-        </div>
-        <div class="verse-item">
-          <span class="v-num">5</span>신랑이 신부를 기뻐함 같이 네 하나님이 너를 기뻐하시리라
-        </div>
-        <div class="verse-item">
-          <span class="v-num">12</span>사람들이 너를 일컬어 거룩한 백성이라 여호와께서 구속하신 자라 하겠고 또 너를 일컬어 찾은 바 된 자요 버림 받지 아니한 성읍이라 하리라
-        </div>
-
-        <details>
-          <summary>📖 본문 전체(1~12절) 펼쳐보기 ▾</summary>
-          <div class="details-content">
-            2. 이방 나라들이 네 공의를, 뭇 왕이 다 네 영광을 볼 것이요 너는 여호와의 입으로 정하실 새 이름으로 일컬음이 될 것이며<br>
-            3. 너는 또 여호와의 손의 아름다운 관, 네 하나님의 손의 왕관이 될 것이라<br>
-            4. 예루살렘이여 내가 너의 성벽 위에 파수꾼을 세우고 그들로 하여금 주야로 계속 잠잠하지 않게 하였느니라 너희 여호와로 기억하시게 하는 자들아 너희는 쉬지 말며<br>
-            5. 또 여호와께서 예루살렘을 세워 세상에서 찬송을 받게 하시기까지 그로 쉬지 못하시게 하라<br>
-            6. 여호와께서 그 오른손, 그 능력의 팔로 맹세하시되 내가 다시는 네 곡식을 네 원수들에게 양식으로 주지 아니하겠고 네가 수고하여 얻은 포도주를 이방인이 마시지 못하게 할 것인즉<br>
-            7. 오직 추수한 자가 그것을 먹고 나 여호와를 찬송할 것이요 거둔 자가 그것을 나의 성소 뜰에서 마시리라 하셨느니라<br>
-            8. 성문으로 나아가라 나아가라 백성이 올 길을 닦으라 큰 길을 수축하고 수축하라 돌을 제하라 만민을 위하여 기치를 들라<br>
-            9. 여호와께서 땅 끝까지 선포하시되 너희는 딸 시온에게 이르라 보라 네 구원이 이르렀느니라 보라 상급이 그에게 있고 보응이 그 앞에 있느니라 하셨느니라
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <!-- 4. 설교 핵심 메시지 -->
-    <section id="sermon">
-      <h2 class="sec-title serif fade-up">오늘의 말씀 핵심</h2>
-
-      <!-- 대지 1 -->
-      <div class="card point-card fade-up">
-        <span class="point-tag">은혜 01</span>
-        <h3 class="serif">하나님은 우리를 위해 결코 쉬지 않으십니다 (1, 6-7절)</h3>
-        <p class="point-desc">
-          세상이 우리를 포기할 때에도 하나님은 우리의 회복을 위해 잠잠하지 않고 일하십니다. 그리고 우리를 <strong>'성벽 위 파수꾼'</strong>으로 부르셔서, 우리의 기도를 통해 일하시겠다고 약속하십니다.
-        </p>
-        <div class="key-quote">
-          💡 오늘 우리의 새벽 기도는 쉬지 않으시는 하나님의 열심과 만나는 거룩한 통로입니다.
-        </div>
-      </div>
-
-      <!-- 대지 2 -->
-      <div class="card point-card fade-up">
-        <span class="point-tag">은혜 02</span>
-        <h3 class="serif">'버림받은 자'가 아니라 '헵시바'와 '쁄라'입니다 (2-5절)</h3>
-        <p class="point-desc">
-          스스로를 향해 "나는 안 된다"고 부르던 옛 이름을 내려놓으십시오. 우리는 하나님의 손에 들린 아름다운 왕관이며, 신랑이 기뻐하는 신부입니다.
-        </p>
-        <div class="name-box">
-          <div class="name-item name-old">
-            <small>과거의 이름</small><br><strong>버림받은 자 · 황무지</strong>
-          </div>
-          <div class="name-item name-new">
-            <small>주님이 주신 새 이름</small><br><strong>헵시바 · 쁄라</strong>
-          </div>
-        </div>
-        <div class="key-quote">
-          💡 <strong>헵시바:</strong> 나의 기쁨이 그에게 있다<br>
-          💡 <strong>쁄라:</strong> 결혼한 여인 (주님의 신부)
-        </div>
-      </div>
-
-      <!-- 대지 3 -->
-      <div class="card point-card fade-up">
-        <span class="point-tag">은혜 03</span>
-        <h3 class="serif">길을 닦고 구원의 기치를 높이 드십시오 (10-12절)</h3>
-        <p class="point-desc">
-          사랑으로 회복된 백성에게는 <strong>'나아가라'</strong>는 사명이 주어집니다. 삶의 자리에서 걸림돌을 제하고, 만민을 향해 오직 예수 그리스도의 구원의 깃발(기치)을 높이 드는 성도가 되십시오.
-        </p>
-        <div class="key-quote">
-          💡 우리의 최종 이름은 <strong>'찾은 바 된 자요, 버림받지 아니한 거룩한 성읍'</strong>입니다.
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. 공동 기도 제목 & 통성기도 -->
-    <section id="prayer" class="fade-up">
-      <h2 class="sec-title serif">오늘의 공동 기도 제목</h2>
-      
-      <div class="card">
-        <ul class="prayer-list">
-          <li>
-            <strong>1. 정체성 회복을 위하여</strong>
-            세상의 평가나 자책에서 벗어나, 나를 '헵시바'와 '쁄라'라 부르시는 하나님의 절대적인 사랑을 확신하게 하소서.
-          </li>
-          <li>
-            <strong>2. 쉬지 않는 기도의 파수꾼</strong>
-            가정과 교회, 민족의 성벽 위에 깨어 서서 주님이 역사하실 때까지 쉬지 않고 부르짖게 하소서.
-          </li>
-          <li>
-            <strong>3. 구원의 기치를 드는 삶</strong>
-            무너진 삶의 자리에서 길을 닦고 돌을 제하며, 세상 가운데 그리스도의 기치를 높이 들게 하소서.
-          </li>
-          <li>
-            <strong>4. 환우와 지친 성도들의 회복</strong>
-            질병과 어려움 가운데 있는 성도들의 가정과 일터를 붙드시고 새 힘과 치유를 허락하소서.
-          </li>
-        </ul>
-      </div>
-
-      <!-- 통성기도 -->
-      <div class="card cry-box fade-up">
-        <span class="point-tag">새벽 합심 기도</span>
-        <p style="font-size: 0.9rem; color: #fff;">나를 기뻐하시는 주님의 음성을 붙들고<br>함께 부르짖어 기도합시다!</p>
-        <div class="cry-title serif">주여! 주여! 주여!</div>
-        
-        <p style="font-size: 0.9rem; color: var(--gold-soft); text-align: left; margin-top: 10px;">
-          "우리를 위하여 잠시도 쉬지 않으시는 하나님 아버지! 우리는 더 이상 버림받은 자가 아니라 주님의 손에 들린 아름다운 왕관이며 기쁨의 신부임을 고백합니다. 오늘 파수꾼으로 일어나 가정과 교회와 환우들을 위해 부르짖사오니, 우리의 기도가 하늘 보좌에 상달되게 하옵소서. 예수님의 이름으로 기도합니다. 아멘!"
-        </p>
-      </div>
-    </section>
+    <!-- 설교 내용이 동적으로 들어올 자리 -->
+    <div id="contentArea"></div>
 
   </div>
 
-  <!-- 하단 고정 탭바 -->
-  <nav class="bottom-nav">
-    <a href="#top" class="nav-link active">표지</a>
-    <a href="#word" class="nav-link">말씀</a>
-    <a href="#sermon" class="nav-link">설교핵심</a>
-    <a href="#prayer" class="nav-link">합심기도</a>
-  </nav>
+  <!-- 하단 고정 탭바 (자동 생성됨) -->
+  <nav id="bottomNav" class="bottom-nav"></nav>
 
   <script>
-    // 1. 가벼운 모바일용 별빛 배경 애니메이션
+    // =========================================================================
+    // 📂 [설교 데이터 관리 구역] 
+    // - 자료가 늘어나면 여기에 데이터 객체만 한 줄씩 추가하면 됩니다! (코드가 길어지지 않음)
+    // =========================================================================
+    const sermons = {
+      "2026-10-19": {
+        dateStr: "2026. 10. 19 (월)",
+        title: "새 일을 행하시는 하나님과 첫날의 믿음",
+        subtitle: "종일토록 손을 펼치시는 주님의 품으로",
+        bibleRange: "이사야 65:1-16",
+        hymn: "370장 · 455장",
+        summaryPrayer: "\"새로운 한 주의 첫 문을 여는 월요일 새벽, 우리의 연약함과 두려움을 내려놓습니다. 종일토록 손을 펼치사 우리를 기다리시는 주님의 품 안에서, 실패와 상처의 아골 골짜기가 변하여 축복의 땅이 되는 역사를 보게 하옵소서. 아멘.\"",
+        verses: [
+          { num: "1", text: "나는 나를 구하지 아니하던 자에게 물음을 받았으며 나를 찾지 아니하던 자에게 찾아 발견됨을 받았으며..." },
+          { num: "2", text: "내가 종일 내 손을 펼쳐 자기의 생각을 따라 불선한 길을 행하는 패역한 백성들을 부렀나니" },
+          { num: "10", text: "사론은 양 떼의 우리가 되겠고 <strong>아골 골짜기</strong>는 소 떼의 누울 곳이 되어 나를 찾은 내 백성의 소유가 되려니와" }
+        ],
+        points: [
+          { tag: "포인트 01", title: "종일토록 손을 펼치고 기다리십니다 (1-2절)", desc: "등을 돌릴 때조차도 두 손을 넓게 펼쳐 \"내가 여기 있노라\" 부르시는 아버지의 품을 신뢰하십시오.", quote: "월요일 아침, 우리를 향해 '내가 여기 있노라' 말씀하시는 아버지의 품 안으로 나아오십시오." },
+          { tag: "포인트 02", title: "아골 골짜기를 축복의 땅으로 바꾸십니다 (8-10절)", desc: "실패와 저주의 상징인 아골 골짜기를 변하여 평안히 쉬는 초장으로 만들어 주십니다.", quote: "눈물 흘리던 실패의 자리가 하나님의 은혜로 역전의 무대가 될 줄 믿으시기 바랍니다." },
+          { tag: "포인트 03", title: "진리의 하나님으로 인하여 마음의 즐거움을 주십니다 (13-16절)", desc: "세상의 헛된 복을 좇는 자들의 끝은 슬픔이지만, 진리의 하나님을 찾는 주의 백성들에게는 깊은 마음의 즐거움과 찬송이 넘치게 됩니다.", quote: "한 주의 첫날, 진리 되신 주님을 의지함으로 승리의 함성을 지르십시오." }
+        ],
+        prayers: [
+          "<strong>1. 한 주간의 첫날 위탁:</strong> 모든 일정을 주권 아래 드리고 종일 손 펼치시는 인도하심 신뢰",
+          "<strong>2. 아골 골짜기의 역전:</strong> 과거의 실패를 딛고 하나님이 예비하신 풍성한 은혜 누리도록",
+          "<strong>3. 환우들과 무거운 짐을 진 이들:</strong> 질병과 압박으로 월요일 아침을 시작하는 성도들에게 능력 베풀도록"
+        ],
+        cryPrayer: "\"종일토록 우리를 기다리시는 주님 품 안에서 새 한 주를 시작하오니, 실패와 낙심의 아골 골짜기를 축복의 땅으로 바꾸어 주옵소서!\""
+      },
+
+      "2026-10-16": {
+        dateStr: "2026. 10. 16 (금)",
+        title: "헵시바와 쁄라, 신랑이 신부를 기뻐함 같이",
+        subtitle: "우리를 향해 쉬지 않으시는 하나님의 사랑",
+        bibleRange: "이사야 62:1-12",
+        hymn: "210장 · 550장",
+        summaryPrayer: "\"시온을 위하여 쉬지 않으시는 하나님 아버지, 세상의 시선에 흔들려 스스로를 '버림받은 자'처럼 여겼던 연약함을 내려놓습니다. 오늘 우리를 '헵시바'와 '쁄라'라 부르시는 주님의 음성을 듣게 하옵소서. 아멘.\"",
+        verses: [
+          { num: "1", text: "나는 시온의 의가 빛 같이, 예루살렘의 구원이 횃불 같이 나타나도록 시온을 위하여 잠잠하지 아니하며..." },
+          { num: "4", text: "다시는 너를 버림 받은 자라 부르지 아니하며… 오직 너를 <strong>헵시바</strong>라 하며 네 땅을 <strong>쁄라</strong>라 하리라" },
+          { num: "5", text: "신랑이 신부를 기뻐함 같이 네 하나님이 너를 기뻐하시리라" }
+        ],
+        points: [
+          { tag: "포인트 01", title: "하나님은 우리를 위해 결코 쉬지 않으십니다 (1, 6-7절)", desc: "우리를 성벽 위 파수꾼으로 부르셔서 기도를 통해 하나님의 열심과 만나게 하십니다.", quote: "오늘 우리의 새벽 기도는 쉬지 않으시는 하나님의 열심과 만나는 거룩한 통로입니다." },
+          { tag: "포인트 02", title: "'버림받은 자'가 아니라 '헵시바'와 '쁄라'입니다 (2-5절)", desc: "나의 기쁨이 그에게 있다는 헵시바, 주님의 신부인 쁄라라는 새 정체성을 회복하셨습니다.", quote: "헵시바(나의 기쁨이 그에게 있다)와 쁄라(결혼한 여인)의 새 이름을 붙드십시오." }
+        ],
+        prayers: [
+          "<strong>1. 정체성 회복:</strong> 자책에서 벗어나 헵시바와 쁄라의 절대적 사랑 확신",
+          "<strong>2. 쉬지 않는 파수꾼:</strong> 가정과 교회, 민족의 성벽 위에서 응답까지 부르짖기"
+        ],
+        cryPrayer: "\"우리를 위하여 잠시도 쉬지 않으시는 주님, 우리는 버림받은 자가 아니라 주의 기쁨인 신부입니다. 파수꾼으로 부르심에 감사하며 부르짖습니다!\""
+      }
+      
+      // 💡 [자료 추가 방법]: 나중에 화요일, 수요일 자료가 생기면 아래에 콤마(,)를 찍고 요렇게만 추가하면 끝납니다!
+      // , "2026-10-20": { dateStr: "2026. 10. 20 (화)", ... }
+    };
+
+    // =========================================================================
+    // ⚙️ [동적 화면 렌더링 시스템 코드 (수정할 필요 없음)]
+    // =========================================================================
+    const keys = Object.keys(sermons); // 등록된 날짜 목록
+    let currentKey = keys[0]; // 기본은 가장 최신 날짜(첫 번째 데이터) 선택
+
+    function renderApp(targetKey) {
+      currentKey = targetKey;
+      const data = sermons[targetKey];
+
+      // 1. 상단 요일 버튼 렌더링
+      let selectorHtml = '';
+      keys.forEach((k, idx) => {
+        const activeClass = k === targetKey ? 'active' : '';
+        const label = sermons[k].dateStr;
+        selectorHtml += `<button class="day-btn ${activeClass}" onclick="renderApp('${k}')">${label}</button>`;
+      });
+      document.getElementById('daySelector').innerHTML = selectorHtml;
+
+      // 2. 하단 탭바 버튼 렌더링
+      let navHtml = '';
+      keys.forEach((k) => {
+        const activeClass = k === targetKey ? 'active' : '';
+        const shortLabel = sermons[k].dateStr.split(' ')[2] + ' ' + sermons[k].dateStr.split(' ')[1].replace('.', '/'); // 예: (월) 10/19
+        navHtml += `<button class="${activeClass}" onclick="renderApp('${k}')">${shortLabel}</button>`;
+      });
+      document.getElementById('bottomNav').innerHTML = navHtml;
+
+      // 3. 본문 컨텐츠 렌더링
+      let versesHtml = '';
+      data.verses.forEach(v => {
+        versesHtml += `<div class="verse-item"><span class="v-num">${v.num}</span>${v.text}</div>`;
+      });
+
+      let pointsHtml = '';
+      data.points.forEach(p => {
+        pointsHtml += `
+          <div class="card point-card fade-up">
+            <span class="point-tag">${p.tag}</span>
+            <h3 class="serif">${p.title}</h3>
+            <p class="point-desc">${p.desc}</p>
+            <div class="key-quote">💡 ${p.quote}</div>
+          </div>
+        `;
+      });
+
+      let prayersHtml = '';
+      data.prayers.forEach(pr => {
+        prayersHtml += `<li>${pr}</li>`;
+      });
+
+      const contentHtml = `
+        <header class="hero">
+          <div class="date-badge">${data.dateStr} 새벽기도회</div>
+          <h1 class="serif"><span>${data.title.split('와')[0] || data.title}</span></h1>
+          <h1 class="serif" style="font-size: 1.4rem; color: var(--gold);">${data.title.includes('와') ? '와 ' + data.title.split('와')[1] : ''}</h1>
+          <p class="hero-sub">${data.subtitle}</p>
+
+          <div class="info-bar">
+            <div class="info-item">
+              <strong>본문</strong>
+              <span>${data.bibleRange}</span>
+            </div>
+            <div class="info-item">
+              <strong>찬송</strong>
+              <span>${data.hymn}</span>
+            </div>
+          </div>
+        </header>
+
+        <section>
+          <div class="card">
+            <p style="font-size: 0.9rem; color: var(--gold-soft); font-style: italic;">
+              ${data.summaryPrayer}
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="sec-title serif">핵심 말씀 (${data.bibleRange})</h2>
+          <div class="card serif">
+            ${versesHtml}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="sec-title serif">설교 핵심 메시지</h2>
+          ${pointsHtml}
+        </section>
+
+        <section>
+          <h2 class="sec-title serif">공동 기도 & 합심기도</h2>
+          <div class="card">
+            <ul class="prayer-list">${prayersHtml}</ul>
+          </div>
+          <div class="card cry-box">
+            <span class="point-tag">새벽 합심 기도</span>
+            <div class="cry-title serif">주여! 주여! 주여!</div>
+            <p style="font-size: 0.88rem; color: var(--gold-soft); text-align: left; margin-top: 8px;">
+              ${data.cryPrayer}
+            </p>
+          </div>
+        </section>
+      `;
+
+      document.getElementById('contentArea').innerHTML = contentHtml;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // 페이드업 애니메이션 재적용
+      setTimeout(() => {
+        document.querySelectorAll('.fade-up').forEach(el => el.classList.add('show'));
+      }, 50);
+    }
+
+    // 최초 실행
+    renderApp(currentKey);
+
+    // 별빛 캔버스 배경 애니메이션
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -524,7 +517,7 @@
       });
     }
 
-    function drawStars() {
+    function drawStarss() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       stars.forEach(s => {
         s.y += s.dy;
@@ -536,35 +529,9 @@
         ctx.fillStyle = `rgba(229, 193, 88, ${s.a})`;
         ctx.fill();
       });
-      requestAnimationFrame(drawStars);
+      requestAnimationFrame(drawStarss);
     }
-    drawStars();
-
-    // 2. 스크롤 페이드업 효과
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('show');
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // 3. 하단 탭바 활성화 표시
-    const links = document.querySelectorAll('.nav-link');
-    const sections = ['top', 'word', 'sermon', 'prayer'];
-
-    window.addEventListener('scroll', () => {
-      let current = 'top';
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 200) {
-          current = id;
-        }
-      });
-      links.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-      });
-    });
+    drawStarss();
   </script>
 </body>
-</html> 
+</html>

@@ -474,15 +474,6 @@
     {
       "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
       "info": {
-        "id": "opencode/cat-jam-free",
-        "displayName": "opencode/Cat Jam Free"
-      },
-      "configuredModelId": "64c5a641-52e1-4cf5-86d1-6878e0f3617a",
-      "configuredAt": 1791901757634
-    },
-    {
-      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
-      "info": {
         "id": "opencode/longcat-2.5-preview-free",
         "displayName": "opencode/LongCat 2.5 Preview Free"
       },
@@ -496,15 +487,6 @@
         "displayName": "opencode/MiMo-V2.6-Flash Free"
       },
       "configuredModelId": "248d23e5-bb01-4158-92ed-abc89f6e5690",
-      "configuredAt": 1791901757635
-    },
-    {
-      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
-      "info": {
-        "id": "opencode/muse-spark-1.3-contributor-free",
-        "displayName": "opencode/Muse Spark 1.3 Free"
-      },
-      "configuredModelId": "e31cd0e2-ea73-428f-9c96-d8062de3d251",
       "configuredAt": 1791901757635
     },
     {
@@ -555,11 +537,29 @@
     {
       "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
       "info": {
+        "id": "opencode/glm-5.3-flash-free",
+        "displayName": "opencode/GLM-5.3-Flash Free"
+      },
+      "configuredModelId": "3fa220ba-53ba-4f74-a29d-d4a829a89043",
+      "configuredAt": 1792133140369
+    },
+    {
+      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
+      "info": {
+        "id": "opencode/beam-free",
+        "displayName": "opencode/Beam Free"
+      },
+      "configuredModelId": "14f6e29b-bd8f-4255-bcb7-075ff5821f97",
+      "configuredAt": 1792239176238
+    },
+    {
+      "providerId": "0f3cb533-b287-4310-9e9f-311a57c79630",
+      "info": {
         "id": "ollama/gemma4:12b",
         "displayName": "ollama/gemma4:12b"
       },
-      "configuredModelId": "409ce523-4e0a-47eb-9ea6-53d477d9508d",
-      "configuredAt": 1792105734276
+      "configuredModelId": "beb39a70-3669-4006-b690-19dd8f62cc90",
+      "configuredAt": 1792239176241
     }
   ],
   "backends": {
@@ -573,8 +573,7 @@
     },
     "opencode": {
       "enabledModels": [
-        "9fca1e5e-b9d0-4b38-9381-820e4b0bf78a",
-        "64c5a641-52e1-4cf5-86d1-6878e0f3617a"
+        "9fca1e5e-b9d0-4b38-9381-820e4b0bf78a"
       ]
     }
   },

@@ -76,14 +76,6 @@
       text-align: center;
     }
 
-    .church-name {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--gold-soft);
-      letter-spacing: 4px;
-      margin-bottom: 14px;
-    }
-
     .date-badge {
       display: inline-block;
       font-size: 0.78rem;
@@ -353,7 +345,6 @@
     
     <!-- 1. 표지 -->
     <header class="hero fade-up" id="top">
-      <div class="church-name serif">원종제일교회</div>
       <div class="date-badge">2026. 10. 16 (금) 새벽기도회</div>
       <h1 class="serif"><span>헵시바</span>와 <span>쁄라</span>,<br>신랑이 신부를 기뻐함 같이</h1>
       <p class="hero-sub">우리를 향해 쉬지 않으시는 하나님의 사랑</p>

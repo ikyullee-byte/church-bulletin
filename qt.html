@@ -38,6 +38,7 @@
       overflow-x: hidden;
     }
 
+    /* 배경 별빛 캔버스 */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -48,6 +49,7 @@
       background: linear-gradient(180deg, #131d36 0%, #0a0f1d 100%);
     }
 
+    /* 모바일 컨테이너 (최대 폭 480px 고정) */
     .mobile-wrap {
       max-width: 480px;
       margin: 0 auto;
@@ -58,6 +60,7 @@
       font-family: 'Nanum Myeongjo', serif;
     }
 
+    /* 스크롤 등장 애니메이션 */
     .fade-up {
       opacity: 0;
       transform: translateY(25px);
@@ -68,7 +71,7 @@
       transform: translateY(0);
     }
 
-    /* 상단 날짜 선택 탭 */
+    /* 상단 날짜 선택 탭 (고정형) */
     .day-selector-wrap {
       position: sticky;
       top: 0;
@@ -107,9 +110,9 @@
       box-shadow: 0 0 12px rgba(229, 193, 88, 0.35);
     }
 
-    /* 표지 영역 */
+    /* 1. 상단 표지 */
     .hero {
-      padding: 30px 0 20px;
+      padding: 38px 0 28px;
       text-align: center;
     }
 
@@ -121,15 +124,15 @@
       background: rgba(229, 193, 88, 0.08);
       padding: 4px 14px;
       border-radius: 20px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       letter-spacing: 0.5px;
     }
 
     .hero h1 {
-      font-size: 1.75rem;
+      font-size: 1.8rem;
       line-height: 1.35;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       word-break: keep-all;
     }
 
@@ -138,9 +141,9 @@
     }
 
     .hero-sub {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text-sub);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .info-bar {
@@ -149,7 +152,7 @@
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
-      padding: 12px 10px;
+      padding: 14px 10px;
       font-size: 0.82rem;
     }
 
@@ -160,8 +163,9 @@
       margin-bottom: 2px;
     }
 
+    /* 공통 섹션 & 카드 */
     section {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       scroll-margin-top: 65px;
     }
 
@@ -193,6 +197,7 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
+    /* 성경 본문 구절 전체 보기 스타일 */
     .verse-item {
       margin-bottom: 12px;
       font-size: 0.95rem;
@@ -218,6 +223,7 @@
       font-size: 0.88rem;
     }
 
+    /* 설교 3대 포인트 카드 */
     .point-card {
       border-left: 3px solid var(--gold);
     }
@@ -258,6 +264,7 @@
       font-weight: 500;
     }
 
+    /* 미니 비교 박스 */
     .name-box {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -280,6 +287,7 @@
       color: #fff;
     }
 
+    /* 공동 기도 제목 리스트 */
     .prayer-list {
       list-style: none;
     }
@@ -306,6 +314,7 @@
       margin-bottom: 2px;
     }
 
+    /* 통성기도 강조 박스 */
     .cry-box {
       background: linear-gradient(135deg, rgba(229, 193, 88, 0.2), rgba(22, 32, 53, 0.95));
       border: 1px solid var(--gold);
@@ -317,8 +326,14 @@
       font-weight: 800;
       margin: 10px 0;
       letter-spacing: 2px;
+      animation: pulse 2s infinite alternate;
+    }
+    @keyframes pulse {
+      from { opacity: 0.8; }
+      to { opacity: 1; text-shadow: 0 0 12px var(--gold); }
     }
 
+    /* 하단 고정 네비게이션 */
     .bottom-nav {
       position: fixed;
       bottom: 12px;
@@ -357,10 +372,14 @@
   <canvas id="bg-canvas"></canvas>
 
   <div class="mobile-wrap">
+    <!-- 상단 요일 전환 탭 -->
     <div id="daySelector" class="day-selector-wrap"></div>
+
+    <!-- 성도용 큐티 영역 -->
     <div id="contentArea"></div>
   </div>
 
+  <!-- 하단 고정 탭바 -->
   <nav class="bottom-nav">
     <a href="#top" class="nav-link active">표지</a>
     <a href="#word" class="nav-link">말씀본문</a>
@@ -369,17 +388,21 @@
   </nav>
 
   <script>
+    // =========================================================================
+    // 📂 [성도용 새벽기도 나눔 데이터]
+    // 각 날짜의 데이터는 해당 날짜 '새벽 4시(04:00)'가 되면 자동으로 탭에 나타납니다.
+    // =========================================================================
     const sermons = {
       "2026-10-21": {
-        tabLabel: "📅 10.21 (수) 새벽 4시",
-        dateBadge: "2026. 10. 21 (수) 새벽 4시 기도회",
+        tabLabel: "📅 10.21 (수) 새벽",
+        dateBadge: "2026. 10. 21 (수) 새벽 5시 기도회",
         titleHtml: "<span>가난하고 통회하는 심령</span>,<br>어머니 품 같은 위로",
         subtitle: "강 같은 평강을 주시는 주님 안에서",
         bibleRange: "이사야 66:1-14",
         hymn: "20장 · 70장",
-        time: "새벽 4:00",
+        time: "새벽 5:00",
         
-        openingPrayer: "하늘을 보좌로 삼으시는 광대하신 하나님, 수요일 새벽 4시 제단에 나와 우리의 위선과 형식적인 신앙을 회개합니다. 가난하고 통회하는 심령을 허락하사 참된 예배자가 되게 하시고, 세상에 지친 우리를 어머니의 품처럼 안아주시는 주님의 강 같은 평강을 누리게 하옵소서. 아멘.",
+        openingPrayer: "하늘을 보좌로 삼으시는 광대하신 하나님, 수요일 아침 우리의 위선과 형식적인 신앙을 회개하며 나아갑니다. 가난하고 통회하는 심령을 허락하사 참된 예배자가 되게 하시고, 세상에 지친 우리를 어머니의 품처럼 안아주시는 주님의 강 같은 평강을 누리게 하옵소서. 아멘.",
         
         verses: [
           { num: "1", text: "여호와께서 이와 같이 말씀하시되 하늘은 나의 보좌요 땅은 나의 발판이니 너희가 나를 위하여 무슨 집을 지으랴 내가 안식할 처소가 어디랴" },
@@ -387,6 +410,9 @@
           { num: "3", text: "소를 잡아 드리는 것은 살인함과 다름이 없이 하고 어린 양으로 제사드리는 것은 개의 목을 꺾음과 다름이 없이 하며 드리는 예물은 돼지의 피와 다름이 없이 하고 분향하는 것은 우상을 찬송함과 다름이 없이 행하는 그들은 자기의 길을 택하며 그들의 마음은 가증한 것을 기뻐한즉" },
           { num: "4", text: "나도 유혹을 그들에게 택하여 주며 그들이 무서워하는 것을 그들에게 임하게 하리니 이는 내가 불러도 대답하는 자가 없으며 내가 말하여도 그들이 듣지 않고 오직 나의 목전에서 악을 행하며 내가 기뻐하지 아니하는 것을 택하였음이라 하시니라" },
           { num: "5", text: "여호와의 말씀으로 말미암아 떠는 자들아 그의 말씀을 들을지어다 이르시되 너희 형제가 너희를 미워하며 내 이름으로 말미암아 너희를 쫓아내며 이르기를 여호와께서는 영광을 나타내사 너희 기쁨을 우리에게 보이시기를 원하노라 하였으나 그들은 수치를 당하리라 하셨느니라" },
+          { num: "6", text: "떠드는 소리가 성읍에서부터 들려오며 음성이 성전에서부터 들리니 이는 여호와께서 그의 원수에게 보응하시는 목소리로다" },
+          { num: "7", text: "시온은 진통을 하기 전에 해산하며 고통을 당하기 전에 남아를 낳았으니" },
+          { num: "8", text: "이러한 일을 들은 자가 누구이며 이러한 일을 본 자가 누구이냐 나라가 어찌 하루에 생기겠으며 민족이 어찌 한 번에 태어나겠느냐 그러나 시온은 진통하는 즉시 그 아들을 순산하였도다" },
           { num: "9", text: "여호와께서 이르시되 내가 아이를 갖도록 하였은즉 해산하게 하지 아니하겠느냐 네 하나님이 이르시되 나는 해산하게 하는 이인즉 어찌 태를 닫겠느냐 하시니라" },
           { num: "10", text: "예루살렘을 사랑하는 자들이여 다 그 성읍과 함께 기뻐하라 다 그 성읍과 함께 즐거워하라 그 성을 위하여 슬퍼하는 자들이여 다 그 성의 기쁨으로 말미암아 그와 함께 기뻐하라" },
           { num: "11", text: "너희가 젖을 빠는 것 같이 그 위로하는 품에서 만족하겠고 젖을 넉넉히 빤 것 같이 그 영광의 풍성함으로 말미암아 즐거워하리라" },
@@ -434,13 +460,13 @@
       },
 
       "2026-10-20": {
-        tabLabel: "📅 10.20 (화) 새벽 4시",
-        dateBadge: "2026. 10. 20 (화) 새벽 4시 기도회",
+        tabLabel: "📅 10.20 (화) 새벽",
+        dateBadge: "2026. 10. 20 (화) 새벽 5시 기도회",
         titleHtml: "<span>새 하늘과 새 땅</span>,<br>부르기 전에 응답하시는 주",
         subtitle: "헛되지 않는 수고와 영원한 기쁨의 약속",
         bibleRange: "이사야 65:17-25",
         hymn: "246장 · 435장",
-        time: "새벽 4:00",
+        time: "새벽 5:00",
         
         openingPrayer: "만물을 새롭게 창조하시는 하나님 아버지, 지나간 상처와 실패의 기억을 십자가 앞에 내려놓습니다. 우리를 기쁨으로 삼으시는 주님 안에서 오늘 우리의 수고가 헛되지 않게 하시고, 부르기 전에 응답하시는 친밀한 은혜를 누리게 하옵소서. 아멘.",
         
@@ -495,15 +521,15 @@
       },
 
       "2026-10-19": {
-        tabLabel: "📅 10.19 (월) 새벽 4시",
-        dateBadge: "2026. 10. 19 (월) 새벽 4시 기도회",
+        tabLabel: "📅 10.19 (월) 새벽",
+        dateBadge: "2026. 10. 19 (월) 새벽 5시 기도회",
         titleHtml: "<span>새 일을 행하시는</span><br>하나님과 첫날의 믿음",
         subtitle: "종일토록 손을 펼치시는 주님의 품으로",
         bibleRange: "이사야 65:1-16",
         hymn: "370장 · 455장",
-        time: "새벽 4:00",
+        time: "새벽 5:00",
         
-        openingPrayer: "새로운 한 주의 첫 문을 여는 월요일 새벽 4시, 세상의 염려와 막막함을 주님 앞에 내려놓습니다. 종일토록 두 손을 펼치사 우리를 기다리시는 아버지의 품 안에서, 실패와 상처의 아골 골짜기가 변하여 축복의 땅이 되는 역사를 보게 하옵소서. 아멘.",
+        openingPrayer: "새로운 한 주의 첫 문을 여는 월요일 새벽, 세상의 염려와 막막함을 주님 앞에 내려놓습니다. 종일토록 두 손을 펼치사 우리를 기다리시는 아버지의 품 안에서, 실패와 상처의 아골 골짜기가 변하여 축복의 땅이 되는 역사를 보게 하옵소서. 아멘.",
         
         verses: [
           { num: "1", key: true, text: "나는 나를 구하지 아니하던 자에게 물음을 받았으며 나를 찾지 아니하던 자에게 찾아 발견됨을 받았으며 내가 이름을 부르지 아니하던 나라에게 <strong>내가 여기 있노라 내가 여기 있노라</strong> 하였노라" },
@@ -563,13 +589,13 @@
       },
 
       "2026-10-16": {
-        tabLabel: "📅 10.16 (금) 새벽 4시",
-        dateBadge: "2026. 10. 16 (금) 새벽 4시 기도회",
+        tabLabel: "📅 10.16 (금) 새벽",
+        dateBadge: "2026. 10. 16 (금) 새벽 5시 기도회",
         titleHtml: "<span>헵시바</span>와 <span>쁄라</span>,<br>신랑이 신부를 기뻐함 같이",
         subtitle: "우리를 향해 쉬지 않으시는 하나님의 사랑",
         bibleRange: "이사야 62:1-12",
         hymn: "210장 · 550장",
-        time: "새벽 4:00",
+        time: "새벽 5:00",
         
         openingPrayer: "시온을 위하여 쉬지 않으시는 하나님 아버지, 세상의 시선에 흔들려 스스로를 '버림받은 자'처럼 여겼던 연약함을 내려놓습니다. 오늘 우리를 '헵시바'와 '쁄라'라 부르시는 주님의 음성을 듣고, 거룩한 기도의 파수꾼으로 일어서게 하옵소서. 아멘.",
         
@@ -627,26 +653,55 @@
       }
     };
 
-    const keys = Object.keys(sermons);
-    let currentKey = keys[0];
+    // =========================================================================
+    // ⏰ [새벽 4시 자동 공개 필터링 및 렌더링 스크립트]
+    // - 각 날짜(예: "2026-10-21")의 새벽 4시(04:00:00) 이후에만 성도에게 노출됩니다.
+    // - 관리자 미리보기: 주소 뒤에 ?preview=1 을 붙이거나 로컬 파일로 열면 즉시 확인 가능
+    // =========================================================================
+    const allKeys = Object.keys(sermons);
+    const urlParams = new URLSearchParams(window.location.search);
+    const isPreview = urlParams.get('preview') === '1' || window.location.protocol === 'file:';
+
+    function getVisibleKeys() {
+      if (isPreview) return allKeys;
+      const now = new Date();
+      return allKeys.filter(key => {
+        // 해당 날짜의 새벽 4시 00분 기준 (한국시간 KST)
+        const releaseTime = new Date(`${key}T04:00:00+09:00`);
+        return now >= releaseTime;
+      });
+    }
+
+    let visibleKeys = getVisibleKeys();
+    if (visibleKeys.length === 0) {
+      visibleKeys = [allKeys[allKeys.length - 1]];
+    }
+    let currentKey = visibleKeys[0];
 
     function renderApp(targetKey) {
+      visibleKeys = getVisibleKeys();
+      if (visibleKeys.length === 0) visibleKeys = [allKeys[allKeys.length - 1]];
+      if (!visibleKeys.includes(targetKey)) targetKey = visibleKeys[0];
+
       currentKey = targetKey;
       const data = sermons[targetKey];
 
+      // 1. 상단 날짜 선택 버튼 생성 (공개된 날짜만 표시)
       let selectorHtml = '';
-      keys.forEach((k) => {
+      visibleKeys.forEach((k) => {
         const activeClass = k === targetKey ? 'active' : '';
         selectorHtml += `<button class="day-btn ${activeClass}" onclick="renderApp('${k}')">${sermons[k].tabLabel}</button>`;
       });
       document.getElementById('daySelector').innerHTML = selectorHtml;
 
+      // 2. 성경 본문 전체 생성
       let versesHtml = '';
       data.verses.forEach(v => {
         const highlightClass = v.key ? 'highlight' : '';
         versesHtml += `<div class="verse-item ${highlightClass}"><span class="v-num">${v.num}</span>${v.text}</div>`;
       });
 
+      // 3. 설교 핵심 3대지 카드 생성
       let pointsHtml = '';
       data.points.forEach(p => {
         let compareHtml = '';
@@ -674,6 +729,7 @@
         `;
       });
 
+      // 4. 공동 기도 제목 리스트 생성
       let prayersHtml = '';
       data.prayers.forEach(pr => {
         prayersHtml += `
@@ -684,6 +740,7 @@
         `;
       });
 
+      // 5. 전체 HTML 조립
       const contentHtml = `
         <header class="hero fade-up" id="top">
           <div class="date-badge">${data.dateBadge}</div>
@@ -700,11 +757,19 @@
               <span>${data.hymn}</span>
             </div>
             <div class="info-item">
-              <strong>시간</strong>
+              <strong>예배시간</strong>
               <span>${data.time}</span>
             </div>
           </div>
         </header>
+
+        <section class="fade-up">
+          <div class="card">
+            <p style="font-size: 0.92rem; color: var(--gold-soft); font-style: italic;">
+              "${data.openingPrayer}"
+            </p>
+          </div>
+        </section>
 
         <section id="word" class="fade-up">
           <h2 class="sec-title serif">오늘의 성경 본문 (${data.bibleRange})</h2>
@@ -726,7 +791,7 @@
           </div>
 
           <div class="card cry-box fade-up">
-            <span class="point-tag">새벽 4시 합심 기도</span>
+            <span class="point-tag">새벽 합심 기도</span>
             <p style="font-size: 0.9rem; color: #fff;">${data.cryIntro}</p>
             <div class="cry-title serif">주여! 주여! 주여!</div>
             
@@ -750,6 +815,14 @@
     }, { threshold: 0.08 });
 
     renderApp(currentKey);
+
+    // 새벽 4시 정각이 지날 때 새로고침 없이도 자동으로 새 날짜가 열리도록 30초마다 체크
+    setInterval(() => {
+      const updatedKeys = getVisibleKeys();
+      if (updatedKeys.length !== visibleKeys.length) {
+        renderApp(updatedKeys[0]);
+      }
+    }, 30000);
 
     const links = document.querySelectorAll('.nav-link');
     const sections = ['top', 'word', 'sermon', 'prayer'];

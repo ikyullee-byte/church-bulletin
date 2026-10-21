@@ -27,6 +27,8 @@
 
     html {
       scroll-behavior: smooth;
+      font-size: 100%; /* 글자 크기 조절의 기준 */
+      transition: font-size 0.2s ease;
     }
 
     body {
@@ -49,7 +51,7 @@
       background: linear-gradient(180deg, #131d36 0%, #0a0f1d 100%);
     }
 
-    /* 모바일 컨테이너 (최대 폭 480px 고정) */
+    /* 모바일 컨테이너 */
     .mobile-wrap {
       max-width: 480px;
       margin: 0 auto;
@@ -71,21 +73,28 @@
       transform: translateY(0);
     }
 
-    /* 상단 날짜 선택 탭 (고정형) */
-    .day-selector-wrap {
+    /* 상단 고정 바 (날짜 탭 + 글자 크기 조절) */
+    .top-bar-wrap {
       position: sticky;
       top: 0;
       z-index: 90;
       background: rgba(10, 15, 29, 0.92);
       backdrop-filter: blur(10px);
       margin: 0 -18px;
-      padding: 12px 18px 10px;
+      padding: 10px 14px;
       border-bottom: 1px solid rgba(229, 193, 88, 0.15);
       display: flex;
-      gap: 8px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .day-selector-wrap {
+      display: flex;
+      gap: 6px;
       overflow-x: auto;
       white-space: nowrap;
       scrollbar-width: none;
+      flex: 1;
     }
     .day-selector-wrap::-webkit-scrollbar {
       display: none;
@@ -94,7 +103,7 @@
       background: var(--card-bg);
       border: 1px solid rgba(229, 193, 88, 0.35);
       color: var(--text-sub);
-      padding: 7px 15px;
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
       font-weight: 500;
@@ -110,9 +119,30 @@
       box-shadow: 0 0 12px rgba(229, 193, 88, 0.35);
     }
 
+    /* 글자 크기 조절 버튼 */
+    .font-control {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .font-btn {
+      background: rgba(229, 193, 88, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-soft);
+      padding: 5px 8px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 8px rgba(229, 193, 88, 0.1);
+    }
+
     /* 1. 상단 표지 */
     .hero {
-      padding: 38px 0 28px;
+      padding: 34px 0 24px;
       text-align: center;
     }
 
@@ -124,12 +154,12 @@
       background: rgba(229, 193, 88, 0.08);
       padding: 4px 14px;
       border-radius: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       letter-spacing: 0.5px;
     }
 
     .hero h1 {
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       line-height: 1.35;
       color: #fff;
       margin-bottom: 10px;
@@ -341,7 +371,7 @@
       transform: translateX(-50%);
       width: calc(100% - 36px);
       max-width: 440px;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(229, 193, 88, 0.35);
       border-radius: 30px;
@@ -356,13 +386,18 @@
       text-decoration: none;
       font-size: 0.78rem;
       font-weight: 500;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 16px;
       transition: all 0.2s;
+      white-space: nowrap;
     }
     .bottom-nav a.active {
       background: var(--gold);
       color: #0a0f1d;
+      font-weight: 700;
+    }
+    .nav-notice-btn {
+      color: var(--gold) !important;
       font-weight: 700;
     }
   </style>
@@ -372,27 +407,107 @@
   <canvas id="bg-canvas"></canvas>
 
   <div class="mobile-wrap">
-    <!-- 상단 요일 전환 탭 -->
-    <div id="daySelector" class="day-selector-wrap"></div>
+    <!-- 상단 요일 탭 & 글자 크기 버튼 -->
+    <div class="top-bar-wrap">
+      <div id="daySelector" class="day-selector-wrap"></div>
+      <div class="font-control">
+        <button class="font-btn" onclick="adjustFontSize(-0.08)">가-</button>
+        <button class="font-btn" onclick="adjustFontSize(0.08)">가+</button>
+      </div>
+    </div>
 
     <!-- 성도용 큐티 영역 -->
     <div id="contentArea"></div>
   </div>
 
-  <!-- 하단 고정 탭바 -->
+  <!-- 하단 고정 탭바 (notice.html 링크 추가됨) -->
   <nav class="bottom-nav">
     <a href="#top" class="nav-link active">표지</a>
     <a href="#word" class="nav-link">말씀본문</a>
     <a href="#sermon" class="nav-link">설교핵심</a>
     <a href="#prayer" class="nav-link">합심기도</a>
+    <a href="notice.html" class="nav-notice-btn">📢 공지·일정</a>
   </nav>
 
   <script>
     // =========================================================================
+    // 🔠 [글자 크기 조절 기능]
+    // =========================================================================
+    let currentFontScale = 1.0;
+    function adjustFontSize(delta) {
+      currentFontScale += delta;
+      // 너무 작거나 커지지 않도록 제한 (80% ~ 140%)
+      if (currentFontScale < 0.8) currentFontScale = 0.8;
+      if (currentFontScale > 1.4) currentFontScale = 1.4;
+      document.documentElement.style.fontSize = `${currentFontScale * 100}%`;
+    }
+
+    // =========================================================================
     // 📂 [성도용 새벽기도 나눔 데이터]
-    // 각 날짜의 데이터는 해당 날짜 '새벽 4시(04:00)'가 되면 자동으로 탭에 나타납니다.
     // =========================================================================
     const sermons = {
+      "2026-10-22": {
+        tabLabel: "📅 10.22 (목) 새벽",
+        dateBadge: "2026. 10. 22 (목) 새벽 5시 기도회",
+        titleHtml: "<span>심판의 불과 구원</span>,<br>새 하늘과 새 땅의 소망",
+        subtitle: "만민을 부르시는 영원한 영광의 약속",
+        bibleRange: "이사야 66:15-24",
+        hymn: "176장 · 245장",
+        time: "새벽 5:00",
+        
+        openingPrayer: "역사의 주관자이신 하나님 아버지, 목요일 새벽 우리의 두 마음과 거짓된 신앙을 회개합니다. 맹렬한 심판의 불 앞에 부끄러움이 없도록 성령으로 정결하게 하시고, 썩어질 세상이 아니라 영원한 새 하늘과 새 땅을 바라보며 사명자로 살아가게 하옵소서. 아멘.",
+        
+        verses: [
+          { num: "15", key: true, text: "보라 여호와께서 불에 둘러싸여 강림하시리니 그의 병거들은 회오리바람 같으리로다 그가 혁혁한 위세로 노여움을 나타내시며 <strong>맹렬한 화염으로 책망하실 것이라</strong>" },
+          { num: "16", text: "여호와께서 불과 칼로 모든 혈육에게 심판을 베푸신즉 여호와께 죽임 당할 자가 많으리니" },
+          { num: "17", text: "스스로 거룩하게 구별하며 스스로 정결하게 하고 동산에 들어가서 그 가운데에 있는 자를 따라 돼지고기와 가증한 물건과 쥐를 먹는 자가 다 함께 망하리라 여호와의 말씀이니라" },
+          { num: "18", key: true, text: "내가 그들의 행위와 사상을 아노라 <strong>때가 이르면 뭇 나라와 언어가 다른 민족들을 모으리니 그들이 와서 나의 영광을 볼 것이며</strong>" },
+          { num: "19", text: "내가 그들 가운데에서 징조를 세워서 그들 가운데에서 도피한 자를 여러 나라 곧 다시스와 뿔과 활을 당기는 룻과 및 두발과 야완과 또 나의 명성을 듣지도 못하고 나의 영광을 보지도 못한 먼 섬들로 보내리니 그들이 나의 영광을 뭇 나라에 전파하리라" },
+          { num: "20", text: "나 여호와가 말하노라 이스라엘 자손이 예물을 깨끗한 그릇에 담아 여호와의 집에 드림 같이 그들이 너희 모든 형제를 뭇 나라에서 나의 성산 예루살렘으로 말과 수레와 교자와 노새와 낙타에 태워다가 여호와께 예물로 드릴 것이요" },
+          { num: "21", text: "나는 그 가운데에서 택하여 제사장과 레위인을 삼으리라 여호와의 말이니라" },
+          { num: "22", key: true, text: "<strong>내가 지을 새 하늘과 새 땅이 내 앞에 항상 있는 것 같이 너희 자손과 너희 이름이 항상 있으리라 여호와의 말이니라</strong>" },
+          { num: "23", text: "여호와가 말하노라 매월 초하루와 매 안식일에 모든 혈육이 내 앞에 나아와 예배하리라" },
+          { num: "24", text: "그들이 나가서 내게 패역한 자들의 시체들을 볼 것이라 그 벌레가 죽지 아니하며 그 불이 꺼지지 아니하여 모든 혈육에게 가증함이 되리라" }
+        ],
+
+        points: [
+          {
+            tag: "은혜 01",
+            title: "혼합주의와 가증한 신앙은 심판을 받습니다 (15-17절)",
+            desc: "겉으로는 거룩하게 꾸미면서 속으로는 세상의 가증한 우상과 탐욕을 즐기는 '두 마음'은 맹렬한 심판의 대상입니다. 은밀한 사상까지 아시는 주님 앞에 껍데기 신앙을 회개해야 합니다.",
+            compareBox: {
+              oldLabel: "멸망할 신앙",
+              oldVal: "거짓된 외식과 타협",
+              newLabel: "구원받을 신앙",
+              newVal: "오직 주님만 섬기는 진실함"
+            },
+            quote: "💡 세상을 벗하고 타협하는 혼합주의 신앙을 끊어내고 십자가 앞에 온전히 서십시오."
+          },
+          {
+            tag: "은혜 02",
+            title: "모든 민족을 부르사 영광을 보게 하십니다 (18-21절)",
+            desc: "하나님은 구원의 은혜를 뭇 나라와 민족에게로 넓히시며, 심지어 이방인 중에서 제사장을 택하겠다고 하십니다. 우리는 이 놀라운 은혜로 구원받았으니, 이 땅의 이웃과 열방에 복음을 전할 사명자입니다.",
+            quote: "💡 나만 구원받음에 머물지 말고, 세상 끝까지 주님의 영광을 전파하는 통로가 되십시오."
+          },
+          {
+            tag: "은혜 03",
+            title: "새 하늘과 새 땅에서 영원한 소망을 누립니다 (22-24절)",
+            desc: "이 땅의 것은 모두 썩어지지만, 끝까지 믿음을 지킨 자의 이름은 영원한 새 하늘과 새 땅에 항상 있을 것입니다. 현실의 고난에 지지 말고 영원한 보좌 앞에서 드릴 감격의 예배를 소망하십시오.",
+            quote: "💡 영원히 쇠하지 아니할 새 하늘과 새 땅의 상급을 바라보며 믿음으로 인내하십시오."
+          }
+        ],
+
+        prayers: [
+          { title: "1. 정결한 믿음과 회개", desc: "세상과 타협하며 양다리를 걸치던 가증한 습관을 성령의 불로 태우사, 순결하고 정결한 신부로 살아가게 하소서." },
+          { title: "2. 영원한 천국의 소망", desc: "썩어질 세상의 성공이 아니라, 새 하늘과 새 땅에 영원히 기록될 이름과 상급을 위해 헌신하게 하소서." },
+          { title: "3. 선교와 전도의 사명", desc: "나를 제사장 삼으신 은혜에 감사하며, 아직 구원의 빛을 모르는 영혼들에게 십자가 복음을 담대히 전파하게 하소서." },
+          { title: "4. 중보기도 (환우, 해외출장)", desc: "병상의 환우들을 치유의 손길로 일으켜 주시고, 어제 출발한 하하엔지니어링 해외출장 일정에 안전과 형통함을 더하여 주소서." }
+        ],
+
+        cryIntro: "영원한 새 하늘과 새 땅의 약속을 굳게 붙들고<br>함께 부르짖어 기도합시다!",
+        cryPrayer: "공의와 구원의 하나님 아버지! 은밀한 행위까지 감찰하시는 주님 앞에 우리의 거짓되고 타협한 두 마음을 철저히 회개합니다. 맹렬한 성령의 불로 우리의 모든 죄악을 태워 정결케 하옵소서. 이 땅의 썩어질 것에 마음을 뺏기지 않게 하시고, 영원한 새 하늘과 새 땅을 바라보며 이웃에게 복음을 전하는 축복의 통로가 되게 하옵소서. 오늘 우리 환우들에게 치유의 기적을 베푸시고, 진행 중인 하하엔지니어링 해외출장의 모든 발걸음을 완전하게 지켜 주시옵소서. 예수님의 이름으로 기도합니다. 아멘!"
+      },
+
       "2026-10-21": {
         tabLabel: "📅 10.21 (수) 새벽",
         dateBadge: "2026. 10. 21 (수) 새벽 5시 기도회",
@@ -655,8 +770,8 @@
 
     // =========================================================================
     // ⏰ [새벽 4시 자동 공개 필터링 및 렌더링 스크립트]
-    // - 각 날짜(예: "2026-10-21")의 새벽 4시(04:00:00) 이후에만 성도에게 노출됩니다.
-    // - 관리자 미리보기: 주소 뒤에 ?preview=1 을 붙이거나 로컬 파일로 열면 즉시 확인 가능
+    // - 각 날짜의 새벽 4시(04:00:00) 이후에만 성도에게 노출됩니다.
+    // - 미리보기: 주소 뒤에 ?preview=1 을 붙이거나 로컬 파일로 열면 모두 확인 가능
     // =========================================================================
     const allKeys = Object.keys(sermons);
     const urlParams = new URLSearchParams(window.location.search);
@@ -666,7 +781,6 @@
       if (isPreview) return allKeys;
       const now = new Date();
       return allKeys.filter(key => {
-        // 해당 날짜의 새벽 4시 00분 기준 (한국시간 KST)
         const releaseTime = new Date(`${key}T04:00:00+09:00`);
         return now >= releaseTime;
       });
@@ -686,7 +800,7 @@
       currentKey = targetKey;
       const data = sermons[targetKey];
 
-      // 1. 상단 날짜 선택 버튼 생성 (공개된 날짜만 표시)
+      // 1. 탭 버튼 생성
       let selectorHtml = '';
       visibleKeys.forEach((k) => {
         const activeClass = k === targetKey ? 'active' : '';
@@ -694,7 +808,7 @@
       });
       document.getElementById('daySelector').innerHTML = selectorHtml;
 
-      // 2. 성경 본문 전체 생성
+      // 2. 본문 생성
       let versesHtml = '';
       data.verses.forEach(v => {
         const highlightClass = v.key ? 'highlight' : '';
@@ -729,7 +843,7 @@
         `;
       });
 
-      // 4. 공동 기도 제목 리스트 생성
+      // 4. 기도 제목
       let prayersHtml = '';
       data.prayers.forEach(pr => {
         prayersHtml += `
@@ -740,7 +854,7 @@
         `;
       });
 
-      // 5. 전체 HTML 조립
+      // 5. 전체 조립
       const contentHtml = `
         <header class="hero fade-up" id="top">
           <div class="date-badge">${data.dateBadge}</div>
@@ -785,7 +899,6 @@
 
         <section id="prayer" class="fade-up">
           <h2 class="sec-title serif">오늘의 공동 기도 제목</h2>
-          
           <div class="card">
             <ul class="prayer-list">${prayersHtml}</ul>
           </div>
@@ -794,7 +907,6 @@
             <span class="point-tag">새벽 합심 기도</span>
             <p style="font-size: 0.9rem; color: #fff;">${data.cryIntro}</p>
             <div class="cry-title serif">주여! 주여! 주여!</div>
-            
             <p style="font-size: 0.9rem; color: var(--gold-soft); text-align: left; margin-top: 10px;">
               "${data.cryPrayer}"
             </p>
@@ -816,7 +928,7 @@
 
     renderApp(currentKey);
 
-    // 새벽 4시 정각이 지날 때 새로고침 없이도 자동으로 새 날짜가 열리도록 30초마다 체크
+    // 새벽 4시 자동 새로고침 체크
     setInterval(() => {
       const updatedKeys = getVisibleKeys();
       if (updatedKeys.length !== visibleKeys.length) {

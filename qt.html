@@ -27,7 +27,7 @@
 
     html {
       scroll-behavior: smooth;
-      font-size: 100%; /* 글자 크기 조절의 기준 */
+      font-size: 100%;
       transition: font-size 0.2s ease;
     }
 
@@ -420,7 +420,7 @@
     <div id="contentArea"></div>
   </div>
 
-  <!-- 하단 고정 탭바 (notice.html 링크 추가됨) -->
+  <!-- 하단 고정 탭바 -->
   <nav class="bottom-nav">
     <a href="#top" class="nav-link active">표지</a>
     <a href="#word" class="nav-link">말씀본문</a>
@@ -436,16 +436,77 @@
     let currentFontScale = 1.0;
     function adjustFontSize(delta) {
       currentFontScale += delta;
-      // 너무 작거나 커지지 않도록 제한 (80% ~ 140%)
       if (currentFontScale < 0.8) currentFontScale = 0.8;
       if (currentFontScale > 1.4) currentFontScale = 1.4;
       document.documentElement.style.fontSize = `${currentFontScale * 100}%`;
     }
 
     // =========================================================================
-    // 📂 [성도용 새벽기도 나눔 데이터]
+    // 📂 [성도용 새벽기도 나눔 데이터 (10.23 금요일 포함)]
     // =========================================================================
     const sermons = {
+      "2026-10-23": {
+        tabLabel: "📅 10.23 (금) 새벽",
+        dateBadge: "2026. 10. 23 (금) 새벽 5시 기도회",
+        titleHtml: "<span>구별하신 은혜</span>,<br>두려움을 넘어선 부르심",
+        subtitle: "모태에서부터 나를 아시는 하나님의 사랑",
+        bibleRange: "예레미야 1:1-10",
+        hymn: "323장 · 320장",
+        time: "새벽 5:00",
+        
+        openingPrayer: "나를 모태에 지어지기 전부터 아시고 구별하신 전능하신 하나님 아버지, 금요일 새벽 제단에 나아갑니다. '나는 아이라'며 핑계 대던 연약함을 용서하시고, 두려워하지 말라며 함께하시는 임마누엘의 은혜를 굳게 붙잡고 믿음으로 나아가는 하루가 되게 하옵소서. 아멘.",
+        
+        verses: [
+          { num: "1", text: "베냐민 땅 아나돗의 제사장들 중 힐기야의 아들 예레미야의 말이라" },
+          { num: "2", text: "아몬의 아들 유다 왕 요시야가 다스린 지 십삼 년에 여호와의 말씀이 예레미야에게 임하였고" },
+          { num: "3", text: "요시야의 아들 유다의 왕 여호야김 시대부터 요시야의 아들 유다의 왕 시드기야의 십일년 말까지 곧 그 해 오월에 예루살렘이 사로잡혀 가기까지 임하니라" },
+          { num: "4", text: "여호와의 말씀이 내게 임하니라 이르시되" },
+          { num: "5", key: true, text: "<strong>내가 너를 모태에 짓기 전에 너를 알았고 네가 배에서 나오기 전에 너를 성별하였고 너를 여러 나라의 선지자로 세웠노라</strong> 하시기로" },
+          { num: "6", text: "내가 이르되 슬프도소이다 주 여호와여 보소서 나는 아이라 말할 줄을 알지 못하나이다 하니" },
+          { num: "7", key: true, text: "여호와께서 내게 이르시되 <strong>너는 아이라 말하지 말고 내가 너를 누구에게 보내든지 너는 가며 내가 네게 무엇을 명령하든지 너는 말할지니라</strong>" },
+          { num: "8", key: true, text: "<strong>너는 그들 때문에 두려워하지 말라 내가 너와 함께 하여 너를 구원하리라 여호와의 말이니라</strong> 하시고" },
+          { num: "9", text: "여호와께서 그의 손을 내밀어 내 입에 대시며 여호와께서 내게 이르시되 보라 내가 내 말을 네 입에 두었노라" },
+          { num: "10", text: "보라 내가 오늘 너를 여러 나라와 여러 왕국 위에 세워 네가 그것들을 뽑고 파괴하며 파멸하고 넘어뜨리며 건설하고 심게 하였느니라 하시니라" }
+        ],
+
+        points: [
+          {
+            tag: "은혜 01",
+            title: "우리는 모태에서부터 아시고 구별하신 존재입니다 (4-5절)",
+            desc: "하나님은 우리가 태어나기도 전부터 우리를 향한 계획을 갖고 구별하셨습니다. 세상의 조건이나 실패로 자신을 비하하지 마십시오. 우리는 하나님의 영원한 목적 안에 있는 존귀한 사명자입니다.",
+            compareBox: {
+              oldLabel: "세상의 시선",
+              oldVal: "조건에 따른 가치 평가",
+              newLabel: "하나님의 시선",
+              newVal: "창세 전부터 구별된 존귀한 자"
+            },
+            quote: "💡 세상의 잣대를 내려놓고, 나를 지으시고 부르신 하나님의 절대적인 사랑을 신뢰하십시오."
+          },
+          {
+            tag: "은혜 02",
+            title: "패배주의와 핑계를 넘어 순종해야 합니다 (6-7절)",
+            desc: "예레미야는 부르심 앞에 '나는 아이라 말할 줄을 모릅니다'라며 두려워 핑계를 댔습니다. 하나님은 능력을 원하시는 것이 아니라, 나의 연약함을 인정하며 발걸음을 떼는 '순종'을 원하십니다.",
+            quote: "💡 한계를 앞세우는 '나는 아이라'는 변명을 십자가에 못 박고 믿음으로 나아가십시오."
+          },
+          {
+            tag: "은혜 03",
+            title: "내가 너와 함께하여 너를 구원하리라 (8-10절)",
+            desc: "사명자에게 주신 가장 큰 무기는 임마누엘의 약속입니다. 하나님은 두려워하는 자의 입술을 친히 만지시고 함께하여 구원하시겠다고 맹세하십니다. 동행하시는 주님의 능력으로 무너진 곳을 넉넉히 세워가게 될 것입니다.",
+            quote: "💡 내 지혜가 아닌, 내 입술에 하나님의 말씀을 담아 무너진 곳을 살리는 축복의 통로가 되십시오."
+          }
+        ],
+
+        prayers: [
+          { title: "1. 부르심의 확신", desc: "나를 모태에서부터 아시고 구별하신 하나님의 사랑을 깊이 깨달아, 핑계와 패배주의를 이기고 순종하게 하소서." },
+          { title: "2. 동행하시는 임마누엘", desc: "두려워하지 말라, 내가 너와 함께하리라 하신 약속을 굳게 믿고 가정과 일터의 문제들을 넉넉히 돌파하게 하소서." },
+          { title: "3. 세우고 살리는 사명", desc: "절망으로 무너지고 상처 입은 내 주변 사람들을 말씀으로 다시 위로하고 세우는 생명의 통로가 되게 하소서." },
+          { title: "4. 중보기도 (해외출장·환우)", desc: "병상의 환우들을 치유의 손길로 일으켜 주시고, 해외출장 중인 하하엔지니어링 팀의 남은 모든 일정에 완전한 안전을 주소서." }
+        ],
+
+        cryIntro: "나를 구별하시고 함께 하시는 임마누엘의 주님을 부르며<br>함께 부르짖어 기도합시다!",
+        cryPrayer: "사랑의 하나님 아버지! 부족한 우리를 모태에서부터 아시고 거룩한 목적을 위해 부르시니 감사합니다. '나는 할 수 없습니다'라며 환경과 능력을 핑계 대던 우리의 연약함을 용서하여 주시옵소서. 내 입술에 주의 말씀을 두시고, 내가 너와 함께하리라 약속하셨사오니, 그 말씀 의지하여 담대히 세상을 이기게 하옵소서. 투병 중인 환우들을 일으켜 주시옵고, 해외출장 중인 하하엔지니어링 팀의 모든 여정을 주님의 눈동자같이 완전하게 지켜 보호하여 주시옵소서. 예수님의 이름으로 기도합니다. 아멘!"
+      },
+
       "2026-10-22": {
         tabLabel: "📅 10.22 (목) 새벽",
         dateBadge: "2026. 10. 22 (목) 새벽 5시 기도회",
@@ -770,8 +831,6 @@
 
     // =========================================================================
     // ⏰ [새벽 4시 자동 공개 필터링 및 렌더링 스크립트]
-    // - 각 날짜의 새벽 4시(04:00:00) 이후에만 성도에게 노출됩니다.
-    // - 미리보기: 주소 뒤에 ?preview=1 을 붙이거나 로컬 파일로 열면 모두 확인 가능
     // =========================================================================
     const allKeys = Object.keys(sermons);
     const urlParams = new URLSearchParams(window.location.search);
@@ -800,7 +859,6 @@
       currentKey = targetKey;
       const data = sermons[targetKey];
 
-      // 1. 탭 버튼 생성
       let selectorHtml = '';
       visibleKeys.forEach((k) => {
         const activeClass = k === targetKey ? 'active' : '';
@@ -808,14 +866,12 @@
       });
       document.getElementById('daySelector').innerHTML = selectorHtml;
 
-      // 2. 본문 생성
       let versesHtml = '';
       data.verses.forEach(v => {
         const highlightClass = v.key ? 'highlight' : '';
         versesHtml += `<div class="verse-item ${highlightClass}"><span class="v-num">${v.num}</span>${v.text}</div>`;
       });
 
-      // 3. 설교 핵심 3대지 카드 생성
       let pointsHtml = '';
       data.points.forEach(p => {
         let compareHtml = '';
@@ -843,7 +899,6 @@
         `;
       });
 
-      // 4. 기도 제목
       let prayersHtml = '';
       data.prayers.forEach(pr => {
         prayersHtml += `
@@ -854,7 +909,6 @@
         `;
       });
 
-      // 5. 전체 조립
       const contentHtml = `
         <header class="hero fade-up" id="top">
           <div class="date-badge">${data.dateBadge}</div>
@@ -928,7 +982,6 @@
 
     renderApp(currentKey);
 
-    // 새벽 4시 자동 새로고침 체크
     setInterval(() => {
       const updatedKeys = getVisibleKeys();
       if (updatedKeys.length !== visibleKeys.length) {

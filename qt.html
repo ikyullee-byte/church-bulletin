@@ -363,6 +363,109 @@
       to { opacity: 1; text-shadow: 0 0 12px var(--gold); }
     }
 
+    /* =========================================================================
+       🙏 [참여 기능 스타일 - '아멘' 좋아요 & 은혜 나눔 댓글창]
+       ========================================================================= */
+    .engage-box {
+      text-align: center;
+      padding: 24px 20px;
+      background: linear-gradient(180deg, rgba(22, 32, 53, 0.9) 0%, rgba(10, 15, 29, 0.95) 100%);
+      border: 1px solid rgba(229, 193, 88, 0.25);
+    }
+    .amen-btn {
+      background: rgba(229, 193, 88, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-soft);
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 12px 32px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(229, 193, 88, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .amen-btn:active {
+      transform: scale(0.96);
+      background: var(--gold);
+      color: #0a0f1d;
+    }
+    .amen-count {
+      background: var(--gold);
+      color: #0a0f1d;
+      font-size: 0.85rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    /* 댓글 입력폼 & 목록 */
+    .comment-form {
+      margin-top: 18px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .comment-input, .name-input {
+      width: 100%;
+      background: rgba(10, 15, 29, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.88rem;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .comment-input:focus, .name-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .comment-submit-btn {
+      background: var(--gold);
+      color: #0a0f1d;
+      border: none;
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .comment-submit-btn:active { opacity: 0.8; }
+
+    .comment-list {
+      margin-top: 16px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    .comment-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      color: var(--gold-soft);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .comment-text {
+      font-size: 0.86rem;
+      color: var(--text-main);
+      word-break: break-all;
+    }
+
     /* 하단 고정 네비게이션 */
     .bottom-nav {
       position: fixed;
@@ -909,6 +1012,28 @@
         `;
       });
 
+      // 로컬스토리지에서 해당 날짜의 '아멘' 수와 댓글 불러오기
+      const amenKey = `amen_${targetKey}`;
+      const commentsKey = `comments_${targetKey}`;
+      const amenCount = parseInt(localStorage.getItem(amenKey) || '0');
+      const comments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
+
+      let commentsHtml = '';
+      comments.forEach(c => {
+        commentsHtml += `
+          <div class="comment-item">
+            <div class="comment-header">
+              <span>👤 ${c.name}</span>
+              <span>${c.date}</span>
+            </div>
+            <div class="comment-text">${c.text}</div>
+          </div>
+        `;
+      });
+      if (comments.length === 0) {
+        commentsHtml = `<div style="text-align:center; font-size:0.82rem; color:var(--text-sub); padding:10px;">첫 번째 은혜 나눔을 남겨보세요!</div>`;
+      }
+
       const contentHtml = `
         <header class="hero fade-up" id="top">
           <div class="date-badge">${data.dateBadge}</div>
@@ -966,12 +1091,68 @@
             </p>
           </div>
         </section>
+
+        <!-- 🙏 참여 섹션 ('아멘' 좋아요 & 은혜 나눔 댓글) -->
+        <section class="fade-up">
+          <h2 class="sec-title serif">은혜 나눔 및 참여</h2>
+          <div class="card engage-box">
+            <button class="amen-btn" onclick="handleAmen('${targetKey}')">
+              🙏 아멘 (은혜요청) <span class="amen-count" id="amenCountBadge">${amenCount}</span>
+            </button>
+
+            <div class="comment-form">
+              <input type="text" id=" commenterName" class="name-input" placeholder="이름 (예: 홍길동 성도)" />
+              <textarea id="commentText" class="comment-input" rows="2" placeholder="오늘 은혜받은 말씀이나 기도 제목을 남겨주세요"></textarea>
+              <button class="comment-submit-btn" onclick="handlePostComment('${targetKey}')">은혜 나누기 등록</button>
+            </div>
+
+            <div class="comment-list" id="commentListArea">
+              ${commentsHtml}
+            </div>
+          </div>
+        </section>
       `;
 
       document.getElementById('contentArea').innerHTML = contentHtml;
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
+    // '아멘' 버튼 클릭 핸들러
+    function handleAmen(key) {
+      const amenKey = `amen_${key}`;
+      let count = parseInt(localStorage.getItem(amenKey) || '0');
+      count++;
+      localStorage.setItem(amenKey, count);
+      const badge = document.getElementById('amenCountBadge');
+      if (badge) badge.innerText = count;
+    }
+
+    // 댓글 등록 핸들러
+    function handlePostComment(key) {
+      const nameInput = document.getElementById('commenterName');
+      const textInput = document.getElementById('commentText');
+      const name = nameInput.value.trim();
+      const text = textInput.value.trim();
+
+      if (!name || !text) {
+        alert('이름과 내용을 모두 입력해 주세요.');
+        return;
+      }
+
+      const commentsKey = `comments_${key}`;
+      const comments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
+      
+      const now = new Date();
+      const dateStr = `${now.getMonth() + 1}/${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      comments.unshift({ name, text, date: dateStr }); // 최신글이 위로
+      localStorage.setItem(commentsKey, JSON.stringify(comments));
+
+      nameInput.value = '';
+      textInput.value = '';
+      renderApp(currentKey); // 화면 갱신
     }
 
     const observer = new IntersectionObserver((entries) => {

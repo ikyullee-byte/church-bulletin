@@ -1101,7 +1101,7 @@
             </button>
 
             <div class="comment-form">
-              <input type="text" id=" commenterName" class="name-input" placeholder="이름 (예: 홍길동 성도)" />
+              <input type="text" id="commenterName" class="name-input" placeholder="이름 (예: 홍길동 성도)" />
               <textarea id="commentText" class="comment-input" rows="2" placeholder="오늘 은혜받은 말씀이나 기도 제목을 남겨주세요"></textarea>
               <button class="comment-submit-btn" onclick="handlePostComment('${targetKey}')">은혜 나누기 등록</button>
             </div>
@@ -1147,7 +1147,7 @@
       const now = new Date();
       const dateStr = `${now.getMonth() + 1}/${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
-      comments.unshift({ name, text, date: dateStr }); // 최신글이 위로
+      comments.unshift({ name, text, date: dateStr });
       localStorage.setItem(commentsKey, JSON.stringify(comments));
 
       nameInput.value = '';

@@ -44,7 +44,7 @@ function doPost(e) {
   let d;
   try { d = JSON.parse(e.postData.contents); } catch (err) { return json_({ ok: false }); }
   const key = String(d.key || '');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return json_({ ok: false });
+  if (d.action !== 'prayer' && !/^\d{4}-\d{2}-\d{2}$/.test(key)) return json_({ ok: false });
 
   const now = Utilities.formatDate(new Date(), 'Asia/Seoul', 'M/d HH:mm');
   const lock = LockService.getScriptLock();
@@ -57,6 +57,12 @@ function doPost(e) {
       const text = String(d.text || '').trim().slice(0, 1000);
       if (!name || !text) return json_({ ok: false });
       sheet_().appendRow([text_(key), 'comment', text_(name), text_(text), text_(now)]);
+    } else if (d.action === 'prayer') {
+      // 기도제목 요청: 시트에만 쌓이고 페이지에는 공개되지 않음
+      const name = String(d.name || '').trim().slice(0, 30);
+      const text = String(d.text || '').trim().slice(0, 1000);
+      if (!name || !text) return json_({ ok: false });
+      sheet_().appendRow([text_('기도제목'), 'prayer', text_(name), text_(text), text_(now)]);
     } else {
       return json_({ ok: false });
     }

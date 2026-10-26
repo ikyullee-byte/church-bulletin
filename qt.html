@@ -1217,6 +1217,13 @@
     };
 
     // =========================================================================
+    // 🗂 [은혜 나눔 공유 저장소]
+    // 구글 앱스 스크립트 웹 앱 주소를 넣으면 모든 성도가 같은 글을 봅니다.
+    // 비워 두면 예전처럼 각자의 휴대폰에만 저장됩니다. (설정법: qt-share/설정방법.md)
+    // =========================================================================
+    const SHARE_URL = '';
+
+    // =========================================================================
     // ⏰ [새벽 4시 자동 공개 필터링 및 렌더링 스크립트]
     // =========================================================================
     const allKeys = Object.keys(sermons);
@@ -1296,27 +1303,13 @@
         `;
       });
 
-      // 로컬스토리지에서 해당 날짜의 '아멘' 수와 댓글 불러오기
-      const amenKey = `amen_${targetKey}`;
-      const commentsKey = `comments_${targetKey}`;
-      const amenCount = parseInt(localStorage.getItem(amenKey) || '0');
-      const comments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
-
-      let commentsHtml = '';
-      comments.forEach(c => {
-        commentsHtml += `
-          <div class="comment-item">
-            <div class="comment-header">
-              <span>👤 ${c.name}</span>
-              <span>${c.date}</span>
-            </div>
-            <div class="comment-text">${c.text}</div>
-          </div>
-        `;
-      });
-      if (comments.length === 0) {
-        commentsHtml = `<div style="text-align:center; font-size:0.82rem; color:var(--text-sub); padding:10px;">첫 번째 은혜 나눔을 남겨보세요!</div>`;
-      }
+      // '아멘' 수와 은혜 나눔: 공유 저장소가 있으면 거기서, 없으면 이 기기에서 불러오기
+      const amenCount = SHARE_URL ? '…' : parseInt(localStorage.getItem(`amen_${targetKey}`) || '0');
+      const commentsHtml = SHARE_URL
+        ? `<div style="text-align:center; font-size:0.82rem; color:var(--text-sub); padding:10px;">은혜 나눔을 불러오는 중입니다…</div>`
+        : buildCommentsHtml(getLocalComments(targetKey));
+      const shareNotice = SHARE_URL ? '' :
+        `<p style="font-size:0.74rem; color:var(--text-sub); margin-top:8px;">※ 지금은 남긴 글이 이 휴대폰에만 저장됩니다.</p>`;
 
       const contentHtml = `
         <header class="hero fade-up" id="top">
@@ -1387,7 +1380,8 @@
             <div class="comment-form">
               <input type="text" id="commenterName" class="name-input" placeholder="이름 (예: 홍길동 성도)" />
               <textarea id="commentText" class="comment-input" rows="2" placeholder="오늘 은혜받은 말씀이나 기도 제목을 남겨주세요"></textarea>
-              <button class="comment-submit-btn" onclick="handlePostComment('${targetKey}')">은혜 나누기 등록</button>
+              <button class="comment-submit-btn" id="commentSubmitBtn" onclick="handlePostComment('${targetKey}')">은혜 나누기 등록</button>
+              ${shareNotice}
             </div>
 
             <div class="comment-list" id="commentListArea">
@@ -1401,20 +1395,77 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+      if (SHARE_URL) loadShared(targetKey);
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    }
+
+    function buildCommentsHtml(comments) {
+      if (comments.length === 0) {
+        return `<div style="text-align:center; font-size:0.82rem; color:var(--text-sub); padding:10px;">첫 번째 은혜 나눔을 남겨보세요!</div>`;
+      }
+      return comments.map(c => `
+          <div class="comment-item">
+            <div class="comment-header">
+              <span>👤 ${escapeHtml(c.name)}</span>
+              <span>${escapeHtml(c.date)}</span>
+            </div>
+            <div class="comment-text">${escapeHtml(c.text)}</div>
+          </div>
+        `).join('');
+    }
+
+    function getLocalComments(key) {
+      try { return JSON.parse(localStorage.getItem(`comments_${key}`) || '[]'); } catch (e) { return []; }
+    }
+
+    // 공유 저장소에서 해당 날짜의 '아멘' 수와 은혜 나눔을 받아 화면에 반영
+    async function loadShared(key) {
+      try {
+        const res = await fetch(`${SHARE_URL}?key=${encodeURIComponent(key)}`);
+        const result = await res.json();
+        if (key !== currentKey) return;
+        const list = document.getElementById('commentListArea');
+        const badge = document.getElementById('amenCountBadge');
+        if (list) list.innerHTML = buildCommentsHtml(result.comments || []);
+        if (badge) badge.innerText = result.amen || 0;
+      } catch (e) {
+        const list = document.getElementById('commentListArea');
+        if (list && key === currentKey) {
+          list.innerHTML = `<div style="text-align:center; font-size:0.82rem; color:var(--text-sub); padding:10px;">은혜 나눔을 불러오지 못했습니다. 잠시 후 다시 열어 주세요.</div>`;
+        }
+      }
+    }
+
+    // 공유 저장소에 기록 (text/plain으로 보내야 구글 앱스 스크립트가 바로 받음)
+    function postShared(payload) {
+      return fetch(SHARE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).then(res => res.json());
     }
 
     // '아멘' 버튼 클릭 핸들러
     function handleAmen(key) {
+      const badge = document.getElementById('amenCountBadge');
+      if (SHARE_URL) {
+        const shown = parseInt(badge && badge.innerText) || 0;
+        if (badge) badge.innerText = shown + 1;
+        postShared({ action: 'amen', key }).catch(() => {});
+        return;
+      }
       const amenKey = `amen_${key}`;
       let count = parseInt(localStorage.getItem(amenKey) || '0');
       count++;
       localStorage.setItem(amenKey, count);
-      const badge = document.getElementById('amenCountBadge');
       if (badge) badge.innerText = count;
     }
 
     // 댓글 등록 핸들러
-    function handlePostComment(key) {
+    async function handlePostComment(key) {
       const nameInput = document.getElementById('commenterName');
       const textInput = document.getElementById('commentText');
       const name = nameInput.value.trim();
@@ -1425,16 +1476,29 @@
         return;
       }
 
-      const commentsKey = `comments_${key}`;
-      const comments = JSON.parse(localStorage.getItem(commentsKey) || '[]');
-      
+      if (SHARE_URL) {
+        const btn = document.getElementById('commentSubmitBtn');
+        if (btn) { btn.disabled = true; btn.innerText = '등록 중…'; }
+        try {
+          const result = await postShared({ action: 'comment', key, name, text });
+          if (!result.ok) throw new Error('rejected');
+          textInput.value = '';
+          await loadShared(key);
+        } catch (e) {
+          alert('등록하지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.');
+        } finally {
+          if (btn) { btn.disabled = false; btn.innerText = '은혜 나누기 등록'; }
+        }
+        return;
+      }
+
+      const comments = getLocalComments(key);
       const now = new Date();
       const dateStr = `${now.getMonth() + 1}/${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
       comments.unshift({ name, text, date: dateStr });
-      localStorage.setItem(commentsKey, JSON.stringify(comments));
+      localStorage.setItem(`comments_${key}`, JSON.stringify(comments));
 
-      nameInput.value = '';
       textInput.value = '';
       renderApp(currentKey); // 화면 갱신
     }
@@ -1451,6 +1515,8 @@
       const updatedKeys = getVisibleKeys();
       if (updatedKeys.length !== visibleKeys.length) {
         renderApp(updatedKeys[0]);
+      } else if (SHARE_URL && !document.hidden) {
+        loadShared(currentKey); // 다른 성도님이 남긴 글도 보이도록 새로고침
       }
     }, 30000);
 

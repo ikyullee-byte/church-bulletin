@@ -439,14 +439,14 @@
                 <a href="notice.html" class="btn-quiet"><i class="fas fa-calendar-alt"></i>월간 일정표와 예배위원</a>
             </div>
 
-            <div class="notice-hero">
+            <div class="notice-hero" data-until="2026-11-01">
                 <h3>11월 월삭기도회</h3>
                 <ul>
                     <li><strong>일시:</strong> 11월 1일 (주일) 새벽 5:00</li>
                 </ul>
             </div>
 
-            <div class="notice-hero">
+            <div class="notice-hero" data-until="2026-11-15">
                 <h3>추수감사예배 및 총동원 전도주일</h3>
                 <ul>
                     <li><strong>일시:</strong> 11월 15일 (주일)</li>
@@ -1101,6 +1101,15 @@
         }
         document.addEventListener('DOMContentLoaded', applyTimeMode);
         setInterval(applyTimeMode, 60000);   // 12:30, 17:00 이 되면 열어 둔 화면도 저절로 바뀜
+    </script>
+    <script>
+        // data-until(YYYY-MM-DD, 한국시간) 날짜가 지나면 그 공지를 자동으로 숨김
+        (function () {
+            const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
+            document.querySelectorAll('[data-until]').forEach(el => {
+                if (el.dataset.until < today) el.remove();
+            });
+        })();
     </script>
 </body>
 </html>

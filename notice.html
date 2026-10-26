@@ -134,7 +134,7 @@
 
             <div class="premium-card p-6 md:p-8 space-y-4">
                 <!-- 공지 1: 추수감사절 & 성경퀴즈대회 -->
-                <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-50/90 to-orange-50/50 border border-amber-200/80">
+                <div data-until="2026-11-15" class="p-5 rounded-2xl bg-gradient-to-r from-amber-50/90 to-orange-50/50 border border-amber-200/80">
                     <div class="flex items-center justify-between mb-2">
                         <span class="bg-amber-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full">중요행사</span>
                         <span class="text-xs font-extrabold text-amber-800">2026. 11. 15 (주일)</span>
@@ -341,6 +341,15 @@
         window.onload = () => {
             changeCalendarMonth(new Date().getMonth() + 1 === 11 ? 11 : 10);
         };
+    </script>
+    <script>
+        // data-until(YYYY-MM-DD, 한국시간) 날짜가 지나면 그 공지를 자동으로 숨김
+        (function () {
+            const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
+            document.querySelectorAll('[data-until]').forEach(el => {
+                if (el.dataset.until < today) el.remove();
+            });
+        })();
     </script>
 </body>
 </html>

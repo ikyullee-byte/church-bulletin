@@ -150,7 +150,7 @@
 
         /* ---------- 이번 주 통독 ---------- */
         .week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin: 4px 0 18px; }
-        .wk { text-align: center; padding: 10px 2px; border-radius: 10px; background: var(--sheet); border: 1px solid var(--line); }
+        .wk { cursor: pointer; font: inherit; color: inherit; text-align: center; padding: 10px 2px; border-radius: 10px; background: var(--sheet); border: 1px solid var(--line); }
         .wk b { display: block; font-size: .72rem; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
         .wk span { display: block; font-size: .78rem; font-weight: 700; line-height: 1.35; }
         .wk.is-today { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
@@ -160,6 +160,12 @@
         @media (max-width: 480px) {
             .week { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         }
+        .wk:disabled { cursor: default; opacity: .55; }
+        .wk:not(:disabled):active { transform: scale(.97); }
+        .week-hint { margin: -6px 0 16px; font-size: .84rem; color: var(--muted); }
+        .scripture h4 { font-family: var(--sans); font-size: .95rem; font-weight: 800; color: var(--wheat-text); margin-top: 8px; }
+        .scripture h4:first-child { margin-top: 0; }
+        .scripture p.state { font-family: var(--sans); font-size: .95rem; color: var(--muted); text-align: center; padding: 24px 0; }
         .btn-quiet {
             display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
             border-radius: 12px; border: 1px solid var(--line); background: var(--sheet);
@@ -603,6 +609,7 @@
         <section id="bible-section" class="block">
             <h2 class="block-title">이번 주 통독</h2>
             <div class="week" id="weekly-bible-grid"></div>
+            <p class="week-hint">날짜를 누르면 그날 읽을 성경 본문이 열려요.</p>
             <button onclick="openBibleModal()" class="btn-quiet"><i class="fas fa-table-list"></i>1년 통독표 전체보기</button>
         </section>
 
@@ -726,6 +733,21 @@
         </div>
     </div>
 
+    <!-- 이번 주 통독 본문 -->
+    <div id="readingModal" class="modal" onclick="closeReadingModal()">
+        <div class="panel md" onclick="event.stopPropagation()">
+            <div class="panel-head">
+                <div>
+                    <p class="sub" id="readingSub"></p>
+                    <h3 id="readingTitle"></h3>
+                </div>
+                <button onclick="closeReadingModal()" class="x" aria-label="닫기"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="scripture" id="readingBody"></div>
+            <button onclick="closeReadingModal()" class="btn-primary">아멘, 닫기</button>
+        </div>
+    </div>
+
     <!-- 1년 통독표 -->
     <div id="bibleModal" class="modal" onclick="closeBibleModal()">
         <div class="panel lg" onclick="event.stopPropagation()">
@@ -811,6 +833,9 @@
             const thisWeekBible = ['마28-막2', '막3-5', '막6-8', '막9-11', '막12-14', '막15-16', '눅1-3'];
             const weekDays = ['주일(25)', '월(26)', '화(27)', '수(28)', '목(29)', '금(30)', '토(31)'];
 
+            window.weeklyReadings = thisWeekBible;
+            window.weeklyDays = weekDays;
+
             const tbody = document.getElementById('bible-full-body');
             const weeklyGrid = document.getElementById('weekly-bible-grid');
 
@@ -828,10 +853,10 @@
                 let weeklyHTML = '';
                 weekDays.forEach((day, idx) => {
                     weeklyHTML += `
-                    <div class="wk ${idx === 0 ? 'is-today' : ''}">
+                    <button type="button" class="wk ${idx === 0 ? 'is-today' : ''}" onclick="openReading(${idx})" ${thisWeekBible[idx] ? '' : 'disabled'} aria-label="${day} 통독 본문 읽기">
                         <b>${day}</b>
                         <span>${thisWeekBible[idx] || '-'}</span>
-                    </div>`;
+                    </button>`;
                 });
                 weeklyGrid.innerHTML = weeklyHTML;
             }
@@ -898,10 +923,11 @@
             canvas.addEventListener('touchend', () => isDrawing = false);
         }
 
-        window.onload = () => {
+        // 사진이 늦게 와도 통독표가 먼저 나오도록 화면 구성이 끝나는 즉시 실행
+        document.addEventListener('DOMContentLoaded', () => {
             renderBibleTable();
             animateThermometer();
-        };
+        });
 
         // ---------- 기도제목 요청 (QT 은혜 나눔과 같은 구글 시트에 저장) ----------
         const PRAYER_URL = 'https://script.google.com/macros/s/AKfycby0VyPbHIbqjNxdnMNNIw4cP4TQwPxQsevAia3sjMRcyc_rAF9cmtlJh9cXOc6Sze2b/exec';
@@ -939,6 +965,88 @@
             const kstDay = new Date(Date.now() + 9 * 3600 * 1000).getUTCDay(); // 0=일, 3=수
             showWorship(kstDay === 3 ? 'wednesday-service' : 'morning-service');
         })();
+
+        // ---------- 이번 주 통독: 날짜를 누르면 개역개정 본문 표시 (본문은 bible/NN.json 에서 필요한 권만 불러옴) ----------
+        const BIBLE_ABBR = '창,출,레,민,신,수,삿,룻,삼상,삼하,왕상,왕하,대상,대하,스,느,에,욥,시,잠,전,아,사,렘,애,겔,단,호,욜,암,옵,욘,미,나,합,습,학,슥,말,마,막,눅,요,행,롬,고전,고후,갈,엡,빌,골,살전,살후,딤전,딤후,딛,몬,히,약,벧전,벧후,요일,요이,요삼,유,계'.split(',');
+        const BIBLE_ABBR_RE = new RegExp('^(' + BIBLE_ABBR.slice().sort((a, b) => b.length - a.length).join('|') + ')?(\\d+)?(?::(\\d+))?$');
+        const bibleCache = {};
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+        }
+        function loadBook(b) {
+            if (!bibleCache[b]) {
+                bibleCache[b] = fetch('bible/' + String(b + 1).padStart(2, '0') + '.json').then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                });
+            }
+            return bibleCache[b];
+        }
+        function parseEnd(str) {
+            const m = BIBLE_ABBR_RE.exec(str);
+            if (!m || (!m[1] && !m[2])) return null;
+            return { b: m[1] ? BIBLE_ABBR.indexOf(m[1]) : null, ch: m[2] ? +m[2] : null, v: m[3] ? +m[3] : null };
+        }
+        // '마28-막2', '막3-5', '옵-욘4', '시119:89' 같은 표기를 [{b, ch, from, to}] 로 풀어 줌
+        async function expandReading(ref) {
+            const parts = ref.split('-');
+            const s = parseEnd(parts[0]);
+            if (!s || s.b === null) return [];
+            let e;
+            if (parts.length === 1) e = { b: s.b, ch: s.ch, v: null, single: true };
+            else {
+                const t = parseEnd(parts[1]);
+                if (!t) return [];
+                e = t.b === null ? { b: s.b, ch: t.ch, v: null } : t;
+            }
+            const books = {};
+            for (let b = s.b; b <= e.b; b++) books[b] = await loadBook(b);
+            const out = [];
+            for (let b = s.b; b <= e.b; b++) {
+                const total = books[b].ch.length;
+                let first = b === s.b ? (s.ch || 1) : 1;
+                let last = b === e.b ? (e.ch || (e.single && !s.ch ? total : (e.single ? s.ch : total))) : total;
+                if (e.single && !s.ch) { first = 1; last = total; }
+                for (let c = first; c <= last; c++) {
+                    const item = { b, ch: c, from: 1, to: 9999 };
+                    // 시편 119편은 한 번에 읽기 길어 '1' 은 앞부분, '89' 는 뒷부분으로 나눠 표기
+                    if (e.single && s.v && b === 18 && c === 119) { if (s.v >= 89) item.from = 89; else item.to = 88; }
+                    out.push(item);
+                }
+            }
+            return out.map(i => Object.assign(i, { name: books[i.b].name, verses: books[i.b].ch[i.ch - 1] || [] }));
+        }
+        function closeReadingModal() { closeModal('readingModal'); }
+        async function openReading(idx) {
+            const ref = (window.weeklyReadings || [])[idx];
+            if (!ref) return;
+            document.getElementById('readingTitle').textContent = ref;
+            document.getElementById('readingSub').textContent = (window.weeklyDays || [])[idx] + ' 통독';
+            const body = document.getElementById('readingBody');
+            body.innerHTML = '<p class="state">본문을 불러오는 중입니다…</p>';
+            openModal('readingModal');
+            try {
+                const items = await expandReading(ref);
+                if (!items.length) throw new Error('empty');
+                const label = it => it.name + ' ' + it.ch + (it.name === '시편' ? '편' : '장');
+                document.getElementById('readingTitle').textContent = items.length > 1 && items[0].name === items[items.length - 1].name
+                    ? items[0].name + ' ' + items[0].ch + '~' + items[items.length - 1].ch + (items[0].name === '시편' ? '편' : '장')
+                    : (items.length > 1 ? label(items[0]) + ' ~ ' + label(items[items.length - 1]) : label(items[0]));
+                body.innerHTML = items.map(it => {
+                    const unit = it.name === '시편' ? '편' : '장';
+                    const part = it.from > 1 ? ' (' + it.from + '절~)' : (it.to < 9999 ? ' (1~' + it.to + '절)' : '');
+                    const verses = it.verses.filter(v => {
+                        const n = typeof v[0] === 'number' ? v[0] : parseInt(v[0], 10);
+                        return n >= it.from && n <= it.to;
+                    }).map(v => '<p><sup>' + escapeHtml(v[0]) + '</sup>' + escapeHtml(v[1]) + '</p>').join('');
+                    return '<h4>' + escapeHtml(it.name) + ' ' + it.ch + unit + part + '</h4>' + verses;
+                }).join('');
+                body.scrollTop = 0;
+            } catch (err) {
+                body.innerHTML = '<p class="state">본문을 불러오지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.</p>';
+            }
+        }
     </script>
 </body>
 </html>

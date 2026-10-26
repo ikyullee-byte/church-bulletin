@@ -298,7 +298,7 @@
         .tab { flex: 1; min-height: 46px; border-radius: 12px; border: 1px solid var(--line); background: var(--sheet); font-weight: 700; font-size: .95rem; color: var(--muted); }
         .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
         body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #14231D; }
-        .tabpanel[hidden] { display: none; }
+        .tabpanel[hidden], #priority[hidden], #links [data-dup][hidden] { display: none; }
         .fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; padding: 4px 0; }
         .fold > summary::-webkit-details-marker { display: none; }
         .fold > summary::after { content: '펼치기 ▾'; font-family: var(--sans); font-size: .85rem; font-weight: 600; color: var(--muted); }
@@ -413,6 +413,26 @@
     </header>
 
     <main class="wrap">
+        <section id="priority" class="block">
+            <h2 class="block-title">오늘의 말씀</h2>
+            <div class="links">
+                <a href="qt.html" class="link-row feature">
+                    <div>
+                        <p>매일 새벽 기도</p>
+                        <h3>오늘의 QT 묵상과 기도 제목</h3>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="study.html" class="link-row feature">
+                    <div>
+                        <p>지난 주일 설교</p>
+                        <h3>주일 말씀 핵심 요약과 구역 성경공부</h3>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </section>
+
         <section id="church-news" class="block">
             <div class="block-head">
                 <h2 class="block-title">교회 소식</h2>
@@ -452,7 +472,7 @@
             </div>
         </section>
 
-        <section class="block">
+        <section id="links" class="block">
             <h2 class="block-title">바로가기</h2>
             <div class="links">
                 <a href="quiz.html" class="link-row feature">
@@ -468,13 +488,13 @@
                     </div>
                     <i class="fas fa-chevron-right"></i>
                 </a>
-                <a href="qt.html" class="link-row">
+                <a href="qt.html" class="link-row" data-dup>
                     <div>
                         <h3>매일 새벽 기도 QT 묵상 함께하기</h3>
                     </div>
                     <i class="fas fa-chevron-right"></i>
                 </a>
-                <a href="study.html" class="link-row">
+                <a href="study.html" class="link-row" data-dup>
                     <div>
                         <h3>주일 말씀 핵심 리뷰</h3>
                         <p>설교 핵심 리뷰와 구역 성경공부 나눔지. 주일 오후 1시에 공개해요.</p>
@@ -956,15 +976,11 @@
             return false;
         }
 
-        // ---------- 예배 탭 (오늘 요일에 맞춰 기본 선택) ----------
+        // ---------- 예배 탭 ----------
         function showWorship(id) {
             document.querySelectorAll('#worship .tabpanel').forEach(p => { p.hidden = p.id !== id; });
             document.querySelectorAll('#worship .tab').forEach(t => t.setAttribute('aria-selected', t.dataset.target === id ? 'true' : 'false'));
         }
-        (function () {
-            const kstDay = new Date(Date.now() + 9 * 3600 * 1000).getUTCDay(); // 0=일, 3=수
-            showWorship(kstDay === 3 ? 'wednesday-service' : 'morning-service');
-        })();
 
         // ---------- 이번 주 통독: 날짜를 누르면 개역개정 본문 표시 (본문은 bible/NN.json 에서 필요한 권만 불러옴) ----------
         const BIBLE_ABBR = '창,출,레,민,신,수,삿,룻,삼상,삼하,왕상,왕하,대상,대하,스,느,에,욥,시,잠,전,아,사,렘,애,겔,단,호,욜,암,옵,욘,미,나,합,습,학,슥,말,마,막,눅,요,행,롬,고전,고후,갈,엡,빌,골,살전,살후,딤전,딤후,딛,몬,히,약,벧전,벧후,요일,요이,요삼,유,계'.split(',');
@@ -1047,6 +1063,44 @@
                 body.innerHTML = '<p class="state">본문을 불러오지 못했습니다. 인터넷 연결을 확인하고 다시 눌러 주세요.</p>';
             }
         }
+
+        // ---------- 시간에 따라 화면 순서 바꾸기 (한국 시간) ----------
+        // 주중: QT·주일 설교 요약이 맨 위 / 주일 12:30 전: 오전예배 순서 / 주일 12:30 이후: 오후예배 순서 / 수요일 17:00 이후: 수요예배 순서
+        // 미리 보기: 주소 끝에 ?mode=week, ?mode=sun-am, ?mode=sun-pm, ?mode=wed
+        const TIME_MODES = {
+            'week':   { title: '이번 주 예배 순서',        tab: 'morning-service',   worshipFirst: false },
+            'sun-am': { title: '오늘 주일 오전 예배 순서', tab: 'morning-service',   worshipFirst: true },
+            'sun-pm': { title: '오늘 주일 오후 예배 순서', tab: 'afternoon-service', worshipFirst: true },
+            'wed':    { title: '오늘 수요예배 순서',       tab: 'wednesday-service', worshipFirst: true }
+        };
+        function currentTimeMode() {
+            const forced = new URLSearchParams(location.search).get('mode');
+            if (forced && TIME_MODES[forced]) return forced;
+            const kst = new Date(Date.now() + 9 * 3600 * 1000);
+            const day = kst.getUTCDay();                       // 0=일, 3=수
+            const minutes = kst.getUTCHours() * 60 + kst.getUTCMinutes();
+            if (day === 0) return minutes >= 12 * 60 + 30 ? 'sun-pm' : 'sun-am';
+            if (day === 3 && minutes >= 17 * 60) return 'wed';
+            return 'week';
+        }
+        let appliedMode = null;
+        function applyTimeMode() {
+            const mode = currentTimeMode();
+            if (mode === appliedMode) return;
+            appliedMode = mode;
+            const cfg = TIME_MODES[mode];
+            const order = cfg.worshipFirst
+                ? ['worship', 'church-news', 'links', 'bible-section', 'prayer-request', 'sponsor-children', 'gallery-section']
+                : ['priority', 'church-news', 'worship', 'links', 'bible-section', 'prayer-request', 'sponsor-children', 'gallery-section'];
+            const main = document.querySelector('main');
+            order.forEach(id => { const el = document.getElementById(id); if (el) main.appendChild(el); });
+            document.getElementById('priority').hidden = cfg.worshipFirst;
+            document.querySelectorAll('#links [data-dup]').forEach(a => { a.hidden = !cfg.worshipFirst; });
+            document.querySelector('#worship > .block-title').textContent = cfg.title;
+            showWorship(cfg.tab);
+        }
+        document.addEventListener('DOMContentLoaded', applyTimeMode);
+        setInterval(applyTimeMode, 60000);   // 12:30, 17:00 이 되면 열어 둔 화면도 저절로 바뀜
     </script>
 </body>
 </html>

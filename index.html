@@ -123,7 +123,7 @@
 
         /* ---------- 섹션 공통 ---------- */
         main { padding-top: 12px; }
-        .block { padding: 40px 0 0; }
+        .block { padding: 32px 0 0; }
         .block-title {
             font-family: var(--serif); font-weight: 800; font-size: 1.4rem; line-height: 1.4;
             letter-spacing: -0.02em; margin-bottom: 18px; color: var(--ink);
@@ -287,6 +287,18 @@
         .prayer-form .result.err { color: #B3402E; }
         body.dark-mode .prayer-form .result.ok { color: var(--wheat-text); }
 
+        /* ---------- 예배 탭 / 접이식 ---------- */
+        .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+        .tab { flex: 1; min-height: 46px; border-radius: 12px; border: 1px solid var(--line); background: var(--sheet); font-weight: 700; font-size: .95rem; color: var(--muted); }
+        .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+        body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #14231D; }
+        .tabpanel[hidden] { display: none; }
+        .fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; padding: 4px 0; }
+        .fold > summary::-webkit-details-marker { display: none; }
+        .fold > summary::after { content: '펼치기 ▾'; font-family: var(--sans); font-size: .85rem; font-weight: 600; color: var(--muted); }
+        .fold[open] > summary::after { content: '접기 ▴'; }
+        .fold[open] > summary { margin-bottom: 18px; }
+
         /* ---------- 푸터 ---------- */
         footer { margin-top: 56px; padding: 36px 0 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
         footer strong { display: block; font-family: var(--serif); font-size: 1.1rem; color: var(--ink); margin-bottom: 4px; }
@@ -395,6 +407,44 @@
     </header>
 
     <main class="wrap">
+        <section id="church-news" class="block">
+            <div class="block-head">
+                <h2 class="block-title">교회 소식</h2>
+                <a href="notice.html" class="btn-quiet"><i class="fas fa-calendar-alt"></i>월간 일정표와 예배위원</a>
+            </div>
+
+            <div class="notice-hero">
+                <h3>11월 월삭기도회</h3>
+                <ul>
+                    <li><strong>일시:</strong> 11월 1일 (주일) 새벽 5:00</li>
+                </ul>
+            </div>
+
+            <div class="notice-hero">
+                <h3>추수감사예배 및 총동원 전도주일</h3>
+                <ul>
+                    <li><strong>일시:</strong> 11월 15일 (주일)</li>
+                    <li>이 날 오후예배에는 전 교인 <strong>성경퀴즈대회</strong>가 진행됩니다. 기도로 함께 준비해 주시기 바랍니다.</li>
+                </ul>
+            </div>
+
+            <ol class="news">
+                <li><p>예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p></li>
+                <li><p>수요예배에 적극적인 참여를 부탁드립니다. 11월 예배위원들은 기도로 준비하시기 바랍니다.</p></li>
+            </ol>
+
+            <div class="people">
+                <h3>새신자 환영</h3>
+                <p class="names">정순자<span>|</span>조향지<span>|</span>김병기<span>|</span>김기혜</p>
+                <p class="note">주님의 이름으로 환영합니다!</p>
+            </div>
+
+            <div class="people">
+                <h3>환우를 위한 기도</h3>
+                <p class="names">임선우 어린이<span>|</span>한용희 권사님<span>|</span>박성심 권사님</p>
+                <p class="note">위하여 함께 기도해 주시기 바랍니다.</p>
+            </div>
+        </section>
 
         <section class="block">
             <h2 class="block-title">바로가기</h2>
@@ -440,13 +490,15 @@
             </div>
         </section>
 
-        <section id="bible-section" class="block">
-            <h2 class="block-title">이번 주 통독</h2>
-            <div class="week" id="weekly-bible-grid"></div>
-            <button onclick="openBibleModal()" class="btn-quiet"><i class="fas fa-table-list"></i>1년 통독표 전체보기</button>
-        </section>
+        <section id="worship" class="block">
+            <h2 class="block-title">이번 주 예배 순서</h2>
+            <div class="tabs" role="tablist" aria-label="예배 선택">
+                <button role="tab" class="tab" data-target="morning-service" onclick="showWorship('morning-service')">주일 오전</button>
+                <button role="tab" class="tab" data-target="afternoon-service" onclick="showWorship('afternoon-service')">주일 오후</button>
+                <button role="tab" class="tab" data-target="wednesday-service" onclick="showWorship('wednesday-service')">수요예배</button>
+            </div>
 
-        <section id="morning-service" class="block">
+        <div id="morning-service" class="tabpanel" role="tabpanel">
             <article class="service">
                 <div id="stamp-morning" class="stamp-effect">예배<br>참석</div>
                 <div class="service-head">
@@ -489,9 +541,9 @@
                 </div>
                 <p class="footnote">*는 일어서서 드리는 순서예요. 불편하신 성도님은 앉아서 예배드리셔도 좋아요.</p>
             </article>
-        </section>
+        </div>
 
-        <section id="afternoon-service" class="block" style="padding-top:24px">
+        <div id="afternoon-service" class="tabpanel" role="tabpanel">
             <article class="service">
                 <div id="stamp-afternoon" class="stamp-effect">예배<br>참석</div>
                 <div class="service-head">
@@ -522,9 +574,9 @@
                     <div class="row final"><span class="k">축 도</span><span class="d"></span><span class="w">이성결 목사</span></div>
                 </div>
             </article>
-        </section>
+        </div>
 
-        <section id="wednesday-service" class="block" style="padding-top:24px">
+        <div id="wednesday-service" class="tabpanel" role="tabpanel">
             <article class="service">
                 <div id="stamp-wednesday" class="stamp-effect">예배<br>참석</div>
                 <div class="service-head">
@@ -545,10 +597,31 @@
                     <p class="closing">주기도문으로 예배를 마칩니다</p>
                 </div>
             </article>
+        </div>
+        </section>
+
+        <section id="bible-section" class="block">
+            <h2 class="block-title">이번 주 통독</h2>
+            <div class="week" id="weekly-bible-grid"></div>
+            <button onclick="openBibleModal()" class="btn-quiet"><i class="fas fa-table-list"></i>1년 통독표 전체보기</button>
+        </section>
+
+        <section id="prayer-request" class="block">
+            <h2 class="block-title">기도제목 요청</h2>
+            <form class="prayer-form" id="prayerForm" onsubmit="return submitPrayer(event)">
+                <p class="lead">함께 기도하길 원하는 제목을 남겨 주세요. 남기신 내용은 목사님만 보며, 이 페이지에 공개되지 않습니다.</p>
+                <label for="prayerName">이름</label>
+                <input type="text" id="prayerName" maxlength="30" placeholder="예: 홍길동 성도" autocomplete="name">
+                <label for="prayerText">기도제목</label>
+                <textarea id="prayerText" maxlength="1000" placeholder="기도가 필요한 내용을 적어 주세요."></textarea>
+                <button type="submit" class="btn-primary" id="prayerSubmit">기도제목 보내기</button>
+                <p class="result" id="prayerResult" role="status" aria-live="polite"></p>
+            </form>
         </section>
 
         <section id="sponsor-children" class="block">
-            <h2 class="block-title">선교 및 후원 어린이</h2>
+            <details class="fold">
+            <summary class="block-title">선교 및 후원 어린이</summary>
             <div class="kids">
                 <article class="kid">
                     <div class="photo"><img src="D86B81A6-85CE-47E8-BB75-A645F981884B.JPG" alt="이 산디 쩌 어린이" onerror="this.src='https://via.placeholder.com/600x450/EFF2EC/123A2F?text=Photo'"></div>
@@ -573,10 +646,12 @@
                     </dl>
                 </article>
             </div>
+        </details>
         </section>
 
         <section id="gallery-section" class="block">
-            <h2 class="block-title">은혜의 순간</h2>
+            <details class="fold">
+            <summary class="block-title">은혜의 순간</summary>
             <div class="gallery">
                 <figure>
                     <div class="frame"><img src="https://ikyullee-byte.github.io/TEST01/retreat2026.jpg" alt="청년부 리트릿 사진" onerror="this.src='https://via.placeholder.com/800x600/EFF2EC/123A2F?text=Youth+Retreat+Photo'"></div>
@@ -587,58 +662,7 @@
                     <figcaption>은혜 충만했던 주일학교 여름성경학교</figcaption>
                 </figure>
             </div>
-        </section>
-
-        <section id="church-news" class="block">
-            <div class="block-head">
-                <h2 class="block-title">교회 소식</h2>
-                <a href="notice.html" class="btn-quiet"><i class="fas fa-calendar-alt"></i>월간 일정표와 예배위원</a>
-            </div>
-
-            <div class="notice-hero">
-                <h3>11월 월삭기도회</h3>
-                <ul>
-                    <li><strong>일시:</strong> 11월 1일 (주일) 새벽 5:00</li>
-                </ul>
-            </div>
-
-            <div class="notice-hero">
-                <h3>추수감사예배 및 총동원 전도주일</h3>
-                <ul>
-                    <li><strong>일시:</strong> 11월 15일 (주일)</li>
-                    <li>이 날 오후예배에는 전 교인 <strong>성경퀴즈대회</strong>가 진행됩니다. 기도로 함께 준비해 주시기 바랍니다.</li>
-                </ul>
-            </div>
-
-            <ol class="news">
-                <li><p>예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p></li>
-                <li><p>수요예배에 적극적인 참여를 부탁드립니다. 11월 예배위원들은 기도로 준비하시기 바랍니다.</p></li>
-            </ol>
-
-            <div class="people">
-                <h3>새신자 환영</h3>
-                <p class="names">정순자<span>|</span>조향지<span>|</span>김병기<span>|</span>김기혜</p>
-                <p class="note">주님의 이름으로 환영합니다!</p>
-            </div>
-
-            <div class="people">
-                <h3>환우를 위한 기도</h3>
-                <p class="names">임선우 어린이<span>|</span>한용희 권사님<span>|</span>박성심 권사님</p>
-                <p class="note">위하여 함께 기도해 주시기 바랍니다.</p>
-            </div>
-        </section>
-
-        <section id="prayer-request" class="block">
-            <h2 class="block-title">기도제목 요청</h2>
-            <form class="prayer-form" id="prayerForm" onsubmit="return submitPrayer(event)">
-                <p class="lead">함께 기도하길 원하는 제목을 남겨 주세요. 남기신 내용은 목사님만 보며, 이 페이지에 공개되지 않습니다.</p>
-                <label for="prayerName">이름</label>
-                <input type="text" id="prayerName" maxlength="30" placeholder="예: 홍길동 성도" autocomplete="name">
-                <label for="prayerText">기도제목</label>
-                <textarea id="prayerText" maxlength="1000" placeholder="기도가 필요한 내용을 적어 주세요."></textarea>
-                <button type="submit" class="btn-primary" id="prayerSubmit">기도제목 보내기</button>
-                <p class="result" id="prayerResult" role="status" aria-live="polite"></p>
-            </form>
+        </details>
         </section>
 
     </main>
@@ -905,6 +929,16 @@
             }).finally(() => { btn.disabled = false; btn.textContent = '기도제목 보내기'; });
             return false;
         }
+
+        // ---------- 예배 탭 (오늘 요일에 맞춰 기본 선택) ----------
+        function showWorship(id) {
+            document.querySelectorAll('#worship .tabpanel').forEach(p => { p.hidden = p.id !== id; });
+            document.querySelectorAll('#worship .tab').forEach(t => t.setAttribute('aria-selected', t.dataset.target === id ? 'true' : 'false'));
+        }
+        (function () {
+            const kstDay = new Date(Date.now() + 9 * 3600 * 1000).getUTCDay(); // 0=일, 3=수
+            showWorship(kstDay === 3 ? 'wednesday-service' : 'morning-service');
+        })();
     </script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+/copilot/
+/.copilot/
+/.claude/
+/.opencode/
+/.obsidian/
+/outputs/
+/templates/
+/주보/
+/개역개정/
+/qt.md
+/qt-share/
+.DS_Store
+*.save
+.env

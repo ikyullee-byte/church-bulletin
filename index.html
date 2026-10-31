@@ -4,49 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#123A2F">
+    <meta name="theme-color" content="#2b2bd9">
     <title>원종제일교회 스마트 주보</title>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* 코발트와 연분홍 한 벌. 넓은 화면은 왼쪽 대문 고정, 좁은 화면은 한 줄로 이어지는 예배지 */
         :root {
-            --ink: #123A2F;
-            --ink-soft: #1E5443;
-            --paper: #EFF2EC;
-            --sheet: #FBFCFA;
-            --text: #1B2420;
-            --muted: #566359;
-            --line: #D3DAD0;
-            --wheat: #C4912A;
-            --wheat-text: #86610F;
-            --wheat-wash: #F5ECD4;
-            --on-ink: #F3F1E6;
-            --serif: 'Noto Serif KR', 'Nanum Myeongjo', serif;
-            --sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', sans-serif;
+            --ink: #2b2bd9;
+            --ink-soft: #2222b8;
+            --paper: #fbfaff;
+            --sheet: #ffffff;
+            --text: #17163f;
+            --muted: #5a5985;
+            --line: #e4e3f5;
+            --wheat: #ffc8dc;
+            --wheat-text: #2b2bd9;
+            --wheat-wash: #f1f0ff;
+            --on-ink: #ffffff;
+            --band: #ffc8dc;
+            --band-text: #17163f;
+            --serif: 'Hahmlet', 'Noto Serif KR', serif;
+            --sans: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
             --fs: 17px;
         }
         body.dark-mode {
-            --ink: #0A2A21;
-            --ink-soft: #14463A;
-            --paper: #0D1814;
-            --sheet: #14231D;
-            --text: #E6ECE7;
-            --muted: #9CADA3;
-            --line: #28403A;
-            --wheat: #D9A43A;
-            --wheat-text: #E2B75A;
-            --wheat-wash: #2A2412;
-            --on-ink: #F3F1E6;
+            --ink: #2424b4;
+            --ink-soft: #2b2bd9;
+            --paper: #100f2b;
+            --sheet: #1a1940;
+            --text: #ece9ff;
+            --muted: #a9a7d0;
+            --line: #2e2c5e;
+            --wheat: #ffc8dc;
+            --wheat-text: #ffc8dc;
+            --wheat-wash: #25234f;
+            --on-ink: #ffffff;
+            --band: #3a2c5e;
+            --band-text: #ffe3ee;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; -webkit-text-size-adjust: 100%; }
+        html { scroll-behavior: smooth; scroll-padding-top: 7.5rem; -webkit-text-size-adjust: 100%; }
         body {
             margin: 0;
             font-family: var(--sans);
@@ -58,7 +62,6 @@
             word-break: keep-all;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
-            padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
         }
         body.large-text { --fs: 19.5px; }
         h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; padding: 0; }
@@ -66,7 +69,7 @@
         a { color: inherit; text-decoration: none; }
         button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
         img { display: block; max-width: 100%; }
-        :focus-visible { outline: 3px solid var(--wheat); outline-offset: 2px; border-radius: 6px; }
+        :focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 6px; }
 
         .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
 
@@ -91,35 +94,34 @@
 
         /* ---------- 히어로: 이번 주 말씀 ---------- */
         .hero { background: var(--ink); color: var(--on-ink); padding: 40px 0 56px; }
-        .hero .date { font-size: .85rem; color: rgba(243,241,230,.72); }
+        .hero .date { font-size: .85rem; color: rgba(255,255,255,.72); }
         .hero .date strong { display: block; font-size: 1rem; color: var(--on-ink); font-weight: 600; margin-bottom: 2px; }
-        .grain { display: block; width: 56px; height: 72px; margin: 28px 0 18px; overflow: visible; }
-        .grain .seed { fill: var(--wheat); }
-        .grain .crease { stroke: var(--ink); stroke-width: 2; fill: none; stroke-linecap: round; }
-        .grain .sprout { stroke: var(--wheat); stroke-width: 3; fill: none; stroke-linecap: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: sprout 1.6s .3s cubic-bezier(.3,.7,.2,1) forwards; }
-        .grain .leaf { fill: var(--wheat); transform-box: fill-box; transform-origin: 0% 100%; transform: scale(0); animation: leaf .7s 1.5s cubic-bezier(.3,1.4,.5,1) forwards; }
-        .grain .leaf.r { transform-origin: 100% 100%; animation-delay: 1.75s; }
-        @keyframes sprout { to { stroke-dashoffset: 0; } }
-        @keyframes leaf { to { transform: scale(1); } }
+        .bloom { display: block; width: 100%; max-width: 280px; margin: 24px auto 28px; fill: var(--wheat); }
+        .bloom path { transform-box: view-box; transform-origin: 100px 82px; animation: bloom 900ms cubic-bezier(.2,.9,.25,1) both; }
+        .bloom path:nth-child(2) { animation-delay: 90ms; }
+        .bloom path:nth-child(3) { animation-delay: 180ms; }
+        .bloom path:nth-child(4) { animation-delay: 270ms; }
+        @keyframes bloom { from { transform: scale(.72) rotate(-14deg); } }
         .verse {
             font-family: var(--serif);
-            font-weight: 600;
-            font-size: 1.55rem;
-            line-height: 1.75;
+            font-weight: 800;
+            font-size: clamp(1.6rem, 6.8vw, 2.2rem);
+            line-height: 1.32;
             letter-spacing: -0.02em;
+            text-wrap: balance;
         }
         .verse-ref { margin-top: 16px; font-size: .95rem; color: var(--wheat); font-weight: 700; }
 
         .grace {
             margin-top: 40px; padding-top: 24px;
-            border-top: 1px solid rgba(243,241,230,.2);
+            border-top: 1px solid rgba(255,255,255,.2);
             display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: end;
         }
-        .grace p { font-size: .9rem; color: rgba(243,241,230,.8); }
+        .grace p { font-size: .9rem; color: rgba(255,255,255,.8); }
         .grace .num { font-family: var(--serif); font-weight: 800; font-size: 2.4rem; line-height: 1; color: var(--on-ink); }
-        .gauge { grid-column: 1 / -1; height: 8px; border-radius: 99px; background: rgba(243,241,230,.16); overflow: hidden; }
+        .gauge { grid-column: 1 / -1; height: 8px; border-radius: 99px; background: rgba(255,255,255,.16); overflow: hidden; }
         .gauge i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--wheat); transition: width 2.5s cubic-bezier(.16,1,.3,1); }
-        .gauge-note { grid-column: 1 / -1; font-size: .8rem; color: rgba(243,241,230,.6); display: flex; justify-content: space-between; }
+        .gauge-note { grid-column: 1 / -1; font-size: .8rem; color: rgba(255,255,255,.6); display: flex; justify-content: space-between; }
 
         /* ---------- 섹션 공통 ---------- */
         main { padding-top: 12px; }
@@ -155,8 +157,8 @@
         .wk span { display: block; font-size: .78rem; font-weight: 700; line-height: 1.35; }
         .wk.is-today { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
         .wk.is-today b { color: var(--wheat); }
-        body.dark-mode .wk.is-today { background: var(--wheat); border-color: var(--wheat); color: #14231D; }
-        body.dark-mode .wk.is-today b { color: #14231D; }
+        body.dark-mode .wk.is-today { background: var(--wheat); border-color: var(--wheat); color: #17163f; }
+        body.dark-mode .wk.is-today b { color: #17163f; }
         @media (max-width: 480px) {
             .week { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         }
@@ -178,17 +180,17 @@
         .service-head { background: var(--ink); color: var(--on-ink); padding: 28px 24px 26px; position: relative; }
         .service-head .time { font-family: var(--serif); font-weight: 800; font-size: 2.3rem; line-height: 1.1; letter-spacing: -0.02em; color: var(--wheat); }
         .service-head h2 { font-family: var(--serif); font-weight: 800; font-size: 1.5rem; line-height: 1.4; margin-top: 6px; }
-        .service-head .lead { margin-top: 6px; font-size: .92rem; color: rgba(243,241,230,.8); }
+        .service-head .lead { margin-top: 6px; font-size: .92rem; color: rgba(255,255,255,.8); }
         .attend {
             position: absolute; top: 20px; right: 20px; min-height: 44px; padding: 0 16px;
             display: inline-flex; align-items: center; gap: 8px;
-            border-radius: 99px; border: 1.5px solid rgba(243,241,230,.55);
+            border-radius: 99px; border: 1.5px solid rgba(255,255,255,.55);
             font-size: .88rem; font-weight: 700; color: var(--on-ink);
             transition: background .2s, border-color .2s;
         }
         .attend:hover { background: rgba(255,255,255,.1); }
         .attend:active { transform: scale(.96); }
-        .attend.done { background: var(--wheat); border-color: var(--wheat); color: #14231D; cursor: default; }
+        .attend.done { background: var(--wheat); border-color: var(--wheat); color: #17163f; cursor: default; }
 
         .stamp-effect {
             position: absolute; top: 76px; right: 24px; z-index: 5;
@@ -197,7 +199,7 @@
             display: flex; align-items: center; justify-content: center; text-align: center;
             font-family: var(--serif); font-weight: 800; font-size: .85rem; line-height: 1.25;
             transform: rotate(-14deg); opacity: 0; pointer-events: none;
-            background: rgba(18,58,47,.92);
+            background: rgba(43,43,217,.92);
         }
         .stamp-animate { animation: stampIn .6s forwards cubic-bezier(.34,1.56,.64,1); }
         @keyframes stampIn { 0% { transform: scale(2.6) rotate(-14deg); opacity: 0; } 100% { transform: scale(1) rotate(-14deg); opacity: 1; } }
@@ -220,7 +222,7 @@
             border-radius: 10px; background: var(--wheat-wash); color: var(--wheat-text);
             font-size: .85rem; font-weight: 700;
         }
-        .row .read:hover { background: var(--wheat); color: #14231D; }
+        .row .read:hover { background: var(--wheat); color: #17163f; }
         .row .ref { display: block; }
 
         .sermon { margin: 12px 0; padding: 28px 0 28px; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line); }
@@ -233,7 +235,7 @@
             border-radius: 12px; background: var(--ink); color: var(--on-ink); font-weight: 700; font-size: .92rem;
         }
         .sermon .btn-dark:hover { background: var(--ink-soft); }
-        body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #14231D; }
+        body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #17163f; }
         .footnote { padding: 16px 24px 20px; font-size: .8rem; color: var(--muted); border-top: 1px solid var(--line); }
         .closing { text-align: center; color: var(--muted); font-size: .9rem; padding: 4px 0 18px; }
 
@@ -286,7 +288,7 @@
             border: 1px solid var(--line); background: var(--paper); color: var(--text); font: inherit;
         }
         .prayer-form textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
-        .prayer-form input:focus, .prayer-form textarea:focus { outline: 2px solid var(--wheat); outline-offset: 1px; }
+        .prayer-form input:focus, .prayer-form textarea:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
         .prayer-form .btn-primary:disabled { opacity: .6; cursor: default; }
         .prayer-form .result { margin-top: 12px; font-size: .92rem; font-weight: 600; min-height: 1.4em; }
         .prayer-form .result.ok { color: var(--ink-soft); }
@@ -297,7 +299,7 @@
         .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
         .tab { flex: 1; min-height: 46px; border-radius: 12px; border: 1px solid var(--line); background: var(--sheet); font-weight: 700; font-size: .95rem; color: var(--muted); }
         .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
-        body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #14231D; }
+        body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #17163f; }
         .tabpanel[hidden], #priority[hidden], #links [data-dup][hidden] { display: none; }
         .fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; padding: 4px 0; }
         .fold > summary::-webkit-details-marker { display: none; }
@@ -317,14 +319,14 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
         .dock .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 68px; }
-        .dock-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; height: 100%; font-size: .78rem; font-weight: 600; color: rgba(243,241,230,.82); transition: color .2s; }
+        .dock-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; height: 100%; font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.82); transition: color .2s; }
         .dock-btn i { font-size: 1.15rem; }
         .dock-btn:hover { color: #fff; }
         .dock-btn:active { transform: scale(.95); }
         .dock-main {
             width: 60px; height: 60px; margin: -26px 14px 0; border-radius: 50%;
             display: inline-flex; align-items: center; justify-content: center;
-            background: var(--wheat); color: #14231D; font-size: 1.5rem;
+            background: var(--wheat); color: #17163f; font-size: 1.5rem;
             border: 4px solid var(--paper);
             transition: transform .2s;
         }
@@ -332,7 +334,7 @@
         .dock-main:active { transform: scale(.95); }
 
         /* ---------- 모달 ---------- */
-        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(8,24,19,.62); align-items: center; justify-content: center; padding: 16px; }
+        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(23,22,63,.8); align-items: center; justify-content: center; padding: 16px; }
         .modal.active { display: flex; animation: modalIn .3s cubic-bezier(.16,1,.3,1); }
         @keyframes modalIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
         .panel { background: var(--sheet); color: var(--text); border-radius: 20px; width: 100%; padding: 28px 24px; display: flex; flex-direction: column; max-height: 88vh; position: relative; overflow: hidden; }
@@ -348,7 +350,7 @@
         .scripture sup { font-family: var(--sans); font-size: .72rem; font-weight: 800; color: var(--wheat-text); margin-right: 8px; }
         .btn-primary { width: 100%; min-height: 52px; margin-top: 22px; border-radius: 14px; background: var(--ink); color: var(--on-ink); font-weight: 700; }
         .btn-primary:hover { background: var(--ink-soft); }
-        body.dark-mode .btn-primary { background: var(--wheat); color: #14231D; }
+        body.dark-mode .btn-primary { background: var(--wheat); color: #17163f; }
         .btn-primary:active { transform: scale(.98); }
 
         .bible-scroll-container { max-height: 66vh; overflow: auto; border-radius: 12px; border: 1px solid var(--line); }
@@ -366,13 +368,83 @@
         .give-account .no { font-size: 1.4rem; font-weight: 800; letter-spacing: .04em; font-variant-numeric: tabular-nums; user-select: all; }
         .give-account .bank { margin-top: 6px; color: var(--muted); font-weight: 600; }
 
+
+        /* ---------- 예배지 레이아웃 ---------- */
+        .block { padding-top: 56px; scroll-margin-top: 104px; }
+        .block-title { font-size: 2rem; line-height: 1.25; margin-bottom: 24px; color: var(--text); }
+        .block-head { align-items: flex-end; margin-bottom: 24px; }
+        .jump {
+            position: sticky; top: 56px; z-index: 50;
+            display: flex; gap: 20px; margin: -12px -20px 0; padding: 0 20px;
+            overflow-x: auto; scrollbar-width: none; white-space: nowrap;
+            background: var(--paper); border-bottom: 1px solid var(--line);
+        }
+        .jump::-webkit-scrollbar { display: none; }
+        .jump a[hidden] { display: none; }
+        .jump a { flex: none; padding: 13px 0 11px; font-size: .9rem; font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; }
+        .jump a[aria-current="true"] { color: var(--wheat-text); border-bottom-color: var(--wheat-text); }
+
+        .links { border-top: 0; }
+        .link-row.feature { border-bottom: 0; border-radius: 4px 40px 4px 4px; }
+        .link-row.feature + .link-row.feature { margin-top: 10px; }
+
+        .notice-hero { border-left: 0; border-radius: 4px 40px 4px 4px; padding: 22px 28px 22px 20px; }
+        .notice-hero h3 { font-size: 1.2rem; line-height: 1.35; }
+        .news { margin-top: 32px; border-top: 0; }
+        .news li { grid-template-columns: 24px 1fr; padding: 0 0 18px; border-bottom: 0; }
+        .news li::before { font-size: 1.4rem; line-height: 1.25; color: var(--wheat-text); }
+        .people { margin-top: 24px; padding: 24px 20px; border: 0; border-radius: 4px; background: var(--band); color: var(--band-text); }
+        .people h3, .people .note { color: inherit; }
+        .people p.names span { color: inherit; opacity: .4; }
+
+        .tab, .btn-quiet, .btn-primary, .sermon .btn-dark, .row .read { border-radius: 4px; }
+        .service { background: none; border: 0; border-radius: 0; overflow: visible; }
+        .service-head { border-radius: 4px 40px 4px 4px; }
+        .service-head .time { font-size: 2rem; }
+        .order { padding: 8px 0 12px; }
+        .row { border-bottom: 1px solid var(--line); padding: 13px 0; }
+        .row:last-child { border-bottom: 1px solid var(--line); }
+        .row .k { font-weight: 600; }
+        .row.final .k, .row.final .w { font-size: inherit; font-weight: 700; color: var(--text); }
+        .sermon { margin: 20px 0 8px; padding: 24px 20px 26px; color: var(--on-ink); background: var(--ink); border: 0; border-radius: 4px 40px 4px 4px; }
+        .sermon .label, .sermon .by { color: var(--on-ink); font-weight: 600; }
+        .sermon h3 { font-size: 1.7rem; line-height: 1.32; }
+        .sermon .btn-dark, body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #17163f; }
+        .sermon .btn-dark:hover { background: var(--wheat); opacity: .9; }
+        .footnote { padding: 14px 0 0; border-top: 0; }
+        .wk { border-radius: 4px; }
+        .prayer-form { padding: 0; border: 0; border-radius: 0; background: none; }
+        .prayer-form input, .prayer-form textarea { border-radius: 4px; background: var(--sheet); }
+        .kid .photo, .gallery figure .frame { border-radius: 4px 40px 4px 4px; }
+
+        footer { position: relative; overflow: hidden; margin-top: 72px; padding: 44px 0 calc(6.5rem + env(safe-area-inset-bottom)); color: var(--on-ink); background: var(--ink); border-top: 0; }
+        footer strong, body.dark-mode footer strong { font-size: 1.7rem; font-weight: 800; color: var(--on-ink); }
+        .foot-bloom { position: absolute; right: -50px; bottom: 40px; width: 150px; height: 150px; fill: var(--wheat); }
+        .dock { background: #17163f; }
+        .dock-main { color: #17163f; }
+
+        @media (min-width: 960px) {
+            body { display: grid; grid-template-columns: minmax(420px, 46%) minmax(0, 1fr); grid-template-rows: auto auto auto; }
+            .topbar { grid-column: 1 / -1; }
+            .topbar .wrap { max-width: none; padding: 0 48px; }
+            .hero { grid-column: 1; grid-row: 2 / span 2; position: sticky; top: 56px; height: calc(100vh - 56px - 68px); padding: 28px 0 32px; overflow: hidden; }
+            .hero .wrap { display: flex; flex-direction: column; height: 100%; max-width: none; padding: 0 48px; }
+            .bloom { flex: 1 1 0; min-height: 0; max-width: none; margin: 16px 0 24px; }
+            .verse { font-size: clamp(1.8rem, min(2.5vw, 4.6vh), 2.6rem); }
+            .grace { margin-top: 24px; }
+            main.wrap { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; max-width: 796px; margin: 0; padding: 0 48px; }
+            .jump { margin: -12px -48px 0; padding: 0 48px; }
+            .block { padding-top: 72px; }
+            .block-title { font-size: 2.35rem; }
+            footer { grid-column: 2; grid-row: 3; padding-bottom: calc(6.5rem + env(safe-area-inset-bottom)); }
+            footer .wrap { max-width: 796px; margin: 0; padding: 0 48px; }
+        }
+
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
 
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-            .grain .sprout { stroke-dashoffset: 0; }
-            .grain .leaf { transform: scale(1); }
         }
     </style>
 </head>
@@ -392,15 +464,14 @@
         <div class="wrap">
             <p class="date"><strong>2026년 11월 1일 주일</strong>오순절 후 스물세 번째 주일</p>
 
-            <svg class="grain" viewBox="0 0 56 72" aria-hidden="true">
-                <path class="sprout" d="M28 46 C28 32 28 22 28 8"/>
-                <path class="leaf" d="M28 22 C20 22 14 16 12 8 C21 8 27 13 28 22Z"/>
-                <path class="leaf r" d="M28 14 C36 14 42 9 44 2 C35 2 29 6 28 14Z"/>
-                <path class="seed" d="M28 40 C42 48 46 62 28 70 C10 62 14 48 28 40Z"/>
-                <path class="crease" d="M28 47 C25 55 26 62 28 66"/>
+            <svg class="bloom" viewBox="0 0 200 200" aria-hidden="true">
+                <path d="M94 76H47A47 38 0 1 1 94 38Z"/>
+                <path d="M106 76V38A47 38 0 1 1 153 76Z"/>
+                <path d="M94 88V144A47 56 0 1 1 47 88Z"/>
+                <path d="M106 88H153A47 56 0 1 1 106 144Z"/>
             </svg>
 
-            <p class="verse">감사로 제사를 드리는 자가 나를 영화롭게 하나니 그의 행위를 옳게 하는 자에게 내가 하나님의 구원을 보이리라</p>
+            <h1 class="verse">감사로 제사를 드리는 자가 나를 영화롭게 하나니 그의 행위를 옳게 하는 자에게 내가 하나님의 구원을 보이리라</h1>
             <p class="verse-ref">시편 50:23</p>
 
             <div class="grace">
@@ -413,6 +484,15 @@
     </header>
 
     <main class="wrap">
+        <nav class="jump" aria-label="바로가기">
+            <a href="#priority">오늘의 말씀</a>
+            <a href="#church-news">교회 소식</a>
+            <a href="#worship">예배 순서</a>
+            <a href="#links">바로가기</a>
+            <a href="#bible-section">통독</a>
+            <a href="#prayer-request">기도제목</a>
+        </nav>
+
         <section id="priority" class="block">
             <h2 class="block-title">오늘의 말씀</h2>
             <div class="links">
@@ -806,6 +886,12 @@
             <p>경기도 부천시 오정구 원종로36번길20</p>
             <p style="margin-top:14px;font-size:.8rem">&copy; 2026 Wonjong First Church</p>
         </div>
+        <svg class="foot-bloom" viewBox="0 0 200 200" aria-hidden="true">
+            <path d="M94 76H47A47 38 0 1 1 94 38Z"/>
+            <path d="M106 76V38A47 38 0 1 1 153 76Z"/>
+            <path d="M94 88V144A47 56 0 1 1 47 88Z"/>
+            <path d="M106 88H153A47 56 0 1 1 106 144Z"/>
+        </svg>
     </footer>
 
     <nav class="dock" aria-label="빠른 메뉴">
@@ -947,7 +1033,7 @@
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: ['#C4912A', '#E8CF8F', '#1E5443']
+                colors: ['#2b2bd9', '#ffc8dc', '#ffffff']
             });
         }
 
@@ -1011,10 +1097,10 @@
             canvas.width = canvas.parentElement.offsetWidth;
             canvas.height = canvas.parentElement.offsetHeight;
 
-            ctx.fillStyle = '#1E5443';
+            ctx.fillStyle = '#2b2bd9';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = "bold 20px 'Pretendard Variable', Pretendard, sans-serif";
-            ctx.fillStyle = "#E8CF8F";
+            ctx.font = "bold 20px 'IBM Plex Sans KR', sans-serif";
+            ctx.fillStyle = "#ffc8dc";
             ctx.textAlign = "center";
             ctx.fillText("이곳을 문질러보세요", canvas.width/2, canvas.height/2);
 
@@ -1200,10 +1286,29 @@
             document.getElementById('priority').hidden = cfg.worshipFirst;
             document.querySelectorAll('#links [data-dup]').forEach(a => { a.hidden = !cfg.worshipFirst; });
             document.querySelector('#worship > .block-title').textContent = cfg.title;
+            const jump = main.querySelector('.jump');
+            main.querySelectorAll('section[id]').forEach(s => {
+                const a = jump.querySelector(`a[href="#${s.id}"]`);
+                if (a) { a.hidden = s.hidden; jump.appendChild(a); }
+            });
             showWorship(cfg.tab);
         }
         document.addEventListener('DOMContentLoaded', applyTimeMode);
         setInterval(applyTimeMode, 60000);   // 12:30, 17:00 이 되면 열어 둔 화면도 저절로 바뀜
+
+        // 지금 보고 있는 구역을 바로가기에 표시
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = [...document.querySelectorAll('.jump a')];
+            const observer = new IntersectionObserver(entries => {
+                entries.filter(e => e.isIntersecting).forEach(e => {
+                    links.forEach(a => {
+                        if (a.hash === '#' + e.target.id) a.setAttribute('aria-current', 'true');
+                        else a.removeAttribute('aria-current');
+                    });
+                });
+            }, { rootMargin: '-20% 0px -70% 0px' });
+            document.querySelectorAll('main section[id]').forEach(s => observer.observe(s));
+        });
     </script>
     <script>
         // data-until(YYYY-MM-DD, 한국시간) 날짜가 지나면 그 공지를 자동으로 숨김

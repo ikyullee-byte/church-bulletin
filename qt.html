@@ -217,6 +217,16 @@
       border-radius: 2px;
     }
 
+    /* 오늘의 말씀 카드 이미지(한 컷) */
+    .qt-card-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
     .card {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
@@ -723,6 +733,8 @@
         bibleRange: "예레미야 4:5-18",
         hymn: "304장 · 254장 · 268장 · 310장",
         time: "새벽 5:00",
+        cardImage: "qt-cards/2026-11-03.jpg",
+        cardAlt: "오늘의 말씀 카드: 예루살렘아 네 마음의 악을 씻어 버리라 그리하면 구원을 얻으리라 네 악한 생각이 네 속에 얼마나 오래 머물겠느냐 (예레미야 4:14)",
 
         openingPrayer: "공의와 사랑으로 온 우주 만물을 통치하시는 전능하신 하나님 아버지, 화요일 새벽에 나아옵니다. 오늘 주시는 말씀이 잠든 우리 영혼을 깨우는 파수꾼의 나팔이 되게 하실 줄 믿사오며, 예수 그리스도의 이름으로 기도드리옵나이다. 아멘.",
 
@@ -1614,6 +1626,11 @@
             </div>
           </div>
         </header>
+
+        ${data.cardImage ? `
+        <section class="fade-up">
+          <img class="qt-card-img" src="${data.cardImage}" alt="${data.cardAlt || '오늘의 말씀 카드'}" loading="lazy">
+        </section>` : ''}
 
         <section class="fade-up">
           <div class="card">

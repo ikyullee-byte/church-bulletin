@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2b2bd9">
+    <meta name="theme-color" content="#8c3b22">
     <title>원종제일교회 스마트 주보</title>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -16,37 +16,37 @@
     <style>
         /* 코발트와 연분홍 한 벌. 넓은 화면은 왼쪽 대문 고정, 좁은 화면은 한 줄로 이어지는 예배지 */
         :root {
-            --ink: #2b2bd9;
-            --ink-soft: #2222b8;
-            --paper: #fbfaff;
-            --sheet: #ffffff;
-            --text: #17163f;
-            --muted: #5a5985;
-            --line: #e4e3f5;
-            --wheat: #ffc8dc;
-            --wheat-text: #2b2bd9;
-            --wheat-wash: #f1f0ff;
+            --ink: #8c3b22;
+            --ink-soft: #a4482b;
+            --paper: #fdf8f1;
+            --sheet: #fffdf9;
+            --text: #3a2418;
+            --muted: #7a6352;
+            --line: #eedfcf;
+            --wheat: #f3c27a;
+            --wheat-text: #8c3b22;
+            --wheat-wash: #fbefe0;
             --on-ink: #ffffff;
-            --band: #ffc8dc;
-            --band-text: #17163f;
+            --band: #f3c27a;
+            --band-text: #3a2418;
             --serif: 'Hahmlet', 'Noto Serif KR', serif;
             --sans: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
             --fs: 17px;
         }
         body.dark-mode {
-            --ink: #2424b4;
-            --ink-soft: #2b2bd9;
-            --paper: #100f2b;
-            --sheet: #1a1940;
-            --text: #ece9ff;
-            --muted: #a9a7d0;
-            --line: #2e2c5e;
-            --wheat: #ffc8dc;
-            --wheat-text: #ffc8dc;
-            --wheat-wash: #25234f;
+            --ink: #7a3220;
+            --ink-soft: #8c3b22;
+            --paper: #1e1611;
+            --sheet: #2a201a;
+            --text: #f6ece2;
+            --muted: #c8b3a2;
+            --line: #44352a;
+            --wheat: #f3c27a;
+            --wheat-text: #f3c27a;
+            --wheat-wash: #3a2b20;
             --on-ink: #ffffff;
-            --band: #3a2c5e;
-            --band-text: #ffe3ee;
+            --band: #4a3426;
+            --band-text: #fbe3c4;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
@@ -157,8 +157,8 @@
         .wk span { display: block; font-size: .78rem; font-weight: 700; line-height: 1.35; }
         .wk.is-today { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
         .wk.is-today b { color: var(--wheat); }
-        body.dark-mode .wk.is-today { background: var(--wheat); border-color: var(--wheat); color: #17163f; }
-        body.dark-mode .wk.is-today b { color: #17163f; }
+        body.dark-mode .wk.is-today { background: var(--wheat); border-color: var(--wheat); color: #3a2418; }
+        body.dark-mode .wk.is-today b { color: #3a2418; }
         @media (max-width: 480px) {
             .week { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         }
@@ -190,7 +190,7 @@
         }
         .attend:hover { background: rgba(255,255,255,.1); }
         .attend:active { transform: scale(.96); }
-        .attend.done { background: var(--wheat); border-color: var(--wheat); color: #17163f; cursor: default; }
+        .attend.done { background: var(--wheat); border-color: var(--wheat); color: #3a2418; cursor: default; }
 
         .stamp-effect {
             position: absolute; top: 76px; right: 24px; z-index: 5;
@@ -199,7 +199,7 @@
             display: flex; align-items: center; justify-content: center; text-align: center;
             font-family: var(--serif); font-weight: 800; font-size: .85rem; line-height: 1.25;
             transform: rotate(-14deg); opacity: 0; pointer-events: none;
-            background: rgba(43,43,217,.92);
+            background: rgba(140,59,34,.92);
         }
         .stamp-animate { animation: stampIn .6s forwards cubic-bezier(.34,1.56,.64,1); }
         @keyframes stampIn { 0% { transform: scale(2.6) rotate(-14deg); opacity: 0; } 100% { transform: scale(1) rotate(-14deg); opacity: 1; } }
@@ -222,7 +222,7 @@
             border-radius: 10px; background: var(--wheat-wash); color: var(--wheat-text);
             font-size: .85rem; font-weight: 700;
         }
-        .row .read:hover { background: var(--wheat); color: #17163f; }
+        .row .read:hover { background: var(--wheat); color: #3a2418; }
         .row .ref { display: block; }
 
         .sermon { margin: 12px 0; padding: 28px 0 28px; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line); }
@@ -235,7 +235,7 @@
             border-radius: 12px; background: var(--ink); color: var(--on-ink); font-weight: 700; font-size: .92rem;
         }
         .sermon .btn-dark:hover { background: var(--ink-soft); }
-        body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #17163f; }
+        body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #3a2418; }
         .footnote { padding: 16px 24px 20px; font-size: .8rem; color: var(--muted); border-top: 1px solid var(--line); }
         .closing { text-align: center; color: var(--muted); font-size: .9rem; padding: 4px 0 18px; }
 
@@ -299,7 +299,7 @@
         .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
         .tab { flex: 1; min-height: 46px; border-radius: 12px; border: 1px solid var(--line); background: var(--sheet); font-weight: 700; font-size: .95rem; color: var(--muted); }
         .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
-        body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #17163f; }
+        body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #3a2418; }
         .tabpanel[hidden], #priority[hidden], #links [data-dup][hidden] { display: none; }
         .fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; padding: 4px 0; }
         .fold > summary::-webkit-details-marker { display: none; }
@@ -326,7 +326,7 @@
         .dock-main {
             width: 60px; height: 60px; margin: -26px 14px 0; border-radius: 50%;
             display: inline-flex; align-items: center; justify-content: center;
-            background: var(--wheat); color: #17163f; font-size: 1.5rem;
+            background: var(--wheat); color: #3a2418; font-size: 1.5rem;
             border: 4px solid var(--paper);
             transition: transform .2s;
         }
@@ -334,7 +334,7 @@
         .dock-main:active { transform: scale(.95); }
 
         /* ---------- 모달 ---------- */
-        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(23,22,63,.8); align-items: center; justify-content: center; padding: 16px; }
+        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(58,36,24,.8); align-items: center; justify-content: center; padding: 16px; }
         .modal.active { display: flex; animation: modalIn .3s cubic-bezier(.16,1,.3,1); }
         @keyframes modalIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
         .panel { background: var(--sheet); color: var(--text); border-radius: 20px; width: 100%; padding: 28px 24px; display: flex; flex-direction: column; max-height: 88vh; position: relative; overflow: hidden; }
@@ -350,7 +350,7 @@
         .scripture sup { font-family: var(--sans); font-size: .72rem; font-weight: 800; color: var(--wheat-text); margin-right: 8px; }
         .btn-primary { width: 100%; min-height: 52px; margin-top: 22px; border-radius: 14px; background: var(--ink); color: var(--on-ink); font-weight: 700; }
         .btn-primary:hover { background: var(--ink-soft); }
-        body.dark-mode .btn-primary { background: var(--wheat); color: #17163f; }
+        body.dark-mode .btn-primary { background: var(--wheat); color: #3a2418; }
         .btn-primary:active { transform: scale(.98); }
 
         .bible-scroll-container { max-height: 66vh; overflow: auto; border-radius: 12px; border: 1px solid var(--line); }
@@ -409,7 +409,7 @@
         .sermon { margin: 20px 0 8px; padding: 24px 20px 26px; color: var(--on-ink); background: var(--ink); border: 0; border-radius: 4px 40px 4px 4px; }
         .sermon .label, .sermon .by { color: var(--on-ink); font-weight: 600; }
         .sermon h3 { font-size: 1.7rem; line-height: 1.32; }
-        .sermon .btn-dark, body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #17163f; }
+        .sermon .btn-dark, body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #3a2418; }
         .sermon .btn-dark:hover { background: var(--wheat); opacity: .9; }
         .footnote { padding: 14px 0 0; border-top: 0; }
         .wk { border-radius: 4px; }
@@ -420,8 +420,8 @@
         footer { position: relative; overflow: hidden; margin-top: 72px; padding: 44px 0 calc(6.5rem + env(safe-area-inset-bottom)); color: var(--on-ink); background: var(--ink); border-top: 0; }
         footer strong, body.dark-mode footer strong { font-size: 1.7rem; font-weight: 800; color: var(--on-ink); }
         .foot-bloom { position: absolute; right: -50px; bottom: 40px; width: 150px; height: 150px; fill: var(--wheat); }
-        .dock { background: #17163f; }
-        .dock-main { color: #17163f; }
+        .dock { background: #3a2418; }
+        .dock-main { color: #3a2418; }
 
         @media (min-width: 960px) {
             body { display: grid; grid-template-columns: minmax(420px, 46%) minmax(0, 1fr); grid-template-rows: auto auto auto; }
@@ -1022,7 +1022,7 @@
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: ['#2b2bd9', '#ffc8dc', '#ffffff']
+                colors: ['#8c3b22', '#f3c27a', '#ffffff']
             });
         }
 
@@ -1086,10 +1086,10 @@
             canvas.width = canvas.parentElement.offsetWidth;
             canvas.height = canvas.parentElement.offsetHeight;
 
-            ctx.fillStyle = '#2b2bd9';
+            ctx.fillStyle = '#8c3b22';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.font = "bold 20px 'IBM Plex Sans KR', sans-serif";
-            ctx.fillStyle = "#ffc8dc";
+            ctx.fillStyle = "#f3c27a";
             ctx.textAlign = "center";
             ctx.fillText("이곳을 문질러보세요", canvas.width/2, canvas.height/2);
 

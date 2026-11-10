@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* 코발트와 연분홍 한 벌. 넓은 화면은 왼쪽 대문 고정, 좁은 화면은 한 줄로 이어지는 예배지 */
+        /* 벽돌색과 밀빛 한 벌. 넓은 화면은 왼쪽 대문 고정, 좁은 화면은 한 줄로 이어지는 예배지 */
         :root {
             --ink: #8c3b22;
             --ink-soft: #a4482b;
@@ -27,11 +27,12 @@
             --wheat-text: #8c3b22;
             --wheat-wash: #fbefe0;
             --on-ink: #ffffff;
-            --band: #f3c27a;
-            --band-text: #3a2418;
             --serif: 'Hahmlet', 'Noto Serif KR', serif;
             --sans: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
             --fs: 17px;
+            --r: 4px;                       /* 버튼·입력칸·작은 상자 */
+            --leaf: 4px 36px 4px 4px;       /* 잎사귀 모서리: 강조 상자에만 */
+            --rail: 3.5rem;                 /* 소식 날짜·번호가 서는 왼쪽 줄 */
         }
         body.dark-mode {
             --ink: #7a3220;
@@ -45,12 +46,10 @@
             --wheat-text: #f3c27a;
             --wheat-wash: #3a2b20;
             --on-ink: #ffffff;
-            --band: #4a3426;
-            --band-text: #fbe3c4;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 7.5rem; -webkit-text-size-adjust: 100%; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
             margin: 0;
             font-family: var(--sans);
@@ -69,16 +68,14 @@
         a { color: inherit; text-decoration: none; }
         button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
         img { display: block; max-width: 100%; }
+        [hidden] { display: none !important; }
         :focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 6px; }
+        body.dark-mode :focus-visible { outline-color: var(--wheat); }
 
         .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
 
         /* ---------- 상단 바 ---------- */
-        .topbar {
-            position: sticky; top: 0; z-index: 100;
-            background: var(--ink);
-            color: var(--on-ink);
-        }
+        .topbar { position: sticky; top: 0; z-index: 100; background: var(--ink); color: var(--on-ink); }
         .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
         .topbar img { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: .92; }
         .tools { display: flex; gap: 8px; }
@@ -92,95 +89,133 @@
         .tool:hover { background: rgba(255,255,255,.16); }
         .tool:active { transform: scale(.96); }
 
-        /* ---------- 히어로: 이번 주 말씀 ---------- */
-        .hero { background: var(--ink); color: var(--on-ink); padding: 40px 0 56px; }
+        /* ---------- 대문: 이번 주 말씀 (좁은 화면에서는 한 화면의 절반만 차지) ---------- */
+        .hero { background: var(--ink); color: var(--on-ink); padding: 20px 0 26px; }
+        .hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; align-items: start; }
         .hero .date { font-size: .85rem; color: rgba(255,255,255,.72); }
         .hero .date strong { display: block; font-size: 1rem; color: var(--on-ink); font-weight: 600; margin-bottom: 2px; }
-        .bloom { display: block; width: 100%; max-width: 280px; margin: 24px auto 28px; fill: var(--wheat); }
+        .bloom { display: block; width: 56px; height: 56px; fill: var(--wheat); }
         .bloom path { transform-box: view-box; transform-origin: 100px 82px; animation: bloom 900ms cubic-bezier(.2,.9,.25,1) both; }
         .bloom path:nth-child(2) { animation-delay: 90ms; }
         .bloom path:nth-child(3) { animation-delay: 180ms; }
         .bloom path:nth-child(4) { animation-delay: 270ms; }
         @keyframes bloom { from { transform: scale(.72) rotate(-14deg); } }
+        .verse, .verse-ref, .grace { grid-column: 1 / -1; }
         .verse {
+            margin-top: 20px;
             font-family: var(--serif);
             font-weight: 800;
-            font-size: clamp(1.6rem, 6.8vw, 2.2rem);
-            line-height: 1.32;
+            font-size: clamp(1.3rem, 5.6vw, 1.7rem);
+            line-height: 1.42;
             letter-spacing: -0.02em;
             text-wrap: balance;
         }
-        .verse-ref { margin-top: 16px; font-size: .95rem; color: var(--wheat); font-weight: 700; }
+        .verse-ref { margin-top: 10px; font-size: .92rem; color: var(--wheat); font-weight: 700; }
 
         .grace {
-            margin-top: 40px; padding-top: 24px;
+            margin-top: 22px; padding-top: 16px;
             border-top: 1px solid rgba(255,255,255,.2);
             display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: end;
         }
-        .grace p { font-size: .9rem; color: rgba(255,255,255,.8); }
-        .grace .num { font-family: var(--serif); font-weight: 800; font-size: 2.4rem; line-height: 1; color: var(--on-ink); }
-        .gauge { grid-column: 1 / -1; height: 8px; border-radius: 99px; background: rgba(255,255,255,.16); overflow: hidden; }
+        .grace p { font-size: .85rem; color: rgba(255,255,255,.8); }
+        .grace p br { display: none; }
+        .grace .num { font-family: var(--serif); font-weight: 800; font-size: 1.6rem; line-height: 1; color: var(--on-ink); }
+        .gauge { grid-column: 1 / -1; height: 6px; border-radius: 99px; background: rgba(255,255,255,.16); overflow: hidden; }
         .gauge i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--wheat); transition: width 2.5s cubic-bezier(.16,1,.3,1); }
-        .gauge-note { grid-column: 1 / -1; font-size: .8rem; color: rgba(255,255,255,.6); display: flex; justify-content: space-between; }
+        .gauge-note { grid-column: 1 / -1; font-size: .78rem; color: rgba(255,255,255,.6); display: flex; justify-content: space-between; }
 
-        /* ---------- 섹션 공통 ---------- */
+        /* ---------- 구역 공통 ---------- */
         main { padding-top: 12px; }
-        .block { padding: 32px 0 0; }
+        .block { padding-top: 48px; scroll-margin-top: 112px; }
         .block-title {
-            font-family: var(--serif); font-weight: 800; font-size: 1.4rem; line-height: 1.4;
-            letter-spacing: -0.02em; margin-bottom: 18px; color: var(--ink);
+            font-family: var(--serif); font-weight: 800; font-size: 1.6rem; line-height: 1.3;
+            letter-spacing: -0.02em; margin-bottom: 18px; color: var(--text);
         }
-        body.dark-mode .block-title { color: var(--on-ink); }
+        .block-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+        .block-head .block-title { margin-bottom: 0; }
+        .sub-label { font-size: .82rem; font-weight: 700; color: var(--wheat-text); margin-bottom: 8px; }
 
-        /* ---------- 바로가기 ---------- */
-        .links { border-top: 2px solid var(--ink); }
-        body.dark-mode .links { border-top-color: var(--wheat); }
-        .link-row {
-            display: flex; align-items: center; justify-content: space-between; gap: 16px;
-            padding: 18px 4px; min-height: 64px;
-            border-bottom: 1px solid var(--line);
-            transition: background .2s, padding .2s;
+        .jump {
+            position: sticky; top: 56px; z-index: 50;
+            display: flex; gap: 20px; margin: -12px -20px 0; padding: 0 20px;
+            overflow-x: auto; scrollbar-width: none; white-space: nowrap;
+            background: var(--paper); border-bottom: 1px solid var(--line);
         }
-        .link-row:hover { background: var(--sheet); padding-left: 12px; padding-right: 12px; }
-        .link-row h3 { font-size: 1.02rem; font-weight: 700; line-height: 1.4; }
-        .link-row p { font-size: .85rem; color: var(--muted); margin-top: 2px; }
-        .link-row i { color: var(--muted); font-size: .85rem; }
-        .link-row.feature { background: var(--wheat-wash); border-bottom-color: var(--wheat); padding-left: 16px; padding-right: 16px; border-radius: 0; }
-        .link-row.feature:hover { padding-left: 20px; padding-right: 20px; }
-        .link-row.feature p { color: var(--wheat-text); font-weight: 600; }
-        .link-row.feature h3 { font-family: var(--serif); font-size: 1.15rem; }
+        .jump::-webkit-scrollbar { display: none; }
+        .jump a { flex: none; padding: 13px 0 11px; font-size: .9rem; font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; }
+        .jump a[aria-current="true"] { color: var(--wheat-text); border-bottom-color: var(--wheat-text); }
 
-        /* ---------- 이번 주 통독 ---------- */
-        .week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin: 4px 0 18px; }
-        .wk { cursor: pointer; font: inherit; color: inherit; text-align: center; padding: 10px 2px; border-radius: 10px; background: var(--sheet); border: 1px solid var(--line); }
-        .wk b { display: block; font-size: .72rem; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
-        .wk span { display: block; font-size: .78rem; font-weight: 700; line-height: 1.35; }
-        .wk.is-today { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
-        .wk.is-today b { color: var(--wheat); }
-        body.dark-mode .wk.is-today { background: var(--wheat); border-color: var(--wheat); color: #3a2418; }
-        body.dark-mode .wk.is-today b { color: #3a2418; }
-        @media (max-width: 480px) {
-            .week { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-        }
-        .wk:disabled { cursor: default; opacity: .55; }
-        .wk:not(:disabled):active { transform: scale(.97); }
-        .week-hint { margin: -6px 0 16px; font-size: .84rem; color: var(--muted); }
-        .scripture h4 { font-family: var(--sans); font-size: .95rem; font-weight: 800; color: var(--wheat-text); margin-top: 8px; }
-        .scripture h4:first-child { margin-top: 0; }
-        .scripture p.state { font-family: var(--sans); font-size: .95rem; color: var(--muted); text-align: center; padding: 24px 0; }
         .btn-quiet {
-            display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
-            border-radius: 12px; border: 1px solid var(--line); background: var(--sheet);
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px;
+            border-radius: var(--r); border: 1px solid var(--line); background: var(--sheet);
             font-size: .9rem; font-weight: 600; transition: border-color .2s;
         }
         .btn-quiet:hover { border-color: var(--ink-soft); }
+        .btn-primary { width: 100%; min-height: 52px; margin-top: 22px; border-radius: var(--r); background: var(--ink); color: var(--on-ink); font-weight: 700; }
+        .btn-primary:hover { background: var(--ink-soft); }
+        .btn-primary:active { transform: scale(.98); }
+        body.dark-mode .btn-primary { background: var(--wheat); color: #3a2418; }
 
-        /* ---------- 예배 시트 ---------- */
-        .service { background: var(--sheet); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); position: relative; }
-        .service-head { background: var(--ink); color: var(--on-ink); padding: 28px 24px 26px; position: relative; }
-        .service-head .time { font-family: var(--serif); font-weight: 800; font-size: 2.3rem; line-height: 1.1; letter-spacing: -0.02em; color: var(--wheat); }
-        .service-head h2 { font-family: var(--serif); font-weight: 800; font-size: 1.5rem; line-height: 1.4; margin-top: 6px; }
-        .service-head .lead { margin-top: 6px; font-size: .92rem; color: rgba(255,255,255,.8); }
+        /* ---------- 바로가기 줄 ---------- */
+        .link-row {
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 16px 4px; min-height: 60px;
+            border-bottom: 1px solid var(--line);
+            transition: background .2s;
+        }
+        .link-row:hover { background: var(--sheet); }
+        .link-row h3 { font-size: 1.02rem; font-weight: 700; line-height: 1.4; }
+        .link-row p { font-size: .85rem; color: var(--muted); margin-top: 2px; }
+        .link-row i { color: var(--muted); font-size: .85rem; }
+        .link-row.feature { background: var(--wheat-wash); border-bottom: 0; padding: 16px 20px 16px 18px; border-radius: var(--leaf); }
+        .link-row.feature:hover { background: var(--wheat-wash); }
+        .link-row.feature + .link-row { margin-top: 8px; }
+        .link-row.feature p { color: var(--wheat-text); font-weight: 600; margin-top: 0; }
+        .link-row.feature h3 { font-family: var(--serif); font-size: 1.12rem; }
+        .link-row.feature i { color: var(--wheat-text); }
+
+        /* ---------- 교회 소식: 날짜가 왼쪽에 서는 일정표 ---------- */
+        .agenda { border-top: 1px solid var(--line); }
+        .notice-hero {
+            display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); column-gap: 16px;
+            padding: 16px 0; border-bottom: 1px solid var(--line);
+        }
+        .notice-hero > * { grid-column: 2; }
+        .notice-hero > .when { grid-column: 1; grid-row: 1 / span 2; align-self: start; text-align: center; }
+        .when span { display: block; font-size: .75rem; font-weight: 600; line-height: 1.3; color: var(--muted); }
+        .when b {
+            display: block; font-family: var(--serif); font-weight: 800; font-size: 1.5rem; line-height: 1.2;
+            color: var(--wheat-text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+        }
+        .when b.sm { font-size: 1.05rem; line-height: 1.7; }
+        .notice-hero h3 { font-size: 1.08rem; font-weight: 700; line-height: 1.45; }
+        .notice-hero ul { margin-top: 4px; display: grid; gap: 2px; font-size: .93rem; line-height: 1.6; }
+        .notice-hero strong { font-weight: 700; }
+        .agenda-more { width: 100%; margin-top: 12px; color: var(--muted); }
+
+        .news { counter-reset: n; margin-top: 32px; }
+        .news li { counter-increment: n; display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); column-gap: 16px; padding-bottom: 12px; font-size: .97rem; }
+        .news li::before { content: counter(n); text-align: center; font-family: var(--serif); font-weight: 800; font-size: 1.1rem; color: var(--wheat-text); }
+        .news li:last-child { padding-bottom: 0; }
+
+        .people { margin-top: 28px; padding: 16px 20px 18px; border-radius: var(--r); background: var(--wheat-wash); }
+        .people + .people { margin-top: 8px; }
+        .people h3 { font-size: .82rem; font-weight: 700; color: var(--wheat-text); }
+        .people p.names { font-weight: 700; font-size: 1.05rem; line-height: 1.8; margin-top: 2px; }
+        .people p.names span { margin: 0 .5em; font-weight: 400; color: var(--muted); opacity: .5; }
+        .people .note { font-size: .85rem; color: var(--muted); }
+
+        /* ---------- 예배 순서 ---------- */
+        .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+        .tab { flex: 1; min-height: 46px; border-radius: var(--r); border: 1px solid var(--line); background: var(--sheet); font-weight: 700; font-size: .95rem; color: var(--muted); }
+        .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+        body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #3a2418; }
+
+        .service { position: relative; }
+        .service-head { background: var(--ink); color: var(--on-ink); padding: 24px 24px 22px; border-radius: var(--leaf); position: relative; }
+        .service-head .time { font-family: var(--serif); font-weight: 800; font-size: 1.9rem; line-height: 1.1; letter-spacing: -0.02em; color: var(--wheat); }
+        .service-head h2 { font-family: var(--serif); font-weight: 800; font-size: 1.4rem; line-height: 1.4; margin-top: 6px; }
+        .service-head .lead { margin-top: 4px; font-size: .92rem; color: rgba(255,255,255,.8); }
         .attend {
             position: absolute; top: 20px; right: 20px; min-height: 44px; padding: 0 16px;
             display: inline-flex; align-items: center; gap: 8px;
@@ -204,88 +239,61 @@
         .stamp-animate { animation: stampIn .6s forwards cubic-bezier(.34,1.56,.64,1); }
         @keyframes stampIn { 0% { transform: scale(2.6) rotate(-14deg); opacity: 0; } 100% { transform: scale(1) rotate(-14deg); opacity: 1; } }
 
-        .order { padding: 8px 24px 12px; }
+        .order { padding: 4px 0 8px; }
         .row {
             display: grid; grid-template-columns: 5.4rem minmax(0, 1fr) auto; gap: 4px 12px;
-            align-items: baseline; padding: 14px 0; min-height: 52px;
-            border-bottom: 1px dotted var(--line);
+            align-items: baseline; padding: 12px 0; min-height: 50px;
+            border-bottom: 1px solid var(--line);
         }
-        .row:last-child { border-bottom: 0; }
-        .row .k { color: var(--muted); font-size: .93rem; }
+        .row .k { color: var(--muted); font-size: .93rem; font-weight: 600; }
         .row .d { font-weight: 700; }
         .row .w { color: var(--muted); font-size: .93rem; text-align: right; }
         .row .w.strong { color: var(--text); font-weight: 700; }
-        .row.final { padding-top: 20px; }
-        .row.final .k, .row.final .w { color: var(--text); font-weight: 800; font-size: 1.05rem; }
+        .row.final .k, .row.final .w { color: var(--text); font-weight: 700; }
+        .row .ref { display: block; }
         .row .read {
             display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; min-height: 40px; padding: 0 14px;
-            border-radius: 10px; background: var(--wheat-wash); color: var(--wheat-text);
+            border-radius: var(--r); background: var(--wheat-wash); color: var(--wheat-text);
             font-size: .85rem; font-weight: 700;
         }
         .row .read:hover { background: var(--wheat); color: #3a2418; }
-        .row .ref { display: block; }
 
-        .sermon { margin: 12px 0; padding: 28px 0 28px; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--line); }
-        body.dark-mode .sermon { border-top-color: var(--wheat); }
-        .sermon .label { font-size: .88rem; color: var(--wheat-text); font-weight: 700; margin-bottom: 6px; }
-        .sermon h3 { font-family: var(--serif); font-weight: 800; font-size: 1.85rem; line-height: 1.4; letter-spacing: -0.02em; }
-        .sermon .by { margin-top: 8px; color: var(--muted); font-weight: 600; }
+        .sermon { margin: 16px 0 4px; padding: 22px 20px 24px; color: var(--on-ink); background: var(--ink); border-radius: var(--leaf); }
+        .sermon .label { font-size: .85rem; font-weight: 600; color: var(--wheat); margin-bottom: 4px; }
+        .sermon h3 { font-family: var(--serif); font-weight: 800; font-size: 1.55rem; line-height: 1.35; letter-spacing: -0.02em; }
+        .sermon .by { margin-top: 6px; font-weight: 600; color: rgba(255,255,255,.85); }
         .sermon .btn-dark {
-            display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; min-height: 48px; padding: 0 20px;
-            border-radius: 12px; background: var(--ink); color: var(--on-ink); font-weight: 700; font-size: .92rem;
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; min-height: 48px; padding: 0 20px;
+            border-radius: var(--r); background: var(--wheat); color: #3a2418; font-weight: 700; font-size: .92rem;
         }
-        .sermon .btn-dark:hover { background: var(--ink-soft); }
-        body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #3a2418; }
-        .footnote { padding: 16px 24px 20px; font-size: .8rem; color: var(--muted); border-top: 1px solid var(--line); }
-        .closing { text-align: center; color: var(--muted); font-size: .9rem; padding: 4px 0 18px; }
+        .sermon .btn-dark:hover { opacity: .9; }
+        .footnote { padding-top: 12px; font-size: .8rem; color: var(--muted); }
+        .closing { text-align: center; color: var(--muted); font-size: .9rem; padding: 12px 0 4px; }
 
-        .service + .service { margin-top: 24px; }
-
-        /* ---------- 후원 어린이 ---------- */
-        .kids { display: grid; gap: 28px; }
-        .kid .photo { aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--line); }
-        .kid .photo img { width: 100%; height: 100%; object-fit: cover; }
-        .kid h3 { font-family: var(--serif); font-weight: 800; font-size: 1.35rem; line-height: 1.4; margin-top: 14px; }
-        .kid h3 small { font-family: var(--sans); font-weight: 500; font-size: .85rem; color: var(--muted); margin-left: 6px; }
-        .kid .no { font-size: .9rem; color: var(--wheat-text); font-weight: 700; margin-top: 2px; }
-        .kid dl { margin-top: 12px; border-top: 1px solid var(--line); }
-        .kid dl div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .92rem; }
-        .kid dt { color: var(--muted); flex-shrink: 0; }
-        .kid dd { font-weight: 600; text-align: right; }
-
-        /* ---------- 갤러리 ---------- */
-        .gallery { display: grid; gap: 24px; }
-        .gallery figure .frame { aspect-ratio: 3 / 2; border-radius: 14px; overflow: hidden; background: var(--line); }
-        .gallery figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
-        .gallery figure:hover img { transform: scale(1.03); }
-        .gallery figcaption { margin-top: 10px; font-weight: 600; font-size: .95rem; }
-
-        /* ---------- 교회 소식 ---------- */
-        .block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-        .block-head .block-title { margin-bottom: 0; }
-        .notice-hero { background: var(--wheat-wash); border-left: 5px solid var(--wheat); border-radius: 4px 14px 14px 4px; padding: 22px 22px 22px 20px; }
-        .notice-hero + .notice-hero { margin-top: 14px; }
-        .notice-hero h3 { font-family: var(--serif); font-weight: 800; font-size: 1.25rem; line-height: 1.5; }
-        .notice-hero ul { margin-top: 10px; display: grid; gap: 8px; font-size: .97rem; }
-        .notice-hero strong { font-weight: 800; }
-        .news { margin-top: 22px; counter-reset: n; border-top: 2px solid var(--ink); }
-        body.dark-mode .news { border-top-color: var(--wheat); }
-        .news li { counter-increment: n; display: grid; grid-template-columns: 1.6rem 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
-        .news li::before { content: counter(n); font-family: var(--serif); font-weight: 800; color: var(--wheat-text); }
-        .people { margin-top: 28px; padding: 22px; border-radius: 16px; background: var(--sheet); border: 1px solid var(--line); }
-        .people h3 { font-size: .95rem; font-weight: 700; color: var(--muted); }
-        .people p.names { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; line-height: 1.9; margin-top: 4px; }
-        .people p.names span { margin: 0 .55em; color: var(--line); }
-        .people .note { font-size: .88rem; color: var(--muted); margin-top: 2px; }
-        .people + .people { margin-top: 14px; }
+        /* ---------- 이번 주 통독: 일곱 날 + 전체 통독표, 여덟 칸이 빈자리 없이 맞음 ---------- */
+        .week { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+        .wk { cursor: pointer; font: inherit; color: inherit; text-align: center; padding: 10px 2px; border-radius: var(--r); background: var(--sheet); border: 1px solid var(--line); }
+        .wk b { display: block; font-size: .72rem; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+        .wk span { display: block; font-size: .78rem; font-weight: 700; line-height: 1.35; }
+        .wk.is-today { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+        .wk.is-today b { color: var(--wheat); }
+        body.dark-mode .wk.is-today { background: var(--wheat); border-color: var(--wheat); color: #3a2418; }
+        body.dark-mode .wk.is-today b { color: #3a2418; }
+        .wk.wk-all { background: none; border-style: dashed; color: var(--muted); }
+        .wk.wk-all span { font-weight: 600; }
+        .wk:disabled { cursor: default; opacity: .55; }
+        .wk:not(:disabled):active { transform: scale(.97); }
+        .week-hint { margin-top: 10px; font-size: .84rem; color: var(--muted); }
+        @media (min-width: 600px) and (max-width: 959px), (min-width: 1280px) {
+            .week { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+        }
 
         /* ---------- 기도제목 요청 ---------- */
-        .prayer-form { padding: 22px; border-radius: 16px; background: var(--sheet); border: 1px solid var(--line); }
         .prayer-form p.lead { font-size: .92rem; color: var(--muted); line-height: 1.7; }
         .prayer-form label { display: block; margin-top: 16px; font-size: .9rem; font-weight: 700; color: var(--muted); }
         .prayer-form input, .prayer-form textarea {
-            width: 100%; margin-top: 6px; padding: 12px 14px; border-radius: 12px;
-            border: 1px solid var(--line); background: var(--paper); color: var(--text); font: inherit;
+            width: 100%; margin-top: 6px; padding: 12px 14px; border-radius: var(--r);
+            border: 1px solid var(--line); background: var(--sheet); color: var(--text); font: inherit;
         }
         .prayer-form textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
         .prayer-form input:focus, .prayer-form textarea:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
@@ -295,27 +303,44 @@
         .prayer-form .result.err { color: #B3402E; }
         body.dark-mode .prayer-form .result.ok { color: var(--wheat-text); }
 
-        /* ---------- 예배 탭 / 접이식 ---------- */
-        .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
-        .tab { flex: 1; min-height: 46px; border-radius: 12px; border: 1px solid var(--line); background: var(--sheet); font-weight: 700; font-size: .95rem; color: var(--muted); }
-        .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
-        body.dark-mode .tab[aria-selected="true"] { background: var(--wheat); border-color: var(--wheat); color: #3a2418; }
-        .tabpanel[hidden], #priority[hidden], #links [data-dup][hidden] { display: none; }
-        .fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; padding: 4px 0; }
+        /* ---------- 접이식 구역 (후원 어린이 · 은혜의 순간) ---------- */
+        .fold { border-top: 1px solid var(--line); }
+        .fold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 0; padding: 18px 0; font-size: 1.25rem; }
         .fold > summary::-webkit-details-marker { display: none; }
-        .fold > summary::after { content: '펼치기 ▾'; font-family: var(--sans); font-size: .85rem; font-weight: 600; color: var(--muted); }
+        .fold > summary::after { content: '펼치기 ▾'; flex: none; font-family: var(--sans); font-size: .85rem; font-weight: 600; letter-spacing: 0; color: var(--muted); }
         .fold[open] > summary::after { content: '접기 ▴'; }
-        .fold[open] > summary { margin-bottom: 18px; }
+        .fold[open] > summary { margin-bottom: 6px; }
+        #sponsor-children, #gallery-section { padding-top: 0; }
+        #sponsor-children { margin-top: 48px; }
+        #gallery-section .fold { border-bottom: 1px solid var(--line); }
+        .fold[open] { padding-bottom: 24px; }
+
+        .kids { display: grid; gap: 28px; }
+        .kid .photo { aspect-ratio: 4 / 3; border-radius: var(--leaf); overflow: hidden; background: var(--line); }
+        .kid .photo img { width: 100%; height: 100%; object-fit: cover; }
+        .kid h3 { font-family: var(--serif); font-weight: 800; font-size: 1.3rem; line-height: 1.4; margin-top: 14px; }
+        .kid h3 small { font-family: var(--sans); font-weight: 500; font-size: .85rem; color: var(--muted); margin-left: 6px; }
+        .kid .no { font-size: .9rem; color: var(--wheat-text); font-weight: 700; margin-top: 2px; }
+        .kid dl { margin-top: 12px; border-top: 1px solid var(--line); }
+        .kid dl div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .92rem; }
+        .kid dt { color: var(--muted); flex-shrink: 0; }
+        .kid dd { font-weight: 600; text-align: right; }
+
+        .gallery { display: grid; gap: 24px; }
+        .gallery figure .frame { aspect-ratio: 3 / 2; border-radius: var(--leaf); overflow: hidden; background: var(--line); }
+        .gallery figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+        .gallery figure:hover img { transform: scale(1.03); }
+        .gallery figcaption { margin-top: 10px; font-weight: 600; font-size: .95rem; }
 
         /* ---------- 푸터 ---------- */
-        footer { margin-top: 56px; padding: 36px 0 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
-        footer strong { display: block; font-family: var(--serif); font-size: 1.1rem; color: var(--ink); margin-bottom: 4px; }
-        body.dark-mode footer strong { color: var(--on-ink); }
+        footer { position: relative; overflow: hidden; margin-top: 64px; padding: 40px 0 calc(6.5rem + env(safe-area-inset-bottom)); color: var(--on-ink); background: var(--ink); font-size: .88rem; }
+        footer strong { display: block; font-family: var(--serif); font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+        .foot-bloom { position: absolute; right: -50px; bottom: 40px; width: 150px; height: 150px; fill: var(--wheat); }
 
         /* ---------- 하단 독 ---------- */
         .dock {
             position: fixed; left: 0; right: 0; bottom: 0; z-index: 100;
-            background: var(--ink); color: var(--on-ink);
+            background: #3a2418; color: var(--on-ink);
             padding-bottom: env(safe-area-inset-bottom);
         }
         .dock .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 68px; }
@@ -348,10 +373,9 @@
         .x:hover { color: var(--text); }
         .scripture { overflow-y: auto; padding-right: 8px; display: grid; gap: 14px; font-family: var(--serif); font-size: 1.05rem; line-height: 1.95; }
         .scripture sup { font-family: var(--sans); font-size: .72rem; font-weight: 800; color: var(--wheat-text); margin-right: 8px; }
-        .btn-primary { width: 100%; min-height: 52px; margin-top: 22px; border-radius: 14px; background: var(--ink); color: var(--on-ink); font-weight: 700; }
-        .btn-primary:hover { background: var(--ink-soft); }
-        body.dark-mode .btn-primary { background: var(--wheat); color: #3a2418; }
-        .btn-primary:active { transform: scale(.98); }
+        .scripture h4 { font-family: var(--sans); font-size: .95rem; font-weight: 800; color: var(--wheat-text); margin-top: 8px; }
+        .scripture h4:first-child { margin-top: 0; }
+        .scripture p.state { font-family: var(--sans); font-size: .95rem; color: var(--muted); text-align: center; padding: 24px 0; }
 
         .bible-scroll-container { max-height: 66vh; overflow: auto; border-radius: 12px; border: 1px solid var(--line); }
         .bible-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12.5px; min-width: 900px; }
@@ -368,75 +392,28 @@
         .give-account .no { font-size: 1.4rem; font-weight: 800; letter-spacing: .04em; font-variant-numeric: tabular-nums; user-select: all; }
         .give-account .bank { margin-top: 6px; color: var(--muted); font-weight: 600; }
 
-
-        /* ---------- 예배지 레이아웃 ---------- */
-        .block { padding-top: 56px; scroll-margin-top: 104px; }
-        .block-title { font-size: 2rem; line-height: 1.25; margin-bottom: 24px; color: var(--text); }
-        .block-head { align-items: flex-end; margin-bottom: 24px; }
-        .jump {
-            position: sticky; top: 56px; z-index: 50;
-            display: flex; gap: 20px; margin: -12px -20px 0; padding: 0 20px;
-            overflow-x: auto; scrollbar-width: none; white-space: nowrap;
-            background: var(--paper); border-bottom: 1px solid var(--line);
-        }
-        .jump::-webkit-scrollbar { display: none; }
-        .jump a[hidden] { display: none; }
-        .jump a { flex: none; padding: 13px 0 11px; font-size: .9rem; font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; }
-        .jump a[aria-current="true"] { color: var(--wheat-text); border-bottom-color: var(--wheat-text); }
-
-        .links { border-top: 0; }
-        .link-row.feature { border-bottom: 0; border-radius: 4px 40px 4px 4px; }
-        .link-row.feature + .link-row.feature { margin-top: 10px; }
-
-        .notice-hero { border-left: 0; border-radius: 4px 40px 4px 4px; padding: 22px 28px 22px 20px; }
-        .notice-hero h3 { font-size: 1.2rem; line-height: 1.35; }
-        .news { margin-top: 32px; border-top: 0; }
-        .news li { grid-template-columns: 24px 1fr; padding: 0 0 18px; border-bottom: 0; }
-        .news li::before { font-size: 1.4rem; line-height: 1.25; color: var(--wheat-text); }
-        .people { margin-top: 24px; padding: 24px 20px; border: 0; border-radius: 4px; background: var(--band); color: var(--band-text); }
-        .people h3, .people .note { color: inherit; }
-        .people p.names span { color: inherit; opacity: .4; }
-
-        .tab, .btn-quiet, .btn-primary, .sermon .btn-dark, .row .read { border-radius: 4px; }
-        .service { background: none; border: 0; border-radius: 0; overflow: visible; }
-        .service-head { border-radius: 4px 40px 4px 4px; }
-        .service-head .time { font-size: 2rem; }
-        .order { padding: 8px 0 12px; }
-        .row { border-bottom: 1px solid var(--line); padding: 13px 0; }
-        .row:last-child { border-bottom: 1px solid var(--line); }
-        .row .k { font-weight: 600; }
-        .row.final .k, .row.final .w { font-size: inherit; font-weight: 700; color: var(--text); }
-        .sermon { margin: 20px 0 8px; padding: 24px 20px 26px; color: var(--on-ink); background: var(--ink); border: 0; border-radius: 4px 40px 4px 4px; }
-        .sermon .label, .sermon .by { color: var(--on-ink); font-weight: 600; }
-        .sermon h3 { font-size: 1.7rem; line-height: 1.32; }
-        .sermon .btn-dark, body.dark-mode .sermon .btn-dark { background: var(--wheat); color: #3a2418; }
-        .sermon .btn-dark:hover { background: var(--wheat); opacity: .9; }
-        .footnote { padding: 14px 0 0; border-top: 0; }
-        .wk { border-radius: 4px; }
-        .prayer-form { padding: 0; border: 0; border-radius: 0; background: none; }
-        .prayer-form input, .prayer-form textarea { border-radius: 4px; background: var(--sheet); }
-        .kid .photo, .gallery figure .frame { border-radius: 4px 40px 4px 4px; }
-
-        footer { position: relative; overflow: hidden; margin-top: 72px; padding: 44px 0 calc(6.5rem + env(safe-area-inset-bottom)); color: var(--on-ink); background: var(--ink); border-top: 0; }
-        footer strong, body.dark-mode footer strong { font-size: 1.7rem; font-weight: 800; color: var(--on-ink); }
-        .foot-bloom { position: absolute; right: -50px; bottom: 40px; width: 150px; height: 150px; fill: var(--wheat); }
-        .dock { background: #3a2418; }
-        .dock-main { color: #3a2418; }
-
+        /* ---------- 넓은 화면: 왼쪽에 대문을 세워 두고 오른쪽만 넘김 ---------- */
         @media (min-width: 960px) {
             body { display: grid; grid-template-columns: minmax(420px, 46%) minmax(0, 1fr); grid-template-rows: auto auto auto; }
             .topbar { grid-column: 1 / -1; }
             .topbar .wrap { max-width: none; padding: 0 48px; }
             .hero { grid-column: 1; grid-row: 2 / span 2; position: sticky; top: 56px; height: calc(100vh - 56px - 68px); padding: 28px 0 32px; overflow: hidden; }
-            .hero .wrap { display: flex; flex-direction: column; height: 100%; max-width: none; padding: 0 48px; }
-            .bloom { flex: 1 1 0; min-height: 0; max-width: none; margin: 16px 0 24px; }
-            .verse { font-size: clamp(1.8rem, min(2.5vw, 4.6vh), 2.6rem); }
-            .grace { margin-top: 24px; }
+            .hero .wrap { display: flex; flex-direction: column; align-items: stretch; height: 100%; max-width: none; padding: 0 48px; }
+            .bloom { flex: 1 1 0; width: 100%; height: auto; min-height: 0; margin: 16px 0 24px; }
+            .verse { margin-top: 0; font-size: clamp(1.8rem, min(2.5vw, 4.6vh), 2.6rem); line-height: 1.32; }
+            .verse-ref { margin-top: 16px; font-size: .95rem; }
+            .grace { margin-top: 24px; padding-top: 24px; }
+            .grace p { font-size: .9rem; }
+            .grace p br { display: inline; }
+            .grace .num { font-size: 2.4rem; }
+            .gauge { height: 8px; }
             main.wrap { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; max-width: 796px; margin: 0; padding: 0 48px; }
             .jump { margin: -12px -48px 0; padding: 0 48px; }
-            .block { padding-top: 72px; }
-            .block-title { font-size: 2.35rem; }
-            footer { grid-column: 2; grid-row: 3; padding-bottom: calc(6.5rem + env(safe-area-inset-bottom)); }
+            .block { padding-top: 64px; }
+            .block-title { font-size: 2rem; margin-bottom: 22px; }
+            .fold > summary { font-size: 1.4rem; }
+            #sponsor-children { margin-top: 64px; }
+            footer { grid-column: 2; grid-row: 3; }
             footer .wrap { max-width: 796px; margin: 0; padding: 0 48px; }
         }
 
@@ -475,7 +452,7 @@
             <p class="verse-ref">데살로니가전서 5:16-18</p>
 
             <div class="grace">
-                <p>십자가로 완성하신<br>충분한 사랑과 은혜</p>
+                <p>십자가로 완성하신 <br>충분한 사랑과 은혜</p>
                 <span class="num" id="temp-num">0°</span>
                 <div class="gauge" role="presentation"><i id="grace-thermometer"></i></div>
                 <div class="gauge-note"><span>교회 온도</span><span>목표 100°</span></div>
@@ -519,30 +496,11 @@
                 <a href="notice.html" class="btn-quiet"><i class="fas fa-calendar-alt"></i>월간 일정표와 예배위원</a>
             </div>
 
-            <div class="notice-hero" data-until="2026-10-29">
-                <h3>담임목사 오정감찰 모임 참석</h3>
-                <ul>
-                    <li><strong>일시:</strong> 10월 29일 (목) 오전 11:00</li>
-                    <li><strong>장소:</strong> 세복천교회</li>
-                </ul>
-            </div>
-
-            <div class="notice-hero" data-until="2026-11-01">
-                <h3>11월 월삭기도회</h3>
-                <ul>
-                    <li><strong>일시:</strong> 11월 1일 (주일) 새벽 5:00</li>
-                </ul>
-            </div>
-
-            <div class="notice-hero" data-until="2026-11-02">
-                <h3>담임목사 교역자회 참석</h3>
-                <ul>
-                    <li><strong>일시:</strong> 11월 2일 (월) 오전 11:00</li>
-                    <li><strong>장소:</strong> 시흥제일교회</li>
-                </ul>
-            </div>
+            <p class="sub-label">다가오는 일정</p>
+            <div class="agenda" id="agenda">
 
             <div class="notice-hero" data-until="2026-11-13">
+                <p class="when"><span>11월</span><b class="sm">12–13</b><span>목·금</span></p>
                 <h3>교회 김장</h3>
                 <ul>
                     <li><strong>11월 12일 (목)</strong> 오후 1:00</li>
@@ -551,6 +509,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-11-14">
+                <p class="when"><span>11월</span><b>14</b><span>토</span></p>
                 <h3>전도모임 · 교회 대청소</h3>
                 <ul>
                     <li><strong>일시:</strong> 11월 14일 (토)</li>
@@ -559,6 +518,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-11-15">
+                <p class="when"><span>11월</span><b>15</b><span>주일</span></p>
                 <h3>추수감사예배 및 총동원 전도주일</h3>
                 <ul>
                     <li><strong>일시:</strong> 11월 15일 (주일)</li>
@@ -569,6 +529,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-11-22">
+                <p class="when"><span>11월</span><b>22</b><span>주일</span></p>
                 <h3>왕이신 그리스도 주일 예배</h3>
                 <ul>
                     <li><strong>일시:</strong> 11월 22일 (주일)</li>
@@ -578,6 +539,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-12-01">
+                <p class="when"><span>12월</span><b>1</b><span>화</span></p>
                 <h3>12월 월삭기도회</h3>
                 <ul>
                     <li><strong>일시:</strong> 12월 1일 (화) 새벽 5:00</li>
@@ -585,6 +547,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-12-06">
+                <p class="when"><span>12월</span><b>6</b><span>주일</span></p>
                 <h3>성서주일</h3>
                 <ul>
                     <li><strong>일시:</strong> 12월 6일 (주일)</li>
@@ -593,6 +556,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-12-25">
+                <p class="when"><span>12월</span><b>25</b><span>금</span></p>
                 <h3>성탄감사예배</h3>
                 <ul>
                     <li><strong>일시:</strong> 12월 25일 (금) 오전예배</li>
@@ -600,6 +564,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-12-27">
+                <p class="when"><span>12월</span><b class="sm">미정</b><span>주일</span></p>
                 <h3>제43회 사무총회</h3>
                 <ul>
                     <li><strong>일시:</strong> 12월 중 주일 (날짜는 추후 안내)</li>
@@ -608,6 +573,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-12-27">
+                <p class="when"><span>12월</span><b>27</b><span>주일</span></p>
                 <h3>송년주일</h3>
                 <ul>
                     <li><strong>일시:</strong> 12월 27일 (주일)</li>
@@ -616,6 +582,7 @@
             </div>
 
             <div class="notice-hero" data-until="2026-12-31">
+                <p class="when"><span>12월</span><b>31</b><span>목</span></p>
                 <h3>송구영신예배</h3>
                 <ul>
                     <li><strong>일시:</strong> 12월 31일 (목)</li>
@@ -623,7 +590,9 @@
                 </ul>
             </div>
 
-            <ol class="news">
+            </div>
+
+            <ol class="news" aria-label="알림">
                 <li><p>예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p></li>
                 <li><p>수요예배에 적극적인 참여를 부탁드립니다. 11월 예배위원들은 기도로 준비하시기 바랍니다.</p></li>
                 <li><p>5주차 주일은 전교인 연합예배로 드리며 오후예배는 없습니다.</p></li>
@@ -801,7 +770,6 @@
             <h2 class="block-title">이번 주 통독</h2>
             <div class="week" id="weekly-bible-grid"></div>
             <p class="week-hint">날짜를 누르면 그날 읽을 성경 본문이 열려요.</p>
-            <button onclick="openBibleModal()" class="btn-quiet"><i class="fas fa-table-list"></i>1년 통독표 전체보기</button>
         </section>
 
         <section id="prayer-request" class="block">
@@ -1056,6 +1024,11 @@
                         <span>${thisWeekBible[idx] || '-'}</span>
                     </button>`;
                 });
+                weeklyHTML += `
+                    <button type="button" class="wk wk-all" onclick="openBibleModal()" aria-label="1년 통독표 전체보기">
+                        <b>1년</b>
+                        <span>전체 통독표</span>
+                    </button>`;
                 weeklyGrid.innerHTML = weeklyHTML;
             }
         }
@@ -1306,6 +1279,25 @@
             document.querySelectorAll('[data-until]').forEach(el => {
                 if (el.dataset.until < today) el.remove();
             });
+
+            // 다가오는 일정은 가까운 4건만 먼저 보여 주고, 나머지는 단추를 눌러 펼침
+            const agenda = document.getElementById('agenda');
+            const items = agenda ? [...agenda.querySelectorAll('.notice-hero')] : [];
+            const SHOW = 4;
+            if (items.length > SHOW) {
+                const rest = items.slice(SHOW);
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'btn-quiet agenda-more';
+                const set = open => {
+                    rest.forEach(el => { el.hidden = !open; });
+                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    btn.textContent = open ? '일정 접기 ▴' : '이후 일정 ' + rest.length + '건 더 보기 ▾';
+                };
+                btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+                set(false);
+                agenda.after(btn);
+            }
         })();
     </script>
 </body>

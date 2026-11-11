@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026. 11. 1 주일 말씀 - 원종제일교회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fbfbf9;
+    --ink: #1f2a33;
+    --ink-soft: #55616b;
+    --line: #dfe3e6;
+    --brass: #9a7421;
+    --brass-bg: #f6efdc;
+    --night: #17232d;
+    --ok: #2f6b57;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    word-break: keep-all;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; border-radius: 4px; }
+
+  /* 상단 바 */
+  .bar {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(251,251,249,.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-inner {
+    max-width: 640px; margin: 0 auto; padding: 12px 20px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    font-size: 14px;
+  }
+  .bar a { text-decoration: none; color: var(--ink-soft); }
+  .bar a:hover { color: var(--ink); }
+  .badge { font-size: 13px; color: var(--ok); font-weight: 500; }
+  .badge.wait { color: var(--brass); }
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* 히어로: 금패 */
+  .hero { padding: 48px 0 40px; }
+  .meta { font-size: 14px; color: var(--ink-soft); margin: 0 0 20px; }
+  .plate {
+    margin: 0 0 28px;
+    padding: 28px 16px;
+    text-align: center;
+    background: linear-gradient(180deg, #f3e7c3 0%, #e9d7a2 100%);
+    border: 1px solid #c9ab5e;
+    border-radius: 6px;
+    box-shadow: inset 0 0 0 4px #f6efdc, inset 0 0 0 5px #c9ab5e;
+  }
+  .plate span {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: clamp(26px, 8vw, 40px);
+    letter-spacing: .12em;
+    color: #5c4310;
+  }
+  h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(26px, 6.5vw, 34px);
+    line-height: 1.4;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .sub { color: var(--ink-soft); margin: 0 0 24px; }
+  .verse-ref { font-size: 14px; color: var(--ink-soft); margin: 0; }
+
+  /* 섹션 공통 */
+  section { padding: 40px 0 0; }
+  h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 22px; font-weight: 700; line-height: 1.4;
+    margin: 0 0 20px;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 0 0 6px; line-height: 1.5; }
+  p { margin: 0 0 14px; }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 40px 0 0; }
+
+  /* 본문 말씀 */
+  .scripture {
+    margin: 0;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--brass);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 17px; line-height: 1.9;
+  }
+  .scripture p { margin-bottom: 10px; }
+  .scripture .ref { display: block; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--ink-soft); margin-top: 8px; }
+
+  /* 세 가지 교훈 */
+  .lesson { display: grid; grid-template-columns: 36px 1fr; gap: 0 12px; padding: 20px 0; border-top: 1px solid var(--line); }
+  .lesson:first-of-type { border-top: 0; padding-top: 0; }
+  .lesson .n {
+    font-family: 'Noto Serif KR', serif; font-weight: 700; font-size: 26px; line-height: 1.2; color: var(--brass);
+  }
+  .lesson p { color: var(--ink-soft); margin: 0; }
+
+  /* 비교 */
+  .shift { border-top: 1px solid var(--line); }
+  .shift-row { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .shift-row h3 { margin-bottom: 8px; }
+  .shift-row dl { margin: 0; display: grid; grid-template-columns: 72px 1fr; gap: 6px 12px; font-size: 15px; }
+  .shift-row dt { color: var(--ink-soft); }
+  .shift-row dd { margin: 0; }
+  .shift-row dd.now { color: var(--brass); font-weight: 500; }
+
+  /* 접기 */
+  details { border-top: 1px solid var(--line); }
+  details:last-of-type { border-bottom: 1px solid var(--line); }
+  summary {
+    list-style: none; cursor: pointer;
+    padding: 16px 28px 16px 0; position: relative;
+    font-weight: 500; line-height: 1.6;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: ''; position: absolute; right: 4px; top: 50%;
+    width: 8px; height: 8px; margin-top: -6px;
+    border-right: 2px solid var(--ink-soft); border-bottom: 2px solid var(--ink-soft);
+    transform: rotate(45deg); transition: transform .15s;
+  }
+  details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
+  details .body { padding: 0 0 18px; color: var(--ink-soft); font-size: 15px; }
+  details .body p { margin: 0; }
+  .q { color: var(--brass); font-size: 14px; margin-right: 8px; }
+
+  .terms { margin: 0; padding: 0; list-style: none; }
+  .terms li { padding: 14px 0; border-top: 1px solid var(--line); font-size: 15px; color: var(--ink-soft); }
+  .terms li:last-child { border-bottom: 1px solid var(--line); }
+  .terms strong { display: block; color: var(--ink); font-weight: 700; margin-bottom: 2px; }
+
+  /* 체크리스트 */
+  .checks { margin: 0; padding: 0; list-style: none; }
+  .checks li { border-top: 1px solid var(--line); }
+  .checks li:last-child { border-bottom: 1px solid var(--line); }
+  .checks label { display: flex; gap: 14px; padding: 16px 0; cursor: pointer; align-items: flex-start; }
+  .checks input { width: 20px; height: 20px; margin: 4px 0 0; flex: none; accent-color: var(--ok); }
+  .checks strong { display: block; font-weight: 700; }
+  .checks small { display: block; font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+  .checks input:checked ~ div { opacity: .45; }
+  .checks input:checked ~ div strong { text-decoration: line-through; }
+
+  /* 중보기도 */
+  .prayer { background: var(--night); color: #e9eef1; border-radius: 10px; padding: 26px 24px; }
+  .prayer h2 { color: #fff; font-size: 20px; margin-bottom: 14px; }
+  .prayer ul { margin: 0; padding: 0; list-style: none; }
+  .prayer li { padding: 12px 0; border-top: 1px solid rgba(255,255,255,.14); font-size: 15px; line-height: 1.75; }
+  .prayer li:first-child { border-top: 0; padding-top: 0; }
+  .prayer li strong { display: block; color: #e3c981; font-weight: 500; }
+
+  .closing { text-align: left; }
+  .closing p { font-family: 'Noto Serif KR', serif; font-size: 17px; line-height: 1.95; color: var(--ink); }
+  .back {
+    display: inline-block; margin-top: 12px; padding: 12px 22px;
+    background: var(--ink); color: #fff; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 500;
+  }
+  .back:hover { background: #000; }
+  .past { display:block; margin-top:14px; font-size:.9rem; color:inherit; opacity:.75; text-decoration:underline; text-underline-offset:3px; }
+
+  /* 잠금 화면 */
+  #lock { display: none; padding: 48px 0 0; }
+  #lock h2 { margin-bottom: 12px; }
+  #lock .timer { font-family: 'Noto Serif KR', serif; font-size: 34px; font-weight: 700; margin: 20px 0 8px; font-variant-numeric: tabular-nums; }
+  #lock small { color: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-inner">
+    <a href="index.html">← 스마트 주보</a>
+    <a href="study-2026-10-25.html" style="margin-left:auto">지난 설교</a>
+    <span id="badge" class="badge">열람 가능</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="meta">2026년 11월 1일 주일 오전예배 · 오순절 후 스물세 번째 주일</p>
+    <div class="plate" aria-label="하나님의 말씀으로"><span>하나님의 말씀으로</span></div>
+    <h1>말씀이 역사하는 공동체</h1>
+    <p class="sub">문 앞이 아니라 안방으로</p>
+    <p class="verse-ref">데살로니가전서 2장 9~13절 · 이성결 목사</p>
+  </header>
+
+  <div id="lock">
+    <h2>오후 1시부터 열람하실 수 있습니다</h2>
+    <p>오전예배에 집중하실 수 있도록, 설교 요약과 구역 나눔지는 오후 1시에 자동으로 열립니다.</p>
+    <div id="timer" class="timer">계산 중</div>
+    <small>공개 시각 2026. 11. 1 13:00</small>
+  </div>
+
+  <main id="main">
+
+    <section>
+      <h2>오늘의 말씀</h2>
+      <blockquote class="scripture">
+        <p>이러므로 우리가 하나님께 끊임없이 감사함은 너희가 우리에게 들은 바 하나님의 말씀을 받을 때에 <strong>사람의 말로 받지 아니하고 하나님의 말씀으로 받음이니</strong> 진실로 그러하도다</p>
+        <p><strong>이 말씀이 또한 너희 믿는 자 가운데에서 역사하느니라</strong></p>
+        <span class="ref">데살로니가전서 2:13</span>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>말씀 핵심</h2>
+      <p>아내가 십 년 동안 "짜게 먹지 마세요" 해도 듣지 않던 남편이, 의사의 "이대로 가시면 큰일 납니다" 한마디에 그날부터 달라졌습니다. 말의 내용이 달라서가 아니라, 그 말을 어떻게 받았느냐가 달랐기 때문입니다. 바울은 데살로니가 교회가 말씀을 사람의 말로 받지 않고 하나님의 말씀으로 받은 것을 끊임없이 감사합니다. 오늘 우리가 붙들 질문은 하나입니다. 나는 주일마다 듣는 말씀을 잔소리로 받습니까, 생명이 걸린 말씀으로 받습니까?</p>
+
+      <div class="lesson">
+        <div class="n">1</div>
+        <div>
+          <h3>굳은살 박인 손으로 전한 복음</h3>
+          <p>천막 만드는 사람이었던 바울은 아무에게도 폐를 끼치지 않으려고 밤낮으로 일하며 복음을 전했습니다. 말로 장사하는 떠돌이 연설가들과 달리, 그는 설교 원고가 아니라 자기 삶을 증거로 내놓았습니다. 말씀은 입으로 전해지지만, 믿음은 손으로 증명됩니다.</p>
+        </div>
+      </div>
+      <div class="lesson">
+        <div class="n">2</div>
+        <div>
+          <h3>아버지가 자식 하나하나를 부르듯</h3>
+          <p>바울은 교인들을 한 덩어리 청중이 아니라 "각 사람"으로 대하며 권면하고 위로하고 경계했습니다. 목표는 그들을 자기 편으로 만드는 것이 아니라 하나님 나라와 영광에 이르게 하는 것이었습니다. 교회는 같은 설교를 같이 들어서가 아니라 서로를 아버지처럼, 어머니처럼 대할 때 하나가 됩니다. 말씀은 사랑의 관계를 타고 흐릅니다.</p>
+        </div>
+      </div>
+      <div class="lesson">
+        <div class="n">3</div>
+        <div>
+          <h3>지금도 일하고 계시는 말씀</h3>
+          <p>말씀을 듣는 사람은 많지만 귀한 손님처럼 안방으로 모셔 들이는 사람은 적습니다. 말씀이 살아 일하는 것은 그 뒤에 살아 계신 분이 계시기 때문입니다. 바울이 굳은살 박인 손으로 복음을 전했다면, 예수님은 못 박힌 손으로 복음을 이루셨습니다. 말씀이 역사한다는 것은 예수님이 지금도 우리 안에서 일하신다는 뜻입니다. 포기하지 마십시오. 말씀은 지금도 일하는 중입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>데살로니가에서 오늘로</h2>
+      <div class="shift">
+        <div class="shift-row">
+          <h3>복음을 전한 손</h3>
+          <dl>
+            <dt>그때</dt><dd>천막을 만들며 밤낮으로 일한 바울의 손</dd>
+            <dt>세상</dt><dd>말 잘하고 포장이 좋아야 이긴다</dd>
+            <dt>적용</dt><dd class="now">말보다 손이 먼저 가는 수고</dd>
+          </dl>
+        </div>
+        <div class="shift-row">
+          <h3>말씀을 전한 마음</h3>
+          <dl>
+            <dt>그때</dt><dd>각 사람을 자녀처럼 권면하고 위로하고 경계함</dd>
+            <dt>세상</dt><dd>남의 일에 간섭하지 말고 각자 알아서</dd>
+            <dt>적용</dt><dd class="now">한 사람의 이름을 불러 주는 교회</dd>
+          </dl>
+        </div>
+        <div class="shift-row">
+          <h3>말씀을 받는 자세</h3>
+          <dl>
+            <dt>그때</dt><dd>사람의 말이 아닌 하나님의 말씀으로 맞아들임</dd>
+            <dt>세상</dt><dd>사람은 안 변한다</dd>
+            <dt>적용</dt><dd class="now">말씀을 평가하지 않고 안방으로 모셔 들임</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>성경 원어 돋보기</h2>
+      <ul class="terms">
+        <li><strong>파랄람바노 · 받을 때에</strong>귀로 전해 들었다는 말입니다. 대문 앞에서 택배를 받듯 받는 것입니다.</li>
+        <li><strong>데코마이 · 받음이니</strong>귀한 손님을 집 안으로 반갑게 맞아들인다는 말입니다. 말씀을 안방으로 모셔 들이는 것입니다.</li>
+        <li><strong>에네르게오 · 역사하느니라</strong>'에너지'라는 말이 여기서 나왔습니다. 현재형이어서 한 번 일하고 끝난 것이 아니라 지금도 계속 일하고 있다는 뜻입니다. 빌립보서 2장 13절 "너희 안에서 행하시는 이는 하나님이시니"의 '행하시는'도 같은 동사입니다.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>구역 나눔 질문</h2>
+      <details>
+        <summary><span class="q">질문 1</span>마음 열기</summary>
+        <div class="body"><p>가족이 오래 해 온 말인데 흘려들었다가, 다른 사람에게 같은 말을 듣고서야 마음에 와닿았던 경험이 있습니까? 편하게 나누어 봅시다.</p></div>
+      </details>
+      <details>
+        <summary><span class="q">질문 2</span>굳은살 박인 손</summary>
+        <div class="body"><p>"말씀은 입으로 전해지지만, 믿음은 손으로 증명됩니다." 내 가정이나 일터에서 말보다 손이 먼저 가야 할 일은 무엇입니까?</p></div>
+      </details>
+      <details>
+        <summary><span class="q">질문 3</span>아버지의 마음</summary>
+        <div class="body"><p>처음 교회에 왔을 때 나를 반겨 주고 손잡아 준 사람이 있었습니까? 이번 주 내가 권면하고 위로하며 이름을 불러 줄 한 사람은 누구입니까?</p></div>
+      </details>
+      <details>
+        <summary><span class="q">질문 4</span>복음의 핵심</summary>
+        <div class="body"><p>"수십 년 말씀을 들었는데도 하나도 안 변했다"고 느낄 때가 있습니까? 말씀 안에 계신 주님이 지금도 일하신다는 약속(사 55:11, 빌 2:13)이 그런 나에게 어떤 위로가 됩니까?</p></div>
+      </details>
+    </section>
+
+    <section>
+      <h2>이번 주 실천</h2>
+      <ul class="checks">
+        <li><label><input type="checkbox"><div><strong>말보다 손이 먼저 가는 일 하나</strong><small>"누가 하겠지" 하던 일을 "제가 하겠습니다"로 바꾸기. 교회 주방의 수세미, 집 앞 계단의 낙엽, 회사의 빈 정수기 물통도 좋습니다</small></div></label></li>
+        <li><label><input type="checkbox"><div><strong>한 사람의 이름 불러 주기</strong><small>요즘 얼굴이 안 보이는 분, 아픈 분, 새로 오신 분에게 문자 한 통 "보고 싶어요. 기도하고 있어요"</small></div></label></li>
+        <li><label><input type="checkbox"><div><strong>말씀을 평가하지 말고 모셔 들이기</strong><small>"오늘 주님이 나에게 무엇을 하라고 하셨나?" 한 가지를 붙들고 수요일까지 행해 보기</small></div></label></li>
+        <li><label><input type="checkbox"><div><strong>하루의 첫 소리를 말씀으로</strong><small>출근길에 뉴스 보기 전에 성경 한 구절, 설거지하며 성경 듣기, 외우는 말씀을 하루 세 번 소리 내어 고백하기</small></div></label></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="prayer">
+        <h2>함께 모으는 중보기도</h2>
+        <ul>
+          <li><strong>말씀을 모셔 들이는 교회를 위해</strong>원종제일교회 모든 성도가 말씀을 사람의 말로 받지 않고 하나님의 말씀으로 받아, 그 말씀이 각 사람 가운데 살아 역사하도록</li>
+          <li><strong>일터와 가정을 위해</strong>일터에서, 살림하는 자리에서 말보다 손으로 복음을 증명하며 살아가도록</li>
+          <li><strong>환우와 어르신을 위해</strong>병상과 집에 계신 분들이 가장 약한 때에 가장 깊이 일하시는 말씀의 위로를 누리도록</li>
+          <li><strong>하나 되는 교회를 위해</strong>서로를 아버지처럼 어머니처럼 품으며, 같은 말씀 앞에 함께 무릎 꿇어 하나 되는 교회가 되도록</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="closing">
+      <h2>결단의 기도</h2>
+      <p>말씀이 육신이 되어 우리 가운데 오신 주님, 수없이 말씀을 듣고도 문 앞에서 돌려보냈던 우리를 용서하여 주십시오. 이번 한 주 말씀을 평가하지 않고 마음의 안방으로 모셔 들이게 하시고, 말보다 손으로 사랑을 증명하며, 서로의 이름을 불러 주는 교회가 되게 하옵소서. 못 박힌 손으로 복음을 이루시고 지금도 우리 안에서 일하시는 예수 그리스도의 이름으로 기도합니다. 아멘.</p>
+      <a class="back" href="index.html">스마트 주보로 돌아가기</a>
+      <a class="past" href="study-2026-10-25.html">지난 설교 보기 (10/25 · 여호와께 성결)</a>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // 2026년 11월 1일 오후 1시(13:00:00) 기준 자동 공개
+  const unlockTime = new Date("2026-11-01T13:00:00+09:00").getTime();
+  const lock = document.getElementById('lock');
+  const main = document.getElementById('main');
+  const badge = document.getElementById('badge');
+  const timer = document.getElementById('timer');
+
+  function update() {
+    const diff = unlockTime - Date.now();
+    if (diff > 0) {
+      lock.style.display = 'block';
+      main.style.display = 'none';
+      badge.textContent = '오후 1시 공개';
+      badge.className = 'badge wait';
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      timer.textContent = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    } else {
+      lock.style.display = 'none';
+      main.style.display = 'block';
+      badge.textContent = '열람 가능';
+      badge.className = 'badge';
+    }
+  }
+  update();
+  setInterval(update, 1000);
+</script>
+</body>
+</html>

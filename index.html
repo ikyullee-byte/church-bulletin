@@ -177,7 +177,7 @@
 
         .jump {
             position: sticky; top: 56px; z-index: 50;
-            display: flex; gap: 22px; margin: -12px -20px 0; padding: 0 20px;
+            display: flex; justify-content: space-between; gap: 14px; margin: -12px -20px 0; padding: 0 20px;
             overflow-x: auto; scrollbar-width: none; white-space: nowrap;
             background: var(--paper); border-bottom: 1px solid var(--line);
             transition: background-color .4s;
@@ -246,8 +246,8 @@
             content: ''; position: absolute; top: 12px; bottom: -8px; width: 2px; border-radius: 2px;
             left: calc(var(--rail) + 12px + 6px); background: var(--line);
         }
-        .notice-hero:last-child { padding-bottom: 4px; }
-        .notice-hero:last-child::after { display: none; }
+        .notice-hero:last-child, .notice-hero:has(+ [hidden]) { padding-bottom: 4px; }
+        .notice-hero:last-child::after, .notice-hero:has(+ [hidden])::after { display: none; }
         .when span { display: block; font-size: .74rem; font-weight: 600; line-height: 1.3; color: var(--muted); }
         .when b {
             display: block; font-family: var(--serif); font-weight: 700; font-size: 1.55rem; line-height: 1.2;
@@ -259,17 +259,21 @@
         .notice-hero strong { font-weight: 700; }
         .js .notice-hero.unfold { animation: unfold .5s var(--ease) both; animation-delay: calc(var(--n, 0) * 60ms); }
         @keyframes unfold { from { opacity: 0; transform: translateY(-8px); } }
-        .agenda-more { width: 100%; margin-top: 4px; color: var(--muted); }
+        .agenda-more { width: 100%; margin-top: 16px; color: var(--muted); }
 
         .news { counter-reset: n; margin-top: 34px; padding: 20px 20px 20px 0; border-radius: var(--r-lg); background: var(--sheet); border: 1px solid var(--line); }
         .news li { counter-increment: n; display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); padding-bottom: 12px; font-size: .96rem; line-height: 1.65; }
         .news li::before { content: counter(n); text-align: center; font-family: var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--gold-text); }
         .news li:last-child { padding-bottom: 0; }
 
-        .people { margin-top: 12px; padding: 18px 20px 20px; border-radius: var(--r-lg); background: var(--tint); }
+        .people-pair { display: grid; gap: 12px; margin-top: 12px; }
+        .people { padding: 18px 20px 20px; border-radius: var(--r-lg); background: var(--tint); }
         .people h3 { font-size: .82rem; font-weight: 700; color: var(--muted); }
-        .people p.names { font-family: var(--serif); font-weight: 700; font-size: 1.08rem; line-height: 1.85; margin-top: 4px; }
-        .people p.names span { margin: 0 .5em; font-weight: 400; color: var(--muted); opacity: .45; }
+        /* 이름은 한 사람씩 통째로 줄바꿈되고, 줄 맨 앞의 구분선은 잘려서 보이지 않습니다 */
+        .people .names { display: flex; flex-wrap: wrap; margin: 4px 0 0 -1.1em; clip-path: inset(0 0 0 1.1em); font-family: var(--serif); font-weight: 700; font-size: 1.08rem; line-height: 1.85; }
+        .people .names li { position: relative; padding-left: 1.1em; white-space: nowrap; }
+        .people .names li::before { content: ''; position: absolute; left: .55em; top: .58em; bottom: .58em; width: 1px; background: var(--muted); opacity: .4; }
+        @media (min-width: 600px) { .people-pair { grid-template-columns: 1fr 1fr; } }
         .people .note { font-size: .85rem; color: var(--muted); margin-top: 2px; }
 
         /* ---------- 예배 순서 ---------- */
@@ -326,7 +330,8 @@
         .row .w { color: var(--muted); font-size: .93rem; text-align: right; }
         .row .w.strong { color: var(--text); font-weight: 700; }
         .row.final .k, .row.final .w { color: var(--text); font-weight: 700; }
-        .row .ref { display: block; }
+        .row .ref { display: block; text-wrap: balance; }
+        .row .d:empty { align-self: center; height: 0; border-bottom: 2px dotted var(--line); }
         .row .read {
             display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; min-height: 40px; padding: 0 14px;
             border-radius: 999px; background: var(--gold-wash); color: var(--gold-text);
@@ -362,8 +367,8 @@
         .wk:not(:disabled):hover { border-color: var(--muted); }
         .wk:not(:disabled):active { transform: scale(.95); }
         .week-hint { margin-top: 12px; font-size: .84rem; color: var(--muted); }
-        @media (min-width: 600px) and (max-width: 959px), (min-width: 1280px) {
-            .week { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+        @media (min-width: 640px) and (max-width: 959px), (min-width: 1200px) {
+            .week { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; }
         }
 
         /* ---------- 기도제목 요청 ---------- */
@@ -378,7 +383,8 @@
         .prayer-form textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
         .prayer-form input:focus, .prayer-form textarea:focus { outline: 0; border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-wash); }
         .prayer-form .btn-primary:disabled { opacity: .6; cursor: default; }
-        .prayer-form .result { margin-top: 12px; font-size: .92rem; font-weight: 600; min-height: 1.4em; }
+        .prayer-form .result { margin-top: 12px; font-size: .92rem; font-weight: 600; }
+        .prayer-form .result:empty { margin-top: 0; }
         .prayer-form .result.ok { color: var(--accent-text); }
         .prayer-form .result.err { color: #b3402e; }
         body.dark-mode .prayer-form .result.err { color: #f0a090; }
@@ -396,7 +402,7 @@
         #sponsor-children { margin-top: 52px; }
         #gallery-section .fold { border-bottom: 1px solid var(--line); }
 
-        .kids { display: grid; gap: 28px; }
+        .kids { display: grid; gap: 28px 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         .kid .photo { aspect-ratio: 4 / 3; border-radius: var(--r-lg); overflow: hidden; background: var(--line); }
         .kid .photo img { width: 100%; height: 100%; object-fit: cover; }
         .kid h3 { font-family: var(--serif); font-weight: 700; font-size: 1.3rem; line-height: 1.4; margin-top: 14px; }
@@ -407,7 +413,7 @@
         .kid dt { color: var(--muted); flex-shrink: 0; }
         .kid dd { font-weight: 600; text-align: right; }
 
-        .gallery { display: grid; gap: 24px; }
+        .gallery { display: grid; gap: 24px 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
         .gallery figure .frame { aspect-ratio: 3 / 2; border-radius: var(--r-lg); overflow: hidden; background: var(--line); }
         .gallery figure img { width: 100%; height: 100%; object-fit: cover; }
         .gallery figcaption { margin-top: 10px; font-weight: 600; font-size: .95rem; }
@@ -489,7 +495,7 @@
 
         /* ---------- 넓은 화면: 왼쪽에 창을 세워 두고 오른쪽만 넘김 ---------- */
         @media (min-width: 960px) {
-            body { display: grid; grid-template-columns: minmax(420px, 44%) minmax(0, 1fr); grid-template-rows: auto auto auto; }
+            body { display: grid; grid-template-columns: minmax(420px, min(44%, 760px)) minmax(0, 1fr); grid-template-rows: auto auto auto; }
             .topbar { grid-column: 1 / -1; }
             .topbar .wrap { max-width: none; padding: 0 48px; }
             .hero { grid-column: 1; grid-row: 2 / span 2; position: sticky; top: 56px; height: calc(100vh - 56px); padding: 36px 0 40px; }
@@ -501,16 +507,22 @@
             .verse-ref { margin-top: 16px; font-size: .95rem; }
             .grace { margin-top: 36px; max-width: 360px; }
             .grace .num { font-size: 1.9rem; }
-            main.wrap { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; max-width: 760px; margin: 0; padding: 0 48px; }
-            .jump { margin: -12px -48px 0; padding: 0 48px; }
+            main.wrap { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; max-width: 760px; margin: 0 auto; padding: 0 48px; }
+            .jump { justify-content: flex-start; gap: 28px; margin: -12px 0 0; padding: 0; }
             .block { padding-top: 68px; }
             .block-title { font-size: 1.85rem; margin-bottom: 22px; }
             .fold > summary { font-size: 1.35rem; }
             #sponsor-children { margin-top: 68px; }
-            footer { grid-column: 2; grid-row: 3; }
-            footer .wrap { max-width: 760px; margin: 0; padding: 0 48px; }
-            .dock { left: auto; right: 32px; bottom: 24px; transform: none; animation-name: dockInSide; }
-            @keyframes dockInSide { from { opacity: 0; transform: translateY(90px); } }
+            footer { grid-column: 2; grid-row: 3; padding-bottom: 40px; }
+            footer .wrap { max-width: 760px; margin: 0 auto; padding: 0 48px; }
+            /* 빠른 메뉴는 본문을 가리지 않도록 상단 바 안으로 올립니다 */
+            .dock { left: auto; right: 158px; top: 6px; bottom: auto; width: auto; transform: none; border-radius: 0; background: none; box-shadow: none; animation: none; }
+            .dock .wrap { display: flex; gap: 4px; height: 44px; padding: 0; }
+            .dock-btn { flex-direction: row; gap: 8px; padding: 0 14px; border-radius: 999px; font-size: .88rem; }
+            .dock-btn:hover { background: rgba(255,255,255,.1); }
+            .dock-btn i { font-size: .95rem; }
+            .dock-main { order: 3; width: 40px; height: 40px; margin: 0 0 0 6px; font-size: 1.05rem; box-shadow: none; }
+            .dock-main:hover { transform: none; filter: brightness(1.06); }
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -555,12 +567,12 @@
 
     <main class="wrap">
         <nav class="jump" aria-label="바로가기">
-            <a href="#priority">오늘의 말씀</a>
-            <a href="#church-news">교회 소식</a>
-            <a href="#worship">예배 순서</a>
+            <a href="#priority">말씀</a>
+            <a href="#church-news">소식</a>
+            <a href="#worship">예배</a>
             <a href="#links">바로가기</a>
             <a href="#bible-section">통독</a>
-            <a href="#prayer-request">기도제목</a>
+            <a href="#prayer-request">기도</a>
         </nav>
 
         <section id="priority" class="block">
@@ -692,16 +704,19 @@
                 <li data-until="2026-11-07"><p>교회 소방·전기 공사를 마쳤습니다.</p></li>
             </ol>
 
-            <div class="people">
-                <h3>새신자 환영</h3>
-                <p class="names">정순자<span>|</span>조향지<span>|</span>김병기<span>|</span>김기혜</p>
-                <p class="note">주님의 이름으로 환영합니다</p>
-            </div>
+            <!-- 이름은 한 사람에 <li> 하나씩 -->
+            <div class="people-pair">
+                <div class="people">
+                    <h3>새신자 환영</h3>
+                    <ul class="names"><li>정순자</li><li>조향지</li><li>김병기</li><li>김기혜</li></ul>
+                    <p class="note">주님의 이름으로 환영합니다</p>
+                </div>
 
-            <div class="people">
-                <h3>환우를 위한 기도</h3>
-                <p class="names">임선우 어린이<span>|</span>한용희 권사님<span>|</span>박성심 권사님<span>|</span>이원영 원로목사님</p>
-                <p class="note">위하여 함께 기도해 주시기 바랍니다.</p>
+                <div class="people">
+                    <h3>환우를 위한 기도</h3>
+                    <ul class="names"><li>임선우 어린이</li><li>한용희 권사님</li><li>박성심 권사님</li><li>이원영 원로목사님</li></ul>
+                    <p class="note">위하여 함께 기도해 주시기 바랍니다.</p>
+                </div>
             </div>
         </section>
 
@@ -938,7 +953,7 @@
     <nav class="dock" aria-label="빠른 메뉴">
         <div class="wrap">
             <button onclick="openBibleModal()" class="dock-btn"><i class="fas fa-book-open"></i><span>통독표</span></button>
-            <button onclick="openMannaModal()" class="dock-main" aria-label="오늘의 만나 뽑기"><i class="fas fa-gift"></i></button>
+            <button onclick="openMannaModal()" class="dock-main" aria-label="오늘의 만나 뽑기" title="오늘의 만나 뽑기"><i class="fas fa-gift"></i></button>
             <button onclick="openGiveModal()" class="dock-btn"><i class="fas fa-won-sign"></i><span>온라인헌금</span></button>
         </div>
     </nav>
@@ -1104,10 +1119,11 @@
             if(tbody) tbody.innerHTML = tableHTML;
 
             if(weeklyGrid) {
+                const todayIdx = new Date(Date.now() + 9 * 3600 * 1000).getUTCDay();   // 한국 시간 요일 (0=주일)
                 let weeklyHTML = '';
                 weekDays.forEach((day, idx) => {
                     weeklyHTML += `
-                    <button type="button" class="wk ${idx === 0 ? 'is-today' : ''}" onclick="openReading(${idx})" ${thisWeekBible[idx] ? '' : 'disabled'} aria-label="${day} 통독 본문 읽기">
+                    <button type="button" class="wk ${idx === todayIdx ? 'is-today' : ''}" onclick="openReading(${idx})" ${thisWeekBible[idx] ? '' : 'disabled'} aria-label="${day} 통독 본문 읽기">
                         <b>${day}</b>
                         <span>${thisWeekBible[idx] || '-'}</span>
                     </button>`;
@@ -1115,7 +1131,7 @@
                 weeklyHTML += `
                     <button type="button" class="wk wk-all" onclick="openBibleModal()" aria-label="1년 통독표 전체보기">
                         <b>1년</b>
-                        <span>전체 통독표</span>
+                        <span>통독표</span>
                     </button>`;
                 weeklyGrid.innerHTML = weeklyHTML;
             }

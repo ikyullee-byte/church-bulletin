@@ -18,7 +18,7 @@
     <style>
         /* 주일 아침, 예배당 창으로 드는 빛.
            바탕색은 교회력을 따라갑니다: <body data-season="..."> 한 단어만 바꾸면 전체 색이 바뀝니다.
-           ordinary(초록·평주일) / advent(보라·대림절과 사순절) / festal(밤하늘과 금빛·성탄과 부활) / pentecost(빨강·성령강림) */
+           harvest(황금빛 갈색·추수감사절) / ordinary(초록·평주일) / advent(보라·대림절과 사순절) / festal(밤하늘과 금빛·성탄과 부활) / pentecost(빨강·성령강림) */
         :root {
             --deep: #1d3b2e;        /* 절기 색: 대문, 예배 머리, 주요 단추 */
             --deep-2: #2a5340;
@@ -46,6 +46,18 @@
         body[data-season="advent"]    { --deep: #35275a; --deep-2: #4a3a78; --deep-dark: #1f1638; }
         body[data-season="festal"]    { --deep: #1b2c50; --deep-2: #2a4170; --deep-dark: #0f1a33; }
         body[data-season="pentecost"] { --deep: #7a2420; --deep-2: #98342e; --deep-dark: #4d1512; }
+        body[data-season="harvest"]   { --deep: #7a3f14; --deep-2: #9c5620; --deep-dark: #4b2309; --glow: #f8cc66;
+            --paper: #fbf4e6; --sheet: #fffaf0; --text: #2e1f12; --muted: #7b6650; --line: #ead9b9; --tint: #f3e6cb;
+            --gold: #d38b1b; --gold-text: #8a5208; --gold-wash: #f9e7bd; }
+        /* 추수감사절: 대문에 낙엽과 밀 이삭을 얹습니다 (움직이지 않는 장식) */
+        body[data-season="harvest"] .hero::before, body[data-season="harvest"] .hero::after {
+            content: ''; position: absolute; top: 0; width: 96px; height: 58%; opacity: .5; pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 360'%3E%3Cg fill='%23f8cc66'%3E%3Cpath d='M30 60c14-6 26 4 28 20-12 4-26-2-28-20z' transform='rotate(-28 44 70)'/%3E%3Cpath d='M70 140c14-6 26 4 28 20-12 4-26-2-28-20z' transform='rotate(24 84 150)'/%3E%3Cpath d='M22 230c14-6 26 4 28 20-12 4-26-2-28-20z' transform='rotate(-12 36 240)'/%3E%3C/g%3E%3Cg fill='%23e8893a'%3E%3Cpath d='M78 40c12-6 22 4 24 18-10 3-22-2-24-18z' transform='rotate(40 90 50)'/%3E%3Cpath d='M20 150c12-6 22 4 24 18-10 3-22-2-24-18z' transform='rotate(-40 32 160)'/%3E%3Cpath d='M80 300c12-6 22 4 24 18-10 3-22-2-24-18z' transform='rotate(18 92 310)'/%3E%3C/g%3E%3Cg stroke='%23f8cc66' stroke-width='3' fill='none' stroke-linecap='round'%3E%3Cpath d='M60 360V250'/%3E%3C/g%3E%3Cg fill='%23f8cc66'%3E%3Cellipse cx='50' cy='262' rx='6' ry='13' transform='rotate(-24 50 262)'/%3E%3Cellipse cx='70' cy='262' rx='6' ry='13' transform='rotate(24 70 262)'/%3E%3Cellipse cx='50' cy='286' rx='6' ry='13' transform='rotate(-24 50 286)'/%3E%3Cellipse cx='70' cy='286' rx='6' ry='13' transform='rotate(24 70 286)'/%3E%3Cellipse cx='60' cy='246' rx='6' ry='13'/%3E%3C/g%3E%3C/svg%3E") no-repeat;
+            background-size: 100% 100%;
+        }
+        body[data-season="harvest"] .hero::before { left: 0; }
+        body[data-season="harvest"] .hero::after { right: 0; transform: scaleX(-1); }
+        body[data-season="harvest"] .hero .wrap { position: relative; z-index: 1; }
         body.dark-mode {
             --paper: #101511;
             --sheet: #19201b;
@@ -523,7 +535,7 @@
     </style>
 </head>
 <!-- 절기 색: ordinary(초록) / advent(보라) / festal(밤하늘·금빛) / pentecost(빨강) -->
-<body data-season="ordinary">
+<body data-season="harvest">
 
     <nav class="topbar">
         <div class="wrap">
@@ -687,9 +699,17 @@
 
             <ol class="news" aria-label="알림">
                 <li><p>예배 30분 전에 나오셔서 기도로 준비하시며 친절한 모습으로 인사를 나누시기를 바랍니다.</p></li>
-                <li><p>수요예배에 적극적인 참여를 부탁드립니다. 11월 예배위원들은 기도로 준비하시기 바랍니다.</p></li>
-                <li><p>5주차 주일은 전교인 연합예배로 드리며 오후예배는 없습니다.</p></li>
+                <li><p>11월 수요성서강해는 빌립보서 강해로 드립니다. (수 오후 7:00)</p></li>
+                <li><p>11월 예배위원들은 기도로 준비하시기 바랍니다.</p></li>
+                <li data-until="2026-11-15"><p>오늘 추수감사예배는 총동원 전도주일로 드립니다. 오후예배는 전 교인 성경퀴즈대회로 대체됩니다.</p></li>
+                <li data-until="2026-11-15"><p>오늘 추수감사예배에 성찬식이 있습니다. (배종위원: 김성래, 류창걸 안수집사)</p></li>
+                <li><p>추수감사주일을 위해 떡은 박성진 권사님, 쌀은 류창걸 안수집사님, 꽃꽂이는 최지은 집사님, 과일은 여전도회에서 섬겨 주셨습니다. 감사드립니다.</p></li>
                 <li data-until="2026-11-29"><p>교회 김장을 은혜 가운데 잘 마쳤습니다. 헌신해 주신 최지은 집사님, 박성진 권사님, 황순덕 님께 감사드립니다.</p></li>
+                <li data-until="2026-11-22"><p>11월 22일(주일) 오후예배를 마치고 기관장 회의가 있습니다.</p></li>
+                <li data-until="2026-11-29"><p>11월 29일(5주차)은 오전 11시 연합예배 후 바베큐 식사가 있습니다.</p></li>
+                <li><p>임선우 어린이를 위해 기도해 주시기 바랍니다.</p></li>
+                <li><p>한용희 권사님, 박성심 권사님을 위해 기도해 주시기 바랍니다.</p></li>
+                <li><p>이원영 원로목사님의 고관절 수술 회복을 위해 기도해 주시기 바랍니다.</p></li>
             </ol>
 
             <div class="people">
